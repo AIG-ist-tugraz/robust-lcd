@@ -117,6 +117,7 @@ public class GeneticConflictSeeker {
         }
 
         // loads feature model
+        // TODO: how to read a feature model from a file
         val file = new File(cfg.getKBFilepath());
         @Cleanup("dispose") val parser = FMParserFactory.getInstance().getParser(file.getName());
         val featureModel = parser.parse(file);
@@ -125,7 +126,9 @@ public class GeneticConflictSeeker {
 
         val model = new FMModelWithRequirement<>(featureModel, null, false, true, cfInConflicts, false);
         model.initialize();
+        // TODO: how to read a feature model from a file
 
+        // TODO: take into account all features in the feature model
         // get leaf features
         val leafFeatures = getLeafFeatures(featureModel);
 

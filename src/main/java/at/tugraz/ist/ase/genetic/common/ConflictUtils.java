@@ -147,7 +147,6 @@ public class ConflictUtils {
         printPerformance(cdWriter);
 
         combWriter.write(" - " + CSs.get(0).size());
-        // TODO: check lai TIMER_QUICKXPLAIN
 //        Timer timer = getTimer(TIMER_QUICKXPLAIN + "[thread=1]");
         combWriter.write(" - " + getTimer(TIMER_QUICKXPLAIN + "[thread=1]").getTimings().get(0) / 1000000000.0);
 //        combWriter.write(" - " + totalCommonTimer(TIMER_QUICKXPLAIN) / 1000000000.0);

@@ -230,6 +230,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 
 //        mutatedParents.trim(pupolationSize);
 
+        // TODO: think about the stop condition
         if (newMinConflicts > 0) {
             currentIteration++; // next generation
         } else { // else: keep current generation
@@ -245,6 +246,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         }
     }
 
+    // TODO: this function can be used to identify all Conflicts
     private List<Set<Constraint>> identifyConflicts(Requirement ur) {
         FMModelWithRequirement<Feature, AbstractRelationship<Feature>, CTConstraint> diagModel
                 = new FMModelWithRequirement<>(featureModel, ur, false, true, cfInConflicts, false);
@@ -261,6 +263,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         QuickXPlainLabeler quickXplain = new QuickXPlainLabeler(checker, parameter);
 
         HSDAG hsdag = new HSDAG(quickXplain);
+        // hsdag.setNodeLabels(); // TODO: set existing conflict sets
         hsdag.setPruningEngine(new HSDAGPruningEngine(hsdag));
         if (numMaxConflicts != 0) {
             hsdag.setMaxNumberOfConflicts(numMaxConflicts);
