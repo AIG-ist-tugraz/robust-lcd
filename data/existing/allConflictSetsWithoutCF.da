@@ -1,0 +1,19 @@
+Win=true --- Nut/OS=true
+Dynamic=true --- Static=true
+B+ Tree=false --- Unindexed=false
+B+ Tree=false --- Unindexed=false --- Get=true
+In Memory=true --- Dynamic=true
+Dynamic=true --- LRU=false --- LFU=false
+LRU=true --- Dynamic=false --- Static=false
+Dynamic=false --- Static=false --- In Memory=false
+In Memory=true --- Static=true
+B+ Tree=true --- Unindexed=true
+LFU=true --- Dynamic=false --- Static=false
+Win=false --- Nut/OS=false
+LFU=true --- In Memory=true
+LFU=true --- LRU=true
+LRU=true --- In Memory=true
+B+ Tree=false --- Put=true --- Unindexed=false
+LRU=false --- LFU=false --- Static=true
+LRU=false --- In Memory=false --- LFU=false
+B+ Tree=false --- Delete=true --- Unindexed=false
