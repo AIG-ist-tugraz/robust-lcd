@@ -6,11 +6,12 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.conflict.genetic.crossover;
+package at.tugraz.ist.ase.conflict.fm;
 
 import at.tugraz.ist.ase.conflict.common.ConflictUtils;
 import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
+import at.tugraz.ist.ase.conflict.genetic.crossover.ICrossOverStrategy;
 import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
@@ -22,7 +23,7 @@ import lombok.Setter;
 import java.io.BufferedWriter;
 import java.util.*;
 
-public class ConflictCrossOverStrategy implements ICrossOverStrategy<Assignment, UserRequirement> {
+public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignment, UserRequirement> {
 
     private final List<Feature> leafFeatures;
     private static final Random random = new Random(RandomUtils.getSEED());
@@ -34,7 +35,7 @@ public class ConflictCrossOverStrategy implements ICrossOverStrategy<Assignment,
     @Setter
     private IResolveStrategy<Assignment, UserRequirement> resolveStrategy = null;
 
-    public ConflictCrossOverStrategy(List<Feature> leafFeatures) {
+    public FMConflictCrossOverStrategy(List<Feature> leafFeatures) {
         this.leafFeatures = leafFeatures;
     }
 

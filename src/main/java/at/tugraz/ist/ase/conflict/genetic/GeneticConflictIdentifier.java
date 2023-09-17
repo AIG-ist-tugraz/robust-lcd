@@ -9,10 +9,10 @@
 package at.tugraz.ist.ase.conflict.genetic;
 
 import at.tugraz.ist.ase.conflict.common.ConflictUtils;
-import at.tugraz.ist.ase.conflict.genetic.crossover.ConflictCrossOverStrategy;
 import at.tugraz.ist.ase.conflict.genetic.crossover.ICrossOverStrategy;
 import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
 import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
+import at.tugraz.ist.ase.conflict.model.CDRModelFactory;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.HSDAG;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.HSDAGPruningEngine;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.labeler.QuickXPlainLabeler;
@@ -21,16 +21,12 @@ import at.tugraz.ist.ase.hiconfit.cacdr.checker.ChocoConsistencyChecker;
 import at.tugraz.ist.ase.hiconfit.cacdr.eval.CAEvaluator;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Requirement;
-import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.FMModelWithRequirement;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
-import at.tugraz.ist.ase.hiconfit.fm.core.AbstractRelationship;
-import at.tugraz.ist.ase.hiconfit.fm.core.CTConstraint;
-import at.tugraz.ist.ase.hiconfit.fm.core.Feature;
-import at.tugraz.ist.ase.hiconfit.fm.core.FeatureModel;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.val;
 
 import java.io.BufferedWriter;
 import java.util.*;
@@ -42,7 +38,8 @@ import static at.tugraz.ist.ase.hiconfit.eval.PerformanceEvaluator.setCommonTime
 
 public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, UserRequirement, Double> {
 
-    private final FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel;
+    private final CDRModelFactory modelFactory;
+//    private final FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel;
     @Getter
     private Population<Assignment, UserRequirement> population;
     private final boolean cfInConflicts;
@@ -78,7 +75,8 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 
     @Builder
     public GeneticConflictIdentifier(Population<Assignment, UserRequirement> population,
-                                     FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel,
+//                                     FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel,
+                                    CDRModelFactory modelFactory,
                                      boolean cfInConflicts,
                                      int numMaxConflicts,
                                      int stopAfterXTimesNoConflict,
@@ -86,7 +84,8 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
                                      List<Set<Constraint>> allConflictSetsWithoutCF) {
         this.population = population;
         this.pupolationSize = population.size();
-        this.featureModel = featureModel;
+//        this.featureModel = featureModel;
+        this.modelFactory = modelFactory;
         this.cfInConflicts = cfInConflicts;
         this.numMaxConflicts = numMaxConflicts;
         this.stopAfterXTimesNoConflict = stopAfterXTimesNoConflict;
@@ -190,9 +189,9 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
             message = String.format("%sGENERATION %d: Generating a new generation of %d individuals with genetic crossover...", LoggerUtils.tab(), currentIteration, pupolationSize);
             ConflictUtils.printMessage(resultWriter, message);
 
-            ((ConflictCrossOverStrategy)crossOverStrategy).setKnownConflicts(allConflictSetsWithoutCF);
+            crossOverStrategy.setKnownConflicts(allConflictSetsWithoutCF);
             crossOverStrategy.setResultWriter(resultWriter);
-            ((ConflictCrossOverStrategy) crossOverStrategy).setResolveStrategy(resolveStrategy);
+            crossOverStrategy.setResolveStrategy(resolveStrategy);
             population = crossOverStrategy.crossover(population);
 
             for (IterationListener<Assignment, UserRequirement, Double> l : this.iterationListeners) {
@@ -248,9 +247,11 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 
     // TODO: this function can be used to identify all Conflicts
     private List<Set<Constraint>> identifyConflicts(Requirement ur) {
-        FMModelWithRequirement<Feature, AbstractRelationship<Feature>, CTConstraint> diagModel
-                = new FMModelWithRequirement<>(featureModel, ur, false, true, cfInConflicts, false);
-        diagModel.initialize();
+//        FMModelWithRequirement<Feature, AbstractRelationship<Feature>, CTConstraint> diagModel
+//                = new FMModelWithRequirement<>(featureModel, ur, false, true, cfInConflicts, false);
+//        diagModel.initialize();
+        modelFactory.setRequirement(ur);
+        val diagModel = modelFactory.createCDRModel();
 
         ChocoConsistencyChecker checker = new ChocoConsistencyChecker(diagModel);
 

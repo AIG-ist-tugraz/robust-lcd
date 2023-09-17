@@ -9,9 +9,15 @@
 package at.tugraz.ist.ase.conflict.genetic;
 
 import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
+import lombok.experimental.UtilityClass;
 
+/**
+ * A factory for creating populations
+ */
+@UtilityClass
 public class Populations {
-    public static <E, C extends Individual<E, C>> Population<E, C> newPopulations(int size, IMutationStrategy<E, C> mutationStrategy) {
+    public <E, C extends Individual<E, C>>
+    Population<E, C> newPopulations(int size, IMutationStrategy<E, C> mutationStrategy) {
         Population<E, C> population = new Population<>();
 
         if (mutationStrategy == null) {

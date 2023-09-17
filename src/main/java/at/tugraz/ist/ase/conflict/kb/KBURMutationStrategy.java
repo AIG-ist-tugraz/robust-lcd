@@ -6,38 +6,39 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.conflict.genetic.mutate;
+package at.tugraz.ist.ase.conflict.kb;
 
 import at.tugraz.ist.ase.conflict.common.CombinationUtils;
 import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
+import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;
-import at.tugraz.ist.ase.hiconfit.fm.core.Feature;
+import at.tugraz.ist.ase.hiconfit.kb.core.Variable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 /**
- * A mutation strategy for Feature Model User Requirements
+ * A mutation strategy for Camera User Requirements
  */
-public class FMURMutationStrategy implements IMutationStrategy<Assignment, UserRequirement> {
+public class KBURMutationStrategy implements IMutationStrategy<Assignment, UserRequirement> {
 
-    private final List<Feature> leafFeatures;
+    private final List<Variable> variables;
     private final double noPreferenceProbability;
     private final double mutationProbability;
-    private final int maxFeaturesInUR;
+    private final int maxVariablesInUR;
     private static final Random random = new Random(RandomUtils.getSEED());
 
-    public FMURMutationStrategy(List<Feature> leafFeatures,
+    public KBURMutationStrategy(List<Variable> variables,
                                 double noPreferenceProbability,
                                 double mutationProbability,
-                                int maxFeaturesInUR) {
-        this.leafFeatures = leafFeatures;
+                                int maxVariablesInUR) {
+        this.variables = variables;
         this.noPreferenceProbability = noPreferenceProbability;
         this.mutationProbability = mutationProbability;
-        this.maxFeaturesInUR = maxFeaturesInUR;
+        this.maxVariablesInUR = maxVariablesInUR;
     }
 
     /**
@@ -49,13 +50,15 @@ public class FMURMutationStrategy implements IMutationStrategy<Assignment, UserR
     public UserRequirement mutate() {
         List<Assignment> assignments;
 
-        List<Integer> indexes = CombinationUtils.selectIndexes(maxFeaturesInUR, leafFeatures.size(), true);
+        List<Integer> indexes = CombinationUtils.selectIndexes(maxVariablesInUR, variables.size(), true);
 
         do {
             assignments = new ArrayList<>();
             for (Integer index : indexes) {
-                Feature feature = leafFeatures.get(index);
-                Assignment assignment = mutate(feature);
+//                Feature feature = variables.get(index);
+                Variable var = variables.get(index);
+
+                Assignment assignment = mutate(var);
                 if (assignment != null) {
                     assignments.add(assignment);
                 }
@@ -67,14 +70,14 @@ public class FMURMutationStrategy implements IMutationStrategy<Assignment, UserR
                 .build();
     }
 
-    private Assignment mutate(Feature feature) {
+    private Assignment mutate(Variable var) {
         if (Math.random() <= (1 - noPreferenceProbability)) {
-            List<String> domain = List.of("true", "false");
+            List<String> domain = var.getDomain().getValues();
             // randomly select a value from the domain
             String value = domain.get(random.nextInt(domain.size()));
 
             return Assignment.builder()
-                    .variable(feature.getName())
+                    .variable(var.getName())
                     .value(value)
                     .build();
         } else {
@@ -86,33 +89,42 @@ public class FMURMutationStrategy implements IMutationStrategy<Assignment, UserR
     public UserRequirement mutate(UserRequirement ur) {
         List<Assignment> assignments;
 
-        List<Integer> indexes = CombinationUtils.selectIndexes(maxFeaturesInUR, leafFeatures.size(), true);
+        List<Integer> indexes = CombinationUtils.selectIndexes(maxVariablesInUR, variables.size(), true);
 
         do {
             assignments = new ArrayList<>();
             for (Integer index : indexes) {
-                Feature feature = leafFeatures.get(index);
+//                Feature feature = variables.get(index);
+                Variable var = variables.get(index);
                 String value;
                 try {
-                    value = ur.getAssignment(feature.getName()).getValue();
+                    value = ur.getAssignment(var.getName()).getValue();
                 } catch (Exception e) {
                     value = null;
                 }
 
                 if (value == null) {
                     if (Math.random() <= mutationProbability) { // mutate the user requirement by adding a new assignment
-                        Assignment assignment = mutate(feature);
+                        Assignment assignment = mutate(var);
                         if (assignment != null) {
                             assignments.add(assignment);
                         }
                     }
                 } else { // copy the value
-                    if (Math.random() <= (1 - mutationProbability)) {
-                        value = value.equals("true") ? "false" : "true";
+                    if (Math.random() <= (1 - mutationProbability)) { // mutate the value
+                        List<String> domain = var.getDomain().getValues();
+                        // randomly select a value from the domain
+                        String new_value = value;
+                        do {
+                            new_value = domain.get(random.nextInt(domain.size()));
+                        } while (!new_value.equals(value));
+
+                        value = new_value;
+//                        value = value.equals("true") ? "false" : "true";
                     }
 
                     Assignment assignment = Assignment.builder()
-                            .variable(feature.getName())
+                            .variable(var.getName())
                             .value(value)
                             .build();
                     assignments.add(assignment);

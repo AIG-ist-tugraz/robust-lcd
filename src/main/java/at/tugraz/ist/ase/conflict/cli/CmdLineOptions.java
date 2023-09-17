@@ -6,7 +6,7 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.conflict.app.cli;
+package at.tugraz.ist.ase.conflict.cli;
 
 import at.tugraz.ist.ase.hiconfit.common.CmdLineOptionsBase;
 import lombok.Getter;

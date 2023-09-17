@@ -63,7 +63,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        at.tugraz.ist.ase.cddb.app.seeker.GeneticConflictSeeker
+                                        at.tugraz.ist.ase.conflict.fm.GeneticConflictForFM
                                     </mainClass>
                                 </manifest>
                             </archive>
@@ -83,7 +83,27 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        at.tugraz.ist.ase.cddb.app.seeker.GeneticConflictSeekerCamera
+                                        at.tugraz.ist.ase.conflict.kb.camera.GeneticConflictForCamera
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>gc_seeker_camera</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>gc_seeker_camera</finalName>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        at.tugraz.ist.ase.conflict.kb.apm.GeneticConflictForAPM
                                     </mainClass>
                                 </manifest>
                             </archive>

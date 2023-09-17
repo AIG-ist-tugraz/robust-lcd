@@ -6,32 +6,27 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.conflict.app;
+package at.tugraz.ist.ase.conflict.kb.camera;
 
-import at.tugraz.ist.ase.conflict.app.cli.CmdLineOptions;
-import at.tugraz.ist.ase.conflict.app.cli.ConfigManager;
+import at.tugraz.ist.ase.conflict.cli.CmdLineOptions;
+import at.tugraz.ist.ase.conflict.cli.ConfigManager;
 import at.tugraz.ist.ase.conflict.common.ConflictSetReader;
 import at.tugraz.ist.ase.conflict.common.ConflictUtils;
 import at.tugraz.ist.ase.conflict.genetic.GeneticConflictIdentifier;
 import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.Populations;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
-import at.tugraz.ist.ase.conflict.genetic.crossover.ConflictCrossOverStrategy;
-import at.tugraz.ist.ase.conflict.genetic.mutate.FMURMutationStrategy;
 import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
+import at.tugraz.ist.ase.conflict.kb.KBCDRModelFactory;
+import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategy;
+import at.tugraz.ist.ase.conflict.kb.KBURMutationStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
-import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.FMModelWithRequirement;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.common.MailService;
-import at.tugraz.ist.ase.hiconfit.fm.core.AbstractRelationship;
-import at.tugraz.ist.ase.hiconfit.fm.core.CTConstraint;
-import at.tugraz.ist.ase.hiconfit.fm.core.Feature;
-import at.tugraz.ist.ase.hiconfit.fm.core.FeatureModel;
-import at.tugraz.ist.ase.hiconfit.fm.parser.FMParserFactory;
 import at.tugraz.ist.ase.hiconfit.fm.parser.FeatureModelParserException;
+import at.tugraz.ist.ase.hiconfit.kb.camera.CameraKB;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 import lombok.Cleanup;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
 import java.io.BufferedWriter;
@@ -44,36 +39,10 @@ import java.util.Set;
 
 import static at.tugraz.ist.ase.hiconfit.common.ConstraintUtils.convertToStringWithMessage;
 
-/**
- * Identify conflicts using genetic algorithm
- * Configurations:
- * - nameKB: name of the knowledge base
- * - kbPath: path to the knowledge base
- * - resultPath: path to the result file - store messages during the identification process
- * - allCSPath: path to the file that stores identified conflicts
- * - allCSWithoutCFPath: path to the file that stores identified conflicts without CF constraints
- * - existingCSPath: path to the file that stores known conflicts
- * - existingCSWithoutCFPath: path to the file that stores known conflicts without CF constraints
- * - maxNumConflicts: maximum number of conflicts to be identified for each individual
- * - cfInConflicts: whether CF constraints are included in conflicts
- * - machine: name of the machine that runs the identification process
- * - emailAfterEachConf: whether to send an email after finishing a conflict identification
- * - emailAddress: email address to send an email
- * - emailPass: password of the email address
- * - populationSize: size of the population
- * - noPreferenceProbability: probability of a feature to be a no-preference feature
- * - mutationProbability: probability of a feature to be mutated
- * - maxNumGenerations: maximum number of generations
- * - stopAfterXTimesNoConflict: stop the identification process after X times of no new conflict
- * - maxFeaturesInUR: maximum number of features in a user requirement
- * - printResult: whether to print the result
- */
-@Slf4j
-public class GeneticConflictSeeker {
-
+public class GeneticConflictForCamera {
     public static void main(String[] args) throws IOException, FeatureModelParserException {
-        val programTitle = "Genetic Conflict Seeker";
-        val usage = "Usage: java -jar gc_seeker.jar [options]";
+        val programTitle = "Genetic Conflict Seeker for CameraKB";
+        val usage = "Usage: java -jar gc_seeker_camera.jar [options]";
 
         // Parse command line arguments
         val cmdLineOptions = new CmdLineOptions(null, programTitle, null, usage);
@@ -116,41 +85,34 @@ public class GeneticConflictSeeker {
             allConflictSetsWithoutCF.addAll(ConflictSetReader.read(new File(cfg.getExistingCSWithoutCFPath())));
         }
 
-        // loads feature model
-        // TODO: how to read a feature model from a file
-        val file = new File(cfg.getKBFilepath());
-        @Cleanup("dispose") val parser = FMParserFactory.getInstance().getParser(file.getName());
-        val featureModel = parser.parse(file);
-
         boolean cfInConflicts = cfg.getCfInConflicts().equals("yes");
 
-        val model = new FMModelWithRequirement<>(featureModel, null, false, true, cfInConflicts, false);
-        model.initialize();
-        // TODO: how to read a feature model from a file
+        CameraKB cameraKB = new CameraKB(false);
 
-        // TODO: take into account all features in the feature model
-        // get leaf features
-        val leafFeatures = getLeafFeatures(featureModel);
+        // get variables
+        val variables = cameraKB.getVariableList();
 
-        System.out.println("Number of variables: " + model.getKB().getNumVariables());
-        System.out.println("Number of leaf features: " + featureModel.getNumOfLeaf());
-        System.out.println("Number of leaf features 2: " + leafFeatures.size());
-        System.out.println("Number of constraints: " + model.getKB().getNumConstraints());
+        System.out.println("Number of variables: " + variables.size());
+        System.out.println("Number of constraints: " + cameraKB.getNumConstraints());
 
         // init the population
         String message = String.format("\nGENERATION 0: Randomizing a starting population of %d individuals with a no-preference-probability of %f ...", cfg.getPopulationSize(), cfg.getNoPreferenceProbability());
         ConflictUtils.printMessage(resultWriter, message);
 
-        val mutationStrategy = new FMURMutationStrategy(leafFeatures, cfg.getNoPreferenceProbability(), cfg.getMutationProbability(), cfg.getMaxFeaturesInUR());
+        val mutationStrategy = new KBURMutationStrategy(variables, cfg.getNoPreferenceProbability(), cfg.getMutationProbability(), cfg.getMaxFeaturesInUR());
         val population = Populations.newPopulations(cfg.getPopulationSize(), mutationStrategy);
 
         // print the population
         printPopulation(resultWriter, population);
 
+        // create CDRModelFactory
+        val cdrModelFactory = new KBCDRModelFactory(cameraKB, null);
+
         // create the genetic algorithm
         val gci = GeneticConflictIdentifier.builder()
                 .population(population)
-                .featureModel(featureModel)
+//                .featureModel(featureModel)
+                .modelFactory(cdrModelFactory)
                 .cfInConflicts(cfInConflicts)
                 .numMaxConflicts(cfg.getMaxNumConflicts())
                 .stopAfterXTimesNoConflict(cfg.getStopAfterXTimesNoConflict())
@@ -160,7 +122,7 @@ public class GeneticConflictSeeker {
 
         gci.setMutationStrategy(mutationStrategy);
         gci.setResolveStrategy(new URResolveStrategy());
-        gci.setCrossOverStrategy(new ConflictCrossOverStrategy(leafFeatures));
+        gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(variables));
 
         gci.setResultWriter(resultWriter);
         gci.setAllConflictSetsWriter(allConflictSetsWriter);
@@ -239,13 +201,4 @@ public class GeneticConflictSeeker {
         System.out.println("\tmaxNumGenerations: " + config.getMaxNumGenerations());
     }
 
-    private static List<Feature> getLeafFeatures(FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> fm) {
-        List<Feature> leafFeatures = new ArrayList<>();
-        for (Feature feature : fm.getBfFeatures()) {
-            if (feature.isLeaf()) {
-                leafFeatures.add(feature);
-            }
-        }
-        return leafFeatures;
-    }
 }
