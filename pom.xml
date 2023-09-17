@@ -93,13 +93,13 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>gc_seeker_camera</id>
+                        <id>gc_seeker_apm</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>gc_seeker_camera</finalName>
+                            <finalName>gc_seeker_apm</finalName>
                             <archive>
                                 <manifest>
                                     <mainClass>
