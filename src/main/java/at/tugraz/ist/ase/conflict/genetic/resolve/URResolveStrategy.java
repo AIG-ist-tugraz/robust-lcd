@@ -6,10 +6,10 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.resolve;
+package at.tugraz.ist.ase.conflict.genetic.resolve;
 
-import at.tugraz.ist.ase.genetic.UserRequirement;
-import at.tugraz.ist.ase.genetic.common.ConflictUtils;
+import at.tugraz.ist.ase.conflict.common.ConflictUtils;
+import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 

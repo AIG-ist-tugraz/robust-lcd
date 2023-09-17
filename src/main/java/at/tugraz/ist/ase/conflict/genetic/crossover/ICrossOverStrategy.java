@@ -6,10 +6,10 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.crossover;
+package at.tugraz.ist.ase.conflict.genetic.crossover;
 
-import at.tugraz.ist.ase.genetic.Individual;
-import at.tugraz.ist.ase.genetic.Population;
+import at.tugraz.ist.ase.conflict.genetic.Individual;
+import at.tugraz.ist.ase.conflict.genetic.Population;
 
 import java.io.BufferedWriter;
 

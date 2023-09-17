@@ -6,11 +6,11 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic;
+package at.tugraz.ist.ase.conflict.genetic;
 
-import at.tugraz.ist.ase.genetic.crossover.ICrossOverStrategy;
-import at.tugraz.ist.ase.genetic.mutate.IMutationStrategy;
-import at.tugraz.ist.ase.genetic.resolve.IResolveStrategy;
+import at.tugraz.ist.ase.conflict.genetic.crossover.ICrossOverStrategy;
+import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
+import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
 
 public interface IGeneticAlgorithm<E, C extends Individual<E, C>, T extends Comparable<T>> {
     void evolve();

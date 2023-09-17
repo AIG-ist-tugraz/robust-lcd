@@ -6,9 +6,9 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.resolve;
+package at.tugraz.ist.ase.conflict.genetic.resolve;
 
-import at.tugraz.ist.ase.genetic.Individual;
+import at.tugraz.ist.ase.conflict.genetic.Individual;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 
 import java.util.List;

@@ -6,10 +6,10 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.mutate;
+package at.tugraz.ist.ase.conflict.genetic.mutate;
 
-import at.tugraz.ist.ase.genetic.Individual;
-import at.tugraz.ist.ase.genetic.Population;
+import at.tugraz.ist.ase.conflict.genetic.Individual;
+import at.tugraz.ist.ase.conflict.genetic.Population;
 
 public interface IMutationStrategy<E, C extends Individual<E, C>> {
     C mutate();

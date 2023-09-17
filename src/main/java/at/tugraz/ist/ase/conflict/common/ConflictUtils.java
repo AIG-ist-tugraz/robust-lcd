@@ -6,9 +6,9 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.common;
+package at.tugraz.ist.ase.conflict.common;
 
-import at.tugraz.ist.ase.genetic.UserRequirement;
+import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.QuickXPlain;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.HSDAG;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.HSDAGPruningEngine;

@@ -6,11 +6,11 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.mutate;
+package at.tugraz.ist.ase.conflict.genetic.mutate;
 
-import at.tugraz.ist.ase.genetic.Population;
-import at.tugraz.ist.ase.genetic.UserRequirement;
-import at.tugraz.ist.ase.genetic.common.CombinationUtils;
+import at.tugraz.ist.ase.conflict.common.CombinationUtils;
+import at.tugraz.ist.ase.conflict.genetic.Population;
+import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;
 import at.tugraz.ist.ase.hiconfit.fm.core.Feature;

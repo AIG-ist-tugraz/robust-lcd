@@ -6,13 +6,13 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic;
+package at.tugraz.ist.ase.conflict.genetic;
 
-import at.tugraz.ist.ase.genetic.common.ConflictUtils;
-import at.tugraz.ist.ase.genetic.crossover.ConflictCrossOverStrategy;
-import at.tugraz.ist.ase.genetic.crossover.ICrossOverStrategy;
-import at.tugraz.ist.ase.genetic.mutate.IMutationStrategy;
-import at.tugraz.ist.ase.genetic.resolve.IResolveStrategy;
+import at.tugraz.ist.ase.conflict.common.ConflictUtils;
+import at.tugraz.ist.ase.conflict.genetic.crossover.ConflictCrossOverStrategy;
+import at.tugraz.ist.ase.conflict.genetic.crossover.ICrossOverStrategy;
+import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
+import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.HSDAG;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.HSDAGPruningEngine;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.labeler.QuickXPlainLabeler;

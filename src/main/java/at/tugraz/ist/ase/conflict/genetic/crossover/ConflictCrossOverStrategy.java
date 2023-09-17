@@ -6,12 +6,12 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.crossover;
+package at.tugraz.ist.ase.conflict.genetic.crossover;
 
-import at.tugraz.ist.ase.genetic.Population;
-import at.tugraz.ist.ase.genetic.UserRequirement;
-import at.tugraz.ist.ase.genetic.common.ConflictUtils;
-import at.tugraz.ist.ase.genetic.resolve.IResolveStrategy;
+import at.tugraz.ist.ase.conflict.common.ConflictUtils;
+import at.tugraz.ist.ase.conflict.genetic.Population;
+import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
+import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;

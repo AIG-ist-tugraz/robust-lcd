@@ -6,9 +6,9 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic;
+package at.tugraz.ist.ase.conflict.genetic;
 
-import at.tugraz.ist.ase.genetic.mutate.IMutationStrategy;
+import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
 
 public class Populations {
     public static <E, C extends Individual<E, C>> Population<E, C> newPopulations(int size, IMutationStrategy<E, C> mutationStrategy) {

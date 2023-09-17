@@ -6,7 +6,7 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic;
+package at.tugraz.ist.ase.conflict.genetic;
 
 public interface IGeneticFitness<E, C extends Individual<E, C>, T extends Comparable<T>>{
 

@@ -6,7 +6,7 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.common;
+package at.tugraz.ist.ase.conflict.common;
 
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;
 import at.tugraz.ist.ase.hiconfit.fm.core.AbstractRelationship;

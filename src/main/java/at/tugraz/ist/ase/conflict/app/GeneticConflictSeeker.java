@@ -6,19 +6,19 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.genetic.app;
+package at.tugraz.ist.ase.conflict.app;
 
-import at.tugraz.ist.ase.genetic.GeneticConflictIdentifier;
-import at.tugraz.ist.ase.genetic.Population;
-import at.tugraz.ist.ase.genetic.Populations;
-import at.tugraz.ist.ase.genetic.UserRequirement;
-import at.tugraz.ist.ase.genetic.cli.CmdLineOptions;
-import at.tugraz.ist.ase.genetic.cli.ConfigManager;
-import at.tugraz.ist.ase.genetic.common.ConflictSetReader;
-import at.tugraz.ist.ase.genetic.common.ConflictUtils;
-import at.tugraz.ist.ase.genetic.crossover.ConflictCrossOverStrategy;
-import at.tugraz.ist.ase.genetic.mutate.FMURMutationStrategy;
-import at.tugraz.ist.ase.genetic.resolve.URResolveStrategy;
+import at.tugraz.ist.ase.conflict.app.cli.CmdLineOptions;
+import at.tugraz.ist.ase.conflict.app.cli.ConfigManager;
+import at.tugraz.ist.ase.conflict.common.ConflictSetReader;
+import at.tugraz.ist.ase.conflict.common.ConflictUtils;
+import at.tugraz.ist.ase.conflict.genetic.GeneticConflictIdentifier;
+import at.tugraz.ist.ase.conflict.genetic.Population;
+import at.tugraz.ist.ase.conflict.genetic.Populations;
+import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
+import at.tugraz.ist.ase.conflict.genetic.crossover.ConflictCrossOverStrategy;
+import at.tugraz.ist.ase.conflict.genetic.mutate.FMURMutationStrategy;
+import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.FMModelWithRequirement;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
