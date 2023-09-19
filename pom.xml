@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Genetic Conflict Seeker
+  ~
+  ~ Copyright (c) 2023
+  ~
+  ~ @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -55,7 +63,47 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        at.tugraz.ist.ase.cddb.app.seeker.GeneticConflictSeeker
+                                        at.tugraz.ist.ase.conflict.fm.GeneticConflictForFM
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>gc_seeker_camera</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>gc_seeker_camera</finalName>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        at.tugraz.ist.ase.conflict.kb.camera.GeneticConflictForCamera
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>gc_seeker_apm</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>gc_seeker_apm</finalName>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        at.tugraz.ist.ase.conflict.kb.apm.GeneticConflictForAPM
                                     </mainClass>
                                 </manifest>
                             </archive>

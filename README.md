@@ -8,3 +8,14 @@ selecting the **GeneticConflictSeeker** configuration (see the image provided be
 
 Once installed, click the **Reload All Maven Projects** icon to refresh the project. 
 From there, you can easily run the program by executing the *main* methods.
+
+## Build jar files
+
+Activate the Maven profile **package** to build the jar files.
+
+![package.jpg](./lib/package.jpg)
+
+After the build is complete, you can find the jar files in the **target** folder.
+
+![jar.jpg](./lib/jar.jpg)
+
