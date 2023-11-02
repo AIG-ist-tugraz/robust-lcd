@@ -159,7 +159,7 @@ public class ApmKB extends KB implements IIntVarKB {
 //        model.ifThen( model.arithm(variables[7], "=", 4), model.arithm(variables[3], "=", 2) );
         startIdx = modelKB.getNbCstrs();
         org.chocosolver.solver.constraints.Constraint chocoConstraint = modelKB.or(modelKB.arithm(((IntVariable)variableList.get(7)).getChocoVar(), "!=", 3) , modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "=", 1));
-        Constraint constraint = IntVarConstraintBuilder.build("Cat_A = field --> Type_DE = outdoor", modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
+        Constraint constraint = IntVarConstraintBuilder.build("Cat_A = field --> Type_DE = outdoor", List.of(variableList.get(7).getName(), variableList.get(3).getName()), modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
         constraintList.add(constraint);
 
         // Type_DE = indoor --> Communication_MS != wired
@@ -168,7 +168,7 @@ public class ApmKB extends KB implements IIntVarKB {
 //        model.ifThen( model.arithm(variables[3], "=", 2), model.arithm(variables[0], "!=", 1) );
         startIdx = modelKB.getNbCstrs();
         chocoConstraint = modelKB.or(modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "!=", 0) , modelKB.arithm(((IntVariable)variableList.get(0)).getChocoVar(), "!=", 0));
-        constraint = IntVarConstraintBuilder.build("Type_DE = indoor --> Communication_MS != wired", modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
+        constraint = IntVarConstraintBuilder.build("Type_DE = indoor --> Communication_MS != wired", List.of(variableList.get(3).getName(), variableList.get(0).getName()), modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
         constraintList.add(constraint);
 
         // Cat_A = library --> Type_DE = indoor
@@ -177,7 +177,7 @@ public class ApmKB extends KB implements IIntVarKB {
 //        model.ifThen( model.arithm(variables[7], "=", 3), model.arithm(variables[3], "=", 1) );
         startIdx = modelKB.getNbCstrs();
         chocoConstraint = modelKB.or(modelKB.arithm(((IntVariable)variableList.get(7)).getChocoVar(), "!=", 2) , modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "=", 0));
-        constraint = IntVarConstraintBuilder.build("Cat_A = library --> Type_DE = indoor", modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
+        constraint = IntVarConstraintBuilder.build("Cat_A = library --> Type_DE = indoor", List.of(variableList.get(7).getName(), variableList.get(3).getName()), modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
         constraintList.add(constraint);
 
         // Type_DE = indoor <--> Type_A = indoor
@@ -190,7 +190,7 @@ public class ApmKB extends KB implements IIntVarKB {
         chocoConstraint = modelKB.and(
                 modelKB.or(modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "!=", 0) , modelKB.arithm(((IntVariable)variableList.get(6)).getChocoVar(), "=", 0)) ,
                 modelKB.or(modelKB.arithm(((IntVariable)variableList.get(6)).getChocoVar(), "!=", 0) , modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "=", 0)));
-        constraint = IntVarConstraintBuilder.build("Type_DE = indoor <--> Type_A = indoor", modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
+        constraint = IntVarConstraintBuilder.build("Type_DE = indoor <--> Type_A = indoor", List.of(variableList.get(3).getName(), variableList.get(6).getName()), modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
         constraintList.add(constraint);
 
         // Category_A = field --> Traffic_A = light
@@ -199,7 +199,7 @@ public class ApmKB extends KB implements IIntVarKB {
 //        model.ifThen( model.arithm(variables[7], "=", 4), model.arithm(variables[8], "=", 1) );
         startIdx = modelKB.getNbCstrs();
         chocoConstraint = modelKB.or(modelKB.arithm(((IntVariable)variableList.get(7)).getChocoVar(), "!=", 3) , modelKB.arithm(((IntVariable)variableList.get(8)).getChocoVar(), "=", 0));
-        constraint = IntVarConstraintBuilder.build("Category_A = field --> Traffic_A = light", modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
+        constraint = IntVarConstraintBuilder.build("Category_A = field --> Traffic_A = light", List.of(variableList.get(7).getName(), variableList.get(8).getName()), modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
         constraintList.add(constraint);
 
         // Type_DE = outdoor <--> AvgWind_EC != 0
@@ -212,7 +212,7 @@ public class ApmKB extends KB implements IIntVarKB {
         chocoConstraint = modelKB.and(
                 modelKB.or(modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "!=", 1) , modelKB.arithm(((IntVariable)variableList.get(11)).getChocoVar(), "!=", 0)) ,
                 modelKB.or(modelKB.arithm(((IntVariable)variableList.get(11)).getChocoVar(), "=", 0) , modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "=", 1)));
-        constraint = IntVarConstraintBuilder.build("Type_DE = outdoor <--> AvgWind_EC != 0", modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
+        constraint = IntVarConstraintBuilder.build("Type_DE = outdoor <--> AvgWind_EC != 0", List.of(variableList.get(3).getName(), variableList.get(11).getName()), modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
         constraintList.add(constraint);
 
         LoggerUtils.outdent();

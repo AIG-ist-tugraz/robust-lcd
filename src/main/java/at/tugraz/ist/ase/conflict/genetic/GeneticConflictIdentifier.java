@@ -23,10 +23,7 @@ import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Requirement;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.val;
+import lombok.*;
 
 import java.io.BufferedWriter;
 import java.util.*;
@@ -40,7 +37,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 
     private final CDRModelFactory modelFactory;
 //    private final FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel;
-    @Getter
+    @Getter @Setter
     private Population<Assignment, UserRequirement> population;
     private final boolean cfInConflicts;
     private final int numMaxConflicts;
@@ -74,7 +71,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
     private BufferedWriter allConflictSetsWithoutCFWriter = null;
 
     @Builder
-    public GeneticConflictIdentifier(Population<Assignment, UserRequirement> population,
+    public GeneticConflictIdentifier(@NonNull Population<Assignment, UserRequirement> population,
 //                                     FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel,
                                     CDRModelFactory modelFactory,
                                      boolean cfInConflicts,
