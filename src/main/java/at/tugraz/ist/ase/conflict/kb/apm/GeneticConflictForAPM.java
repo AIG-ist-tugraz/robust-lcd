@@ -17,6 +17,7 @@ import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.Populations;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
+import at.tugraz.ist.ase.conflict.genetic.resolve.WeightedResolveStrategy;
 import at.tugraz.ist.ase.conflict.kb.KBCDRModelFactory;
 import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategy;
 import at.tugraz.ist.ase.conflict.kb.KBURMutationStrategy;
@@ -128,6 +129,9 @@ public class GeneticConflictForAPM {
         gci.setMutationStrategy(mutationStrategy);
         gci.setResolveStrategy(new URResolveStrategy());
         gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(variables));
+
+        if (cfg.isWeightedConflicts())
+            gci.setResolveStrategy(new WeightedResolveStrategy());
 
         gci.setResultWriter(resultWriter);
         gci.setAllConflictSetsWriter(allConflictSetsWriter);

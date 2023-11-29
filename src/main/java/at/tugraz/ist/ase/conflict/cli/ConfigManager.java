@@ -53,6 +53,9 @@ public final class ConfigManager {
     private final String existingCSPath;
     private final String existingCSWithoutCFPath;
 
+    // used to adapt the genetic algorithm
+    private final boolean weightedConflicts;
+
     private static ConfigManager instance = null;
 
     public static ConfigManager getInstance(String configFile) {
@@ -106,6 +109,8 @@ public final class ConfigManager {
         printResult = appProps.getProperty("printResult", "yes").equals("yes");
         existingCSPath = appProps.getProperty("existingCSPath", "");
         existingCSWithoutCFPath = appProps.getProperty("existingCSWithoutCFPath", "");
+
+        weightedConflicts = appProps.getProperty("weightedConflicts", "no").equals("yes");
 
         log.trace("{}<<< Read configurations [fullnameKB={}]", LoggerUtils.tab(), fullnameKB);
     }
