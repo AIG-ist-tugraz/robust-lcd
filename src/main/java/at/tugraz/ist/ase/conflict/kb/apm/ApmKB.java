@@ -162,12 +162,12 @@ public class ApmKB extends KB implements IIntVarKB {
         Constraint constraint = IntVarConstraintBuilder.build("Cat_A = field --> Type_DE = outdoor", modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
         constraintList.add(constraint);
 
-        // Type_DE = indoor --> Communication_MS != wired
+        // Type_DE = outdoor --> Communication_MS != wired
         // <=> not(Type_DE = indoor) or Communication_MS != wired
         // <=> Type_DE != indoor or Communication_MS != wired
 //        model.ifThen( model.arithm(variables[3], "=", 2), model.arithm(variables[0], "!=", 1) );
         startIdx = modelKB.getNbCstrs();
-        chocoConstraint = modelKB.or(modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "!=", 0) , modelKB.arithm(((IntVariable)variableList.get(0)).getChocoVar(), "!=", 0));
+        chocoConstraint = modelKB.or(modelKB.arithm(((IntVariable)variableList.get(3)).getChocoVar(), "!=", 1) , modelKB.arithm(((IntVariable)variableList.get(0)).getChocoVar(), "!=", 0));
         constraint = IntVarConstraintBuilder.build("Type_DE = indoor --> Communication_MS != wired", modelKB, chocoConstraint, startIdx, hasNegativeConstraints);
         constraintList.add(constraint);
 
