@@ -29,7 +29,8 @@ public class UserRequirement extends Solution implements Individual<Assignment, 
     /**
      * ID to identify resolved UR of the same predecessor UR
      */
-    @Getter@Builder.Default
+    @Getter
+    @Builder.Default
     private int resolvedID = 0;
 
     @Builder(builderMethodName = "requirementBuilder")

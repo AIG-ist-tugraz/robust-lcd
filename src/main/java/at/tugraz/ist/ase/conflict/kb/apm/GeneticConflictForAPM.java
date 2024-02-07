@@ -17,9 +17,10 @@ import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.Populations;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
-import at.tugraz.ist.ase.conflict.genetic.resolve.WeightedResolveStrategy;
+import at.tugraz.ist.ase.conflict.kb.KBURResolveStrategyWeighted;
 import at.tugraz.ist.ase.conflict.kb.KBCDRModelFactory;
 import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategy;
+import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategyWeighted;
 import at.tugraz.ist.ase.conflict.kb.KBURMutationStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
@@ -130,8 +131,10 @@ public class GeneticConflictForAPM {
         gci.setResolveStrategy(new URResolveStrategy());
         gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(variables));
 
-        if (cfg.isWeightedConflicts())
-            gci.setResolveStrategy(new WeightedResolveStrategy());
+        if (cfg.isWeightedConflicts()) {
+            gci.setResolveStrategy(new KBURResolveStrategyWeighted());
+            gci.setCrossOverStrategy(new KBConflictCrossOverStrategyWeighted(variables,cfg.getPopulationSize(), cfg.isAvoidSameOriginalConflict()));
+        }
 
         gci.setResultWriter(resultWriter);
         gci.setAllConflictSetsWriter(allConflictSetsWriter);

@@ -9,6 +9,7 @@
 package at.tugraz.ist.ase.conflict.genetic;
 
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Iterator;

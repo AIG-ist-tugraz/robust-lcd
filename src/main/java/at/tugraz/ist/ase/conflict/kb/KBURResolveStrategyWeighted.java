@@ -6,11 +6,11 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.conflict.genetic.resolve;
+package at.tugraz.ist.ase.conflict.kb;
 
 import at.tugraz.ist.ase.conflict.common.ConflictUtils;
-import at.tugraz.ist.ase.conflict.genetic.Individual;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
+import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class WeightedResolveStrategy implements IResolveStrategy<Assignment, UserRequirement> {
+public class KBURResolveStrategyWeighted implements IResolveStrategy<Assignment, UserRequirement> {
 
     private int idCounter = 0;
 
