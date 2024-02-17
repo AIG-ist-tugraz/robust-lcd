@@ -2,7 +2,7 @@
 <!--
   ~ Genetic Conflict Seeker
   ~
-  ~ Copyright (c) 2023
+  ~ Copyright (c) 2023-2024
   ~
   ~ @author: Viet-Man Le (vietman.le@ist.tugraz.at)
   -->
@@ -26,34 +26,36 @@
 
     <dependencies>
         <!--suppress VulnerableLibrariesLocal -->
+<!--        <dependency>-->
+<!--            <groupId>at.tugraz.ist.ase.hiconfit</groupId>-->
+<!--            <artifactId>ca-cdr</artifactId>-->
+<!--            <version>${hiconfit.version}</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>at.tugraz.ist.ase.hiconfit</groupId>
+            <groupId>at.tugraz.ist.ase</groupId>
             <artifactId>ca-cdr</artifactId>
             <version>${hiconfit.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/ca-cdr-1.0.1-alpha-22.jar</systemPath>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.7</version>
+            <version>1.4.14</version>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.9.2</version>
+            <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
