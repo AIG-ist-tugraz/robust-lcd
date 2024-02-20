@@ -5,7 +5,7 @@ target/
 
 ### IntelliJ IDEA ###
 /.idea/
-#!.idea/copyright/hiconfit_core.xml
+#!.idea/copyright/gc_seeker.xml
 #!.idea/copyright/profiles_settings.xml
 *.iws
 *.iml
@@ -36,3 +36,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /logs.log
+*.zip

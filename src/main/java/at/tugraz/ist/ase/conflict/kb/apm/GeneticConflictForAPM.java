@@ -88,12 +88,6 @@ public class GeneticConflictForAPM {
 
         boolean cfInConflicts = cfg.getCfInConflicts().equals("yes");
 
-//        CameraDiagnosisModel diagnosisModel = new CameraDiagnosisModel(req, new CameraSolutionTranslator(), false);
-//        diagnosisModel.initialize();
-
-//        val model = new FMModelWithRequirement<>(featureModel, null, false, true, cfInConflicts, false);
-//        model.initialize();
-
         ApmKB apmKB = new ApmKB(false);
 
         // get variables

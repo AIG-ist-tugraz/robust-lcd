@@ -36,6 +36,7 @@ public class SolutionTranslator implements ISolutionTranslatable {
         int startIdx = kb.getNumChocoConstraints();
 
         int counter = 0;
+        List<String> variables = new LinkedList<>();
         for (Assignment assign: solution.getAssignments()) {
             String varName = assign.getVariable();
             IntVar var = iIntVarKB.getIntVar(varName);
@@ -45,13 +46,15 @@ public class SolutionTranslator implements ISolutionTranslatable {
             if (isCorrectAssignment(varName, var, value, chocoValue)) {
                 counter++;
                 kb.getModelKB().arithm(var, "=", chocoValue).post();
+
+                variables.add(varName);
             }
         }
 
         assert  (solution.size() - solution.getNumNULL()) == counter : "not equal";
 
         // add the translated constraints to a Constraint
-        Constraint constraint = new Constraint(solution.toString());
+        Constraint constraint = new Constraint(solution.toString(), variables);
         if (counter > 0) {
             constraint.getChocoConstraints().addAll(ChocoSolverUtils.getConstraints(kb.getModelKB(), startIdx, kb.getNumChocoConstraints() - 1));
 //            constraint.addChocoConstraints(iIntVarKB.getModelKB(), startIdx, iIntVarKB.getNumChocoConstraints() - 1, false);
@@ -88,7 +91,7 @@ public class SolutionTranslator implements ISolutionTranslatable {
                 kb.getModelKB().arithm(var, "=", chocoValue).post();
 
                 // add the translated constraints to a Constraint
-                Constraint constraint = new Constraint(assign.toString());
+                Constraint constraint = new Constraint(assign.toString(), List.of(varName));
                 constraint.getChocoConstraints().addAll(ChocoSolverUtils.getConstraints(kb.getModelKB(), startIdx, kb.getNumChocoConstraints() - 1));
 //                constraint.addChocoConstraints(iIntVarKB.getModelKB(), startIdx, iIntVarKB.getNumChocoConstraints() - 1, false);
 

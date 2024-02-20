@@ -13,6 +13,7 @@ import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -31,7 +32,10 @@ public class ConflictSetBuilder {
         String[] tokens = stringUR.split(" --- ");
 
         for (String token : tokens) {
-            Constraint c = Constraint.builder().constraint(token).build();
+            Constraint c = Constraint.builder()
+                    .constraint(token)
+                    .variables(Collections.emptyList())
+                    .build();
 
             constraints.add(c);
         }
