@@ -122,12 +122,14 @@ public class GeneticConflictForAPM {
                 .build();
 
         gci.setMutationStrategy(mutationStrategy);
-        gci.setResolveStrategy(new URResolveStrategy());
-        gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(variables));
 
-        if (cfg.isWeightedConflicts()) {
+        if (cfg.isWeightedConflicts() || cfg.isAvoidSameOriginalConflict()) {
             gci.setResolveStrategy(new KBURResolveStrategyWeighted());
-            gci.setCrossOverStrategy(new KBConflictCrossOverStrategyWeighted(variables,cfg.getPopulationSize(), cfg.isAvoidSameOriginalConflict()));
+            gci.setCrossOverStrategy(new KBConflictCrossOverStrategyWeighted(variables, cfg.getPopulationSize(), true, cfg.isAvoidSameOriginalConflict()));
+        }
+        else {
+            gci.setResolveStrategy(new URResolveStrategy());
+            gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(variables, cfg.getPopulationSize()));
         }
 
         gci.setResultWriter(resultWriter);

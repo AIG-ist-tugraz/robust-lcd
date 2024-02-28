@@ -122,7 +122,7 @@ public class GeneticConflictForCamera {
 
         gci.setMutationStrategy(mutationStrategy);
         gci.setResolveStrategy(new URResolveStrategy());
-        gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(variables));
+        gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(variables, cfg.getPopulationSize()));
 
         gci.setResultWriter(resultWriter);
         gci.setAllConflictSetsWriter(allConflictSetsWriter);

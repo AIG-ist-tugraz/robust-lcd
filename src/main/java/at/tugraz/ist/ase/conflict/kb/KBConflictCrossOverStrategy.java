@@ -27,6 +27,7 @@ public class KBConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
 
     private final List<Variable> variables;
     private static final Random random = new Random(RandomUtils.getSEED());
+    private int populationSize;
 
     @Setter
     private List<Set<Constraint>> knownConflicts = null;
@@ -35,8 +36,9 @@ public class KBConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
     @Setter
     private IResolveStrategy<Assignment, UserRequirement> resolveStrategy = null;
 
-    public KBConflictCrossOverStrategy(List<Variable> variables) {
+    public KBConflictCrossOverStrategy(List<Variable> variables, int populationSize) {
         this.variables = variables;
+        this.populationSize = populationSize;
     }
 
     @Override
@@ -47,8 +49,9 @@ public class KBConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
         }
 
         LoggerUtils.indent();
-        for (int indexFather = 0; indexFather < parents.size(); indexFather++) {
-            int indexMother = indexFather;
+        while (population.size() < populationSize) {
+            int indexMother = random.nextInt(parents.size());
+            int indexFather = random.nextInt(parents.size());
 
             // father and mother should be different
             while (indexFather == indexMother) {
@@ -134,21 +137,15 @@ public class KBConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
 
             enum CROSSOVERTYPE {FATHER, MOTHER, NONE}
             CROSSOVERTYPE crossOverType = CROSSOVERTYPE.NONE;
-            if (father_value != null || mother_value != null) {
-                if (Objects.equals(father_value, mother_value) || mother_value == null) {
-                    // if both parents have the same value,
-                    // or if the mother has no value, the father has a value,
-                    // then the child has the same value
-                    crossOverType = CROSSOVERTYPE.FATHER;
-                } else if (father_value == null) { // if the father has no value, the mother has a value
-                    crossOverType = CROSSOVERTYPE.MOTHER;
-                } else { // if both parents have different values
-                    if (random.nextBoolean()) { // randomly select the father's value or the mother's value
-                        crossOverType = CROSSOVERTYPE.FATHER;
-                    } else {
-                        crossOverType = CROSSOVERTYPE.MOTHER;
-                    }
-                }
+
+            boolean selectFather = random.nextBoolean();
+            boolean selectMother = !selectFather;
+
+            if (selectFather && father_value != null) {
+                crossOverType = CROSSOVERTYPE.FATHER;
+            }
+            else if (selectMother && mother_value != null) {
+                crossOverType = CROSSOVERTYPE.MOTHER;
             }
 
             Assignment assignment = switch (crossOverType) {
