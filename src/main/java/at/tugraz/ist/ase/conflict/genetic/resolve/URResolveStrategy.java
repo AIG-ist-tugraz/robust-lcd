@@ -20,6 +20,7 @@ import java.util.Set;
 
 public class URResolveStrategy implements IResolveStrategy<Assignment, UserRequirement> {
 
+    /*
     @Override
     public List<UserRequirement> resolve(UserRequirement individual, List<Set<Constraint>> conflictsWithoutCF) {
         List<UserRequirement> resolvedParents = new ArrayList<>();
@@ -55,5 +56,65 @@ public class URResolveStrategy implements IResolveStrategy<Assignment, UserRequi
         }
 
         return resolvedParents;
+    }
+    */
+
+
+    @Override
+    public List<UserRequirement> resolve(UserRequirement individual, List<Set<Constraint>> conflictsWithoutCF) {
+        List<UserRequirement> resolvedParents = new ArrayList<>();
+        resolvedParents.add(individual);
+
+        if (conflictsWithoutCF == null || conflictsWithoutCF.isEmpty()) {
+            resolvedParents.add(individual);
+        } else {
+
+            for (Set<Constraint> conflict : conflictsWithoutCF) {
+                resolvedParents = resolveConflict(resolvedParents, conflict);
+            }
+        }
+
+        return resolvedParents;
+    }
+
+    private List<UserRequirement> resolveConflict(List<UserRequirement> userReqList, Set<Constraint> conflict){
+        List<UserRequirement> resolvedList = new ArrayList<>();
+
+        for (UserRequirement individual : userReqList) {
+            if (ConflictUtils.containsAll(individual, conflict)) {
+                for (Constraint constraint : conflict) {
+                    List<Assignment> assignments = new ArrayList<>();
+
+                    for (Assignment assignment : individual.getAssignments()) {
+                        if (!Objects.equals(assignment.toString(), constraint.toString())) {
+                            assignments.add(assignment);
+                        }
+                    }
+
+                    UserRequirement resolvedIndividual = UserRequirement.requirementBuilder()
+                            .assignments(assignments)
+                            .build();
+
+                    resolvedList.add(resolvedIndividual);
+                }
+            }
+            else {
+                resolvedList.add(individual);
+            }
+        }
+
+        return resolvedList;
+    }
+
+    private boolean alreadyInList(List<UserRequirement> userReqList, UserRequirement individual) {
+        boolean inList = false;
+        for (UserRequirement ref : userReqList) {
+            if (ConflictUtils.isSubset(individual, ref)) {
+                inList = true;
+                break;
+            }
+        }
+        assert inList == userReqList.stream().noneMatch(ref -> ConflictUtils.isSubset(individual, ref));
+        return inList;
     }
 }

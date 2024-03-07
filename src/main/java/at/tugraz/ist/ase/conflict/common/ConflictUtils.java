@@ -223,4 +223,16 @@ public class ConflictUtils {
         return true;*/
         return conflict.stream().noneMatch(c -> ur.getAssignments().stream().noneMatch(assignment -> Objects.equals(assignment.toString(), c.toString())));
     }
+
+    /**
+     * Checks if ur1 is a subset of ur2
+     * @param ur1 UserRequirement subset candidate
+     * @param ur2 UserRequirement that may contain ur1
+     * @return true if ur1 is subset or equal to ur2
+     */
+    public static boolean isSubset(UserRequirement ur1, UserRequirement ur2) {
+        return  ur1.getAssignments().stream().noneMatch(assignment1 ->
+                ur2.getAssignments().stream().noneMatch(assignment2 ->
+                        Objects.equals(assignment1.toString(), assignment2.toString())));
+    }
 }

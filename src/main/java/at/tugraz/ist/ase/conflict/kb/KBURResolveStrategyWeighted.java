@@ -28,7 +28,7 @@ public class KBURResolveStrategyWeighted implements IResolveStrategy<Assignment,
         List<UserRequirement> resolvedParents = new ArrayList<>();
         List<Set<Constraint>> conflicts = getAllConflicts(individual, conflictsWithoutCF);
 
-        if (conflictsWithoutCF == null || conflictsWithoutCF.isEmpty() || conflicts.isEmpty()) {
+        if (conflictsWithoutCF.isEmpty() || conflicts.isEmpty()) {
             resolvedParents.add(individual);
         }
         else {

@@ -18,7 +18,6 @@ import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 import at.tugraz.ist.ase.hiconfit.kb.core.Variable;
-import lombok.Getter;
 import lombok.Setter;
 import org.javatuples.Pair;
 
@@ -30,6 +29,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     private static  final int RETRY_COUNTER_LIMIT = 5;
     private final List<Variable> variables;
     private static final Random random = new Random(RandomUtils.getSEED());
+    private boolean weightedPopulation = false;
     private boolean noSameID = false;
 
     private int populationSize;
@@ -40,9 +40,10 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     @Setter
     private IResolveStrategy<Assignment, UserRequirement> resolveStrategy = null;
 
-    public KBConflictCrossOverStrategyWeighted(List<Variable> variables, int populationSize, boolean avoidSameID) {
+    public KBConflictCrossOverStrategyWeighted(List<Variable> variables, int populationSize, boolean weightedPopulation, boolean avoidSameID) {
         this.variables = variables;
         this.populationSize = populationSize;
+        this.weightedPopulation = weightedPopulation;
         this.noSameID = avoidSameID;
 
         assert populationSize >= 1;
@@ -57,11 +58,19 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
 
         LoggerUtils.indent();
 
-        List<UserRequirement> weightedParents = GetWeightDistributedList(parents);
+        List<UserRequirement> parentsList;
+        if (weightedPopulation) {
+             parentsList = GetWeightDistributedList(parents);
+        }
+        else {
+            parentsList = new ArrayList<>(){};
+            parents.forEach(e -> parentsList.add(e));
+        }
+
 
         while (population.size() < populationSize) {
             // get two parents
-            Pair<UserRequirement, UserRequirement> parentPair = SelectParents(weightedParents);
+            Pair<UserRequirement, UserRequirement> parentPair = SelectParents(parentsList);
             UserRequirement parent1 = parentPair.getValue0();
             UserRequirement parent2 = parentPair.getValue1();
 
