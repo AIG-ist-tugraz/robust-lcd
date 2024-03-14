@@ -26,19 +26,19 @@
 
     <dependencies>
         <!--suppress VulnerableLibrariesLocal -->
-<!--        <dependency>-->
-<!--            <groupId>at.tugraz.ist.ase.hiconfit</groupId>-->
-<!--            <artifactId>ca-cdr</artifactId>-->
-<!--            <version>${hiconfit.version}</version>-->
-<!--        </dependency>-->
-
         <dependency>
-            <groupId>at.tugraz.ist.ase</groupId>
+            <groupId>at.tugraz.ist.ase.hiconfit</groupId>
             <artifactId>ca-cdr</artifactId>
             <version>${hiconfit.version}</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/ca-cdr-1.0.1-alpha-22.jar</systemPath>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>at.tugraz.ist.ase</groupId>-->
+<!--            <artifactId>ca-cdr</artifactId>-->
+<!--            <version>${hiconfit.version}</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/ca-cdr-1.0.1-alpha-22.jar</systemPath>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -56,6 +56,29 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <groupId>at.tugraz.ist.ase.hiconfit</groupId>
+                    <artifactId>ca-cdr</artifactId>
+                    <version>${hiconfit.version}</version>
+                    <packaging>jar</packaging>
+                    <file>${project.basedir}/lib/ca-cdr-1.0.1-alpha-22.jar</file>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install-jar-lib</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
