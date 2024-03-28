@@ -27,12 +27,14 @@ import java.util.*;
 public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<Assignment, UserRequirement> {
 
     private static  final int RETRY_COUNTER_LIMIT = 5;
+    private static final double BASE_PROBABILITY = 0.5;
     private final List<Variable> variables;
     private static final Random random = new Random(RandomUtils.getSEED());
     private boolean weightedPopulation = false;
     private boolean noSameID = false;
+    private double crossoverProbability = 0.5;
 
-    private int populationSize;
+    private final int populationSize;
     @Setter
     private List<Set<Constraint>> knownConflicts = null;
     @Setter
@@ -40,11 +42,12 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     @Setter
     private IResolveStrategy<Assignment, UserRequirement> resolveStrategy = null;
 
-    public KBConflictCrossOverStrategyWeighted(List<Variable> variables, int populationSize, boolean weightedPopulation, boolean avoidSameID) {
+    public KBConflictCrossOverStrategyWeighted(List<Variable> variables, int populationSize, boolean weightedPopulation, boolean avoidSameID, double crossoverProbability) {
         this.variables = variables;
         this.populationSize = populationSize;
         this.weightedPopulation = weightedPopulation;
         this.noSameID = avoidSameID;
+        this.crossoverProbability = crossoverProbability;
 
         assert populationSize >= 1;
     }
@@ -60,7 +63,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
 
         List<UserRequirement> parentsList;
         if (weightedPopulation) {
-             parentsList = GetWeightDistributedList(parents);
+             parentsList = getWeightDistributedList(parents);
         }
         else {
             parentsList = new ArrayList<>(){};
@@ -70,7 +73,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
 
         while (population.size() < populationSize) {
             // get two parents
-            Pair<UserRequirement, UserRequirement> parentPair = SelectParents(parentsList);
+            Pair<UserRequirement, UserRequirement> parentPair = selectParents(parentsList);
             UserRequirement parent1 = parentPair.getValue0();
             UserRequirement parent2 = parentPair.getValue1();
 
@@ -133,6 +136,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     @Override
     public UserRequirement crossover(UserRequirement i1, UserRequirement i2) {
         List<Assignment> assignments = new ArrayList<>();
+        double fatherProbability = calculateProbability(i1.getWeight(), i2.getWeight());
 
         for (Variable var : variables) {
             // get value of father
@@ -154,20 +158,13 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
             enum CROSSOVERTYPE {FATHER, MOTHER, NONE}
             CROSSOVERTYPE crossOverType = CROSSOVERTYPE.NONE;
 
-            // if both parents have the same value,
-            // then the child has the same value
-            // if the values differ, select random parent
+            boolean selectFather = random.nextDouble() < fatherProbability; //random.nextBoolean();
+            boolean selectMother = !selectFather;
 
-            // if the selected parent has no value,
-            // then child has also no value
-
-            // select FATHER
-            if (random.nextBoolean()){
-                if (father_value != null)
-                    crossOverType = CROSSOVERTYPE.FATHER;
+            if (selectFather && father_value != null) {
+                crossOverType = CROSSOVERTYPE.FATHER;
             }
-            // select MOTHER
-            else if (mother_value != null) {
+            else if (selectMother && mother_value != null) {
                 crossOverType = CROSSOVERTYPE.MOTHER;
             }
 
@@ -192,7 +189,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
                 .build();
     }
 
-    private Pair<UserRequirement, UserRequirement> SelectParents(List<UserRequirement> weightedParents) {
+    private Pair<UserRequirement, UserRequirement> selectParents(List<UserRequirement> weightedParents) {
 
         // init parent1
         int randIndex1 = random.nextInt(weightedParents.size());
@@ -220,7 +217,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     /**
      * Helper function to sum up all UserRequirement weights.
      */
-    private int GetTotalWeightingFactor(Population<Assignment, UserRequirement> population) {
+    private int getTotalWeightingFactor(Population<Assignment, UserRequirement> population) {
         int factor = 0;
         for (UserRequirement individual : population ) {
             factor += 1 + individual.getWeight();
@@ -232,7 +229,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
      * Create List of all UserRequirements in Population but duplicate UserRequirements
      * with weight higher than 0 by that factor.
      */
-    private List<UserRequirement> GetWeightDistributedList(Population<Assignment, UserRequirement> population) {
+    private List<UserRequirement> getWeightDistributedList(Population<Assignment, UserRequirement> population) {
         List<UserRequirement> weightedList = new ArrayList<>();
 
         for (UserRequirement individual : population ) {
@@ -245,5 +242,17 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
         }
 
         return weightedList;
+    }
+
+    private double calculateProbability(int weight, int comparativeWeight) {
+        int weightDelta = Math.abs(weight - comparativeWeight);
+        double probability = BASE_PROBABILITY;
+
+        if (weightDelta > 0){
+            double k = -Math.log((1-crossoverProbability)/(1-BASE_PROBABILITY));
+            probability = 1 - (1-BASE_PROBABILITY) * Math.exp(-k * weightDelta); //BASE_PROBABILITY + (1 - probabilityStep) * Math.log(weightDelta + 1) / Math.log(WEIGHT_BASE); //BASE_PROBABILITY + Math.pow(2, weightDelta - 1) * probabilityStep;
+        }
+
+        return weight >= comparativeWeight ? probability : 1 - probability;
     }
 }

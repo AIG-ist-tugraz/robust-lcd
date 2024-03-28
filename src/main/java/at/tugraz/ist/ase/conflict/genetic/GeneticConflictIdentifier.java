@@ -9,6 +9,7 @@
 package at.tugraz.ist.ase.conflict.genetic;
 
 import at.tugraz.ist.ase.conflict.common.ConflictUtils;
+import at.tugraz.ist.ase.conflict.common.StatisticsWriter;
 import at.tugraz.ist.ase.conflict.genetic.crossover.ICrossOverStrategy;
 import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
 import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
@@ -69,6 +70,9 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
     private BufferedWriter allConflictSetsWriter = null;
     @Setter
     private BufferedWriter allConflictSetsWithoutCFWriter = null;
+
+    @Setter
+    private StatisticsWriter statisticsWriter = null;
 
     @Builder
     public GeneticConflictIdentifier(@NonNull Population<Assignment, UserRequirement> population,
@@ -165,6 +169,8 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         int newMinConflicts = allConflictSets.size() - knownMinConflictsBefore;
         message = String.format("%sGENERATION %d: Found %d globally new minimal conflict sets in this round.", LoggerUtils.tab(), currentIteration, newMinConflicts);
         ConflictUtils.printMessage(resultWriter, message);
+
+        statisticsWriter.write(allNewConflictSets.size(), newMinConflicts, allConflictSets.size());
 
         this.population = parents;
 
@@ -305,6 +311,8 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 
             this.evolve();
         }
+
+        statisticsWriter.close();
     }
 
     public void addIterationListener(IterationListener<Assignment, UserRequirement, Double> listener) {

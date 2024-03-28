@@ -12,6 +12,7 @@ import at.tugraz.ist.ase.conflict.cli.CmdLineOptions;
 import at.tugraz.ist.ase.conflict.cli.ConfigManager;
 import at.tugraz.ist.ase.conflict.common.ConflictSetReader;
 import at.tugraz.ist.ase.conflict.common.ConflictUtils;
+import at.tugraz.ist.ase.conflict.common.StatisticsWriter;
 import at.tugraz.ist.ase.conflict.genetic.GeneticConflictIdentifier;
 import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.Populations;
@@ -125,7 +126,13 @@ public class GeneticConflictForAPM {
 
         if (cfg.isWeightedConflicts() || cfg.isAvoidSameOriginalConflict()) {
             gci.setResolveStrategy(new KBURResolveStrategyWeighted());
-            gci.setCrossOverStrategy(new KBConflictCrossOverStrategyWeighted(variables, cfg.getPopulationSize(), true, cfg.isAvoidSameOriginalConflict()));
+            gci.setCrossOverStrategy(new KBConflictCrossOverStrategyWeighted(
+                    variables,
+                    cfg.getPopulationSize(),
+                    true,
+                    cfg.isAvoidSameOriginalConflict(),
+                    cfg.getWeightedCrossoverProbability()
+            ));
         }
         else {
             gci.setResolveStrategy(new URResolveStrategy());
@@ -143,6 +150,13 @@ public class GeneticConflictForAPM {
                 throw new RuntimeException(e);
             }
         });
+
+        // Add statistics writer
+        if (!cfg.getStatisticsPath().equals("")){
+            StatisticsWriter sw = new StatisticsWriter(cfg.getStatisticsPath());
+            sw.setSummaryPath(cfg.getSummaryPath());
+            gci.setStatisticsWriter(sw);
+        }
 
         // start the genetic algorithm
         gci.evolve(cfg.getMaxNumGenerations());
