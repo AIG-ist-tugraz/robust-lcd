@@ -4,7 +4,8 @@ package at.tugraz.ist.ase.conflict.common;
 import lombok.Setter;
 
 import java.io.*;
-import java.util.Arrays;
+import java.time.Duration;
+import java.time.Instant;
 
 public class StatisticsWriter {
 
@@ -16,8 +17,11 @@ public class StatisticsWriter {
     private int totalConflicts = 0;
     private final BufferedWriter logWriter;
 
+    private Instant start, finish;
+
     public StatisticsWriter(String path) throws IOException {
         try {
+            start = Instant.now();
             logWriter = new BufferedWriter(new FileWriter(path));
             logWriter.write(String.join(",", header));
             logWriter.newLine();
@@ -71,7 +75,8 @@ public class StatisticsWriter {
 
         String line = String.join(",", new String[]{
                 String.valueOf(generationCounter),
-                String.valueOf(totalConflicts)
+                String.valueOf(totalConflicts),
+                String.valueOf(Duration.between(start, finish).toMillis())
         });
 
         try {
@@ -87,6 +92,7 @@ public class StatisticsWriter {
     }
 
     public void close() {
+        finish = Instant.now();
         if (!summaryPath.equals("")) writeSummary();
 
         try {

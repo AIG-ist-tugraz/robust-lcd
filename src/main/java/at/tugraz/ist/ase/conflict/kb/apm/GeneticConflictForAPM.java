@@ -131,7 +131,8 @@ public class GeneticConflictForAPM {
                     cfg.getPopulationSize(),
                     true,
                     cfg.isAvoidSameOriginalConflict(),
-                    cfg.getWeightedCrossoverProbability()
+                    cfg.isWeightedCrossover(),
+                    cfg.getWeightedCrossoverFactor()
             ));
         }
         else {

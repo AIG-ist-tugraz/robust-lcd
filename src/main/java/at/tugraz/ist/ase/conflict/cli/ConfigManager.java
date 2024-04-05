@@ -56,7 +56,8 @@ public final class ConfigManager {
     // used to adapt the genetic algorithm
     private final boolean weightedConflicts;
     private final boolean avoidSameOriginalConflict;
-    private final double weightedCrossoverProbability;
+    private final boolean weightedCrossover;
+    private final double weightedCrossoverFactor;
 
     // used to log statistics
     private final String statisticsPath;
@@ -118,7 +119,8 @@ public final class ConfigManager {
 
         weightedConflicts = appProps.getProperty("weightedConflicts", "no").equals("yes");
         avoidSameOriginalConflict = appProps.getProperty("avoidSameOriginalConflict", "no").equals("yes");
-        weightedCrossoverProbability = Double.parseDouble(appProps.getProperty("weightedCrossoverProbability", "0.5"));
+        weightedCrossover = appProps.getProperty("weightedCrossover", "no").equals("yes");
+        weightedCrossoverFactor = Double.parseDouble(appProps.getProperty("weightedCrossoverFactor", "2"));
 
         statisticsPath = appProps.getProperty("statisticsPath", "");
         summaryPath = appProps.getProperty("summaryPath", "");

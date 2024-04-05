@@ -32,7 +32,8 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     private static final Random random = new Random(RandomUtils.getSEED());
     private boolean weightedPopulation = false;
     private boolean noSameID = false;
-    private double crossoverProbability = 0.5;
+    private boolean weightedCrossover = false;
+    private double crossoverFactor = 2;
 
     private final int populationSize;
     @Setter
@@ -42,12 +43,13 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     @Setter
     private IResolveStrategy<Assignment, UserRequirement> resolveStrategy = null;
 
-    public KBConflictCrossOverStrategyWeighted(List<Variable> variables, int populationSize, boolean weightedPopulation, boolean avoidSameID, double crossoverProbability) {
+    public KBConflictCrossOverStrategyWeighted(List<Variable> variables, int populationSize, boolean weightedPopulation, boolean avoidSameID, boolean weightedCrossover, double crossoverFactor) {
         this.variables = variables;
         this.populationSize = populationSize;
         this.weightedPopulation = weightedPopulation;
         this.noSameID = avoidSameID;
-        this.crossoverProbability = crossoverProbability;
+        this.weightedCrossover = weightedCrossover;
+        this.crossoverFactor = crossoverFactor;
 
         assert populationSize >= 1;
     }
@@ -136,7 +138,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     @Override
     public UserRequirement crossover(UserRequirement i1, UserRequirement i2) {
         List<Assignment> assignments = new ArrayList<>();
-        double fatherProbability = calculateProbability(i1.getWeight(), i2.getWeight());
+        double fatherProbability = weightedCrossover ? calculateProbability(i1.getWeight(), i2.getWeight()) : BASE_PROBABILITY;
 
         for (Variable var : variables) {
             // get value of father
@@ -158,7 +160,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
             enum CROSSOVERTYPE {FATHER, MOTHER, NONE}
             CROSSOVERTYPE crossOverType = CROSSOVERTYPE.NONE;
 
-            boolean selectFather = random.nextDouble() < fatherProbability; //random.nextBoolean();
+            boolean selectFather = random.nextDouble() < fatherProbability; //selectFather(fatherProbability, father_value==null, mother_value==null);
             boolean selectMother = !selectFather;
 
             if (selectFather && father_value != null) {
@@ -244,15 +246,40 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
         return weightedList;
     }
 
+    /**
+     * Calculate the probability of an ancestor with the given weight,
+     * against the ancestor with the comparable weight.
+     * <p>
+     * @param weight of the primary ancestor of whom the probability shall be calculated.
+     * @param comparativeWeight of the secondary ancestor to be compared against.
+     * @return the probability that the primary ancestor shall be selected.
+     */
     private double calculateProbability(int weight, int comparativeWeight) {
         int weightDelta = Math.abs(weight - comparativeWeight);
         double probability = BASE_PROBABILITY;
 
         if (weightDelta > 0){
-            double k = -Math.log((1-crossoverProbability)/(1-BASE_PROBABILITY));
-            probability = 1 - (1-BASE_PROBABILITY) * Math.exp(-k * weightDelta); //BASE_PROBABILITY + (1 - probabilityStep) * Math.log(weightDelta + 1) / Math.log(WEIGHT_BASE); //BASE_PROBABILITY + Math.pow(2, weightDelta - 1) * probabilityStep;
+            // double k = -Math.log((1-crossoverProbability)/(1-BASE_PROBABILITY));
+            // probability = 1 - (1-BASE_PROBABILITY) * Math.exp(-k * weightDelta); //BASE_PROBABILITY + (1 - probabilityStep) * Math.log(weightDelta + 1) / Math.log(WEIGHT_BASE); //BASE_PROBABILITY + Math.pow(2, weightDelta - 1) * probabilityStep;
+            probability = Math.atan(weightDelta/Math.pow(Math.PI, crossoverFactor)) * 0.3 + BASE_PROBABILITY;
         }
 
         return weight >= comparativeWeight ? probability : 1 - probability;
+    }
+
+    // reset probability if the favored value is unassigned
+    private boolean selectFather(double fatherProbability, boolean isFatherNull, boolean isMotherNull) {
+        double probability;
+
+        if (fatherProbability > BASE_PROBABILITY && isFatherNull){
+            probability = BASE_PROBABILITY;
+        } else
+        if (fatherProbability < BASE_PROBABILITY && isMotherNull){
+            probability = BASE_PROBABILITY;
+        } else {
+            probability = fatherProbability;
+        }
+
+        return random.nextDouble() < probability;
     }
 }
