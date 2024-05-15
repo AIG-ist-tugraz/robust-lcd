@@ -267,19 +267,4 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
         return weight >= comparativeWeight ? probability : 1 - probability;
     }
 
-    // reset probability if the favored value is unassigned
-    private boolean selectFather(double fatherProbability, boolean isFatherNull, boolean isMotherNull) {
-        double probability;
-
-        if (fatherProbability > BASE_PROBABILITY && isFatherNull){
-            probability = BASE_PROBABILITY;
-        } else
-        if (fatherProbability < BASE_PROBABILITY && isMotherNull){
-            probability = BASE_PROBABILITY;
-        } else {
-            probability = fatherProbability;
-        }
-
-        return random.nextDouble() < probability;
-    }
 }

@@ -49,10 +49,13 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
     private boolean terminate = false;
     private final int stopAfterXTimesNoConflict;
     private int numNoConflict = 0;
-
-    private final int pupolationSize;
+    private final int populationSize;
     @Getter
     private int currentIteration = 0;
+    @Getter
+    private int currentPopulation = 0;
+    @Getter
+    private int currentGeneration = 0;
 
     private final List<Set<Constraint>> allConflictSets; // TODO: start with some already known conflicts
     private final List<Set<Constraint>> allConflictSetsWithoutCF;
@@ -72,6 +75,11 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
     private BufferedWriter allConflictSetsWithoutCFWriter = null;
 
     @Setter
+    private int extinctAfterXTimesNoConflict = 0;
+    @Setter
+    private int stopAfterXExtinctions = 0;
+
+    @Setter
     private StatisticsWriter statisticsWriter = null;
 
     @Builder
@@ -84,7 +92,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
                                      List<Set<Constraint>> allConflictSets,
                                      List<Set<Constraint>> allConflictSetsWithoutCF) {
         this.population = population;
-        this.pupolationSize = population.size();
+        this.populationSize = population.size();
 //        this.featureModel = featureModel;
         this.modelFactory = modelFactory;
         this.cfInConflicts = cfInConflicts;
@@ -170,7 +178,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         message = String.format("%sGENERATION %d: Found %d globally new minimal conflict sets in this round.", LoggerUtils.tab(), currentIteration, newMinConflicts);
         ConflictUtils.printMessage(resultWriter, message);
 
-        statisticsWriter.write(allNewConflictSets.size(), newMinConflicts, allConflictSets.size());
+        statisticsWriter.write(currentPopulation, currentGeneration, allNewConflictSets.size(), newMinConflicts, allConflictSets.size());
 
         this.population = parents;
 
@@ -189,7 +197,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 
         // randomly crossover
         if (crossOverStrategy != null) {
-            message = String.format("%sGENERATION %d: Generating a new generation of %d individuals with genetic crossover...", LoggerUtils.tab(), currentIteration, pupolationSize);
+            message = String.format("%sGENERATION %d: Generating a new generation of %d individuals with genetic crossover...", LoggerUtils.tab(), currentIteration, populationSize);
             ConflictUtils.printMessage(resultWriter, message);
 
             crossOverStrategy.setKnownConflicts(allConflictSetsWithoutCF);
@@ -220,7 +228,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 //                    return;
 //                }
 
-                population = Populations.newPopulations(pupolationSize, mutationStrategy);
+                population = Populations.newPopulations(populationSize, mutationStrategy);
             }
 
             for (IterationListener<Assignment, UserRequirement, Double> l : this.iterationListeners) {
@@ -234,18 +242,33 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 
         // TODO: think about the stop condition
         if (newMinConflicts > 0) {
-            currentIteration++; // next generation
-        } else { // else: keep current generation
+            numNoConflict = 0;
+            currentGeneration++;
+        } else {
             numNoConflict++;
-            if (numNoConflict > stopAfterXTimesNoConflict) {
+            currentGeneration++;
+            if (extinctAfterXTimesNoConflict > 0 && numNoConflict > extinctAfterXTimesNoConflict) {
+                currentPopulation++;
+                currentGeneration = 0;
+                if (currentPopulation >= stopAfterXExtinctions) {
+                    message = String.format("%sEXTINCTION %d: %d times without conflicts in %d iterations. Terminating.", LoggerUtils.tab(), currentPopulation, numNoConflict, currentIteration);
+                    ConflictUtils.printMessage(resultWriter, message);
+                    terminate = true;
+                } else {
+                    message = String.format("%sEXTINCTION %d: %d times without conflicts. Current iteration %d.", LoggerUtils.tab(), currentPopulation, numNoConflict, currentIteration);
+                    ConflictUtils.printMessage(resultWriter, message);
+                    population = Populations.newPopulations(populationSize, mutationStrategy);
+                }
+            } else if (stopAfterXTimesNoConflict > 0 && numNoConflict > stopAfterXTimesNoConflict) {
                 message = String.format("%sGENERATION %d: %d times without conflicts. Terminating.", LoggerUtils.tab(), currentIteration, numNoConflict);
                 ConflictUtils.printMessage(resultWriter, message);
                 terminate = true;
             } else {
-                message = String.format("%sGENERATION %d: No new minimal conflict sets found. Repeating this generation.", LoggerUtils.tab(), currentIteration);
+                message = String.format("%sGENERATION %d: No new minimal conflict sets found in this generation.", LoggerUtils.tab(), currentIteration);
                 ConflictUtils.printMessage(resultWriter, message);
             }
         }
+        currentIteration++; // next iteration
     }
 
     // TODO: this function can be used to identify all Conflicts

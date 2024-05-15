@@ -52,7 +52,9 @@ public final class ConfigManager {
     private final boolean printResult;
     private final String existingCSPath;
     private final String existingCSWithoutCFPath;
-
+    // extinction settings
+    private final int extinctAfterXTimesNoConflict;
+    private final int stopAfterXExtinctions;
     // used to adapt the genetic algorithm
     private final boolean weightedConflicts;
     private final boolean avoidSameOriginalConflict;
@@ -111,11 +113,14 @@ public final class ConfigManager {
         noPreferenceProbability = Double.parseDouble(appProps.getProperty("noPreferenceProbability", "0.7"));
         mutationProbability = Double.parseDouble(appProps.getProperty("mutationProbability", "0.1"));
         maxNumGenerations = Integer.parseInt(appProps.getProperty("maxNumGenerations", "30"));
-        stopAfterXTimesNoConflict = Integer.parseInt(appProps.getProperty("stopAfterXTimesNoConflict", "10"));
+        stopAfterXTimesNoConflict = Integer.parseInt(appProps.getProperty("stopAfterXTimesNoConflict", "0"));
         maxFeaturesInUR = Integer.parseInt(appProps.getProperty("maxFeaturesInUR", "100"));
         printResult = appProps.getProperty("printResult", "yes").equals("yes");
         existingCSPath = appProps.getProperty("existingCSPath", "");
         existingCSWithoutCFPath = appProps.getProperty("existingCSWithoutCFPath", "");
+
+        extinctAfterXTimesNoConflict = Integer.parseInt(appProps.getProperty("extinctAfterXTimesNoConflict", "0"));
+        stopAfterXExtinctions = Integer.parseInt(appProps.getProperty("stopAfterXExtinctions", "0"));
 
         weightedConflicts = appProps.getProperty("weightedConflicts", "no").equals("yes");
         avoidSameOriginalConflict = appProps.getProperty("avoidSameOriginalConflict", "no").equals("yes");

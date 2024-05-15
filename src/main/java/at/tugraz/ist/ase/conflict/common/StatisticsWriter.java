@@ -9,13 +9,14 @@ import java.time.Instant;
 
 public class StatisticsWriter {
 
-    private final String[] header = new String[]{"generation", "total_cs", "generated_cs", "new_cs"};
+    private final String[] header = new String[]{"population", "generation", "total_cs", "generated_cs", "new_cs"};
 
     @Setter
     private String summaryPath = "";
-    private int generationCounter = 0;
     private int totalConflicts = 0;
     private final BufferedWriter logWriter;
+    
+    private int populationCount = 0, generationCount = 0;
 
     private Instant start, finish;
 
@@ -32,31 +33,16 @@ public class StatisticsWriter {
         }
     }
 
-    public void write(int generatedConflicts, int newConflicts) {
-        totalConflicts += newConflicts;
-
-        String line = String.join(",", new String[]{
-                String.valueOf(generationCounter++),
-                String.valueOf(totalConflicts),
-                String.valueOf(generatedConflicts),
-                String.valueOf(newConflicts)
-        });
-
-        try {
-            logWriter.write(line);
-            logWriter.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-            //throw e;
-        }
-    }
-
-    public void write(int generatedConflicts, int newConflicts, int totalConflicts) {
+    public void write(int populationID,int generationID, int generatedConflicts, int newConflicts, int totalConflicts) {
         assert (this.totalConflicts + newConflicts) == totalConflicts;
         this.totalConflicts = totalConflicts;
+        
+        populationCount = populationID;
+        generationCount += 1;
 
         String line = String.join(",", new String[]{
-                String.valueOf(generationCounter++),
+                String.valueOf(populationID),
+                String.valueOf(generationID),
                 String.valueOf(totalConflicts),
                 String.valueOf(generatedConflicts),
                 String.valueOf(newConflicts)
@@ -74,7 +60,8 @@ public class StatisticsWriter {
     private void writeSummary() {
 
         String line = String.join(",", new String[]{
-                String.valueOf(generationCounter),
+                String.valueOf(populationCount),
+                String.valueOf(generationCount),
                 String.valueOf(totalConflicts),
                 String.valueOf(Duration.between(start, finish).toMillis())
         });

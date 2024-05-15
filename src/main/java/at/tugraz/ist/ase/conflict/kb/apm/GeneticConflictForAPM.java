@@ -124,6 +124,9 @@ public class GeneticConflictForAPM {
 
         gci.setMutationStrategy(mutationStrategy);
 
+        gci.setExtinctAfterXTimesNoConflict(cfg.getExtinctAfterXTimesNoConflict());
+        gci.setStopAfterXExtinctions(cfg.getStopAfterXExtinctions());
+
         if (cfg.isWeightedConflicts() || cfg.isAvoidSameOriginalConflict()) {
             gci.setResolveStrategy(new KBURResolveStrategyWeighted());
             gci.setCrossOverStrategy(new KBConflictCrossOverStrategyWeighted(
