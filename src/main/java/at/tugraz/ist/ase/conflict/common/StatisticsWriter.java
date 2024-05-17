@@ -4,12 +4,17 @@ package at.tugraz.ist.ase.conflict.common;
 import lombok.Setter;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 
 public class StatisticsWriter {
 
     private final String[] header = new String[]{"population", "generation", "total_cs", "generated_cs", "new_cs"};
+    private final String[] summaryHeaders = new String[]{"total_populations", "total_gens", "found_cs", "runtime[ms]"};
 
     @Setter
     private String summaryPath = "";
@@ -22,6 +27,8 @@ public class StatisticsWriter {
 
     public StatisticsWriter(String path) throws IOException {
         try {
+            Files.deleteIfExists(Paths.get(path));
+
             start = Instant.now();
             logWriter = new BufferedWriter(new FileWriter(path));
             logWriter.write(String.join(",", header));
@@ -67,28 +74,42 @@ public class StatisticsWriter {
         });
 
         try {
-            FileWriter writer = new FileWriter(summaryPath, true);
-            writer.write(line);
-            writer.write("\r\n");
-            writer.flush();
-            writer.close();
+            Path summaryFilePath = Paths.get(summaryPath);
+            if (!Files.exists(summaryFilePath)) {
+                Files.createFile(summaryFilePath);
+                try (BufferedWriter writer = Files.newBufferedWriter(summaryFilePath, StandardOpenOption.APPEND)) {
+                    writer.write(String.join(",", summaryHeaders));
+                    writer.newLine();
+                }
+            }
+
+            try (BufferedWriter writer = Files.newBufferedWriter(summaryFilePath, StandardOpenOption.APPEND)) {
+                writer.write(line);
+                writer.newLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            //throw e
         }
     }
 
     public void close() {
         finish = Instant.now();
-        if (!summaryPath.equals("")) writeSummary();
+        if (!summaryPath.isEmpty()) writeSummary();
 
         try {
             if (logWriter != null) {
                 logWriter.flush();
-                logWriter.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (logWriter != null) {
+                    logWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
