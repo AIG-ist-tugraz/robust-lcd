@@ -38,3 +38,10 @@ build/
 /logs.log
 *.zip
 *.csv
+
+### PyCharm ###
+**/.idea/
+
+### Test Scripts ###
+/test-scripts/apm_results/
+**temp.cfg
