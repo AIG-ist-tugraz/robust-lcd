@@ -44,4 +44,5 @@ build/
 
 ### Test Scripts ###
 /test-scripts/apm_results/
+/test-scripts/logs.log
 **temp.cfg
