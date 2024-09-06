@@ -156,7 +156,7 @@ public class GeneticConflictForAPM {
         });
 
         // Add statistics writer
-        if (!cfg.getStatisticsPath().equals("")){
+        if (!cfg.getStatisticsPath().isEmpty()){
             StatisticsWriter sw = new StatisticsWriter(cfg.getStatisticsPath());
             sw.setSummaryPath(cfg.getSummaryPath());
             gci.setStatisticsWriter(sw);

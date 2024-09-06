@@ -178,7 +178,8 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         message = String.format("%sGENERATION %d: Found %d globally new minimal conflict sets in this round.", LoggerUtils.tab(), currentIteration, newMinConflicts);
         ConflictUtils.printMessage(resultWriter, message);
 
-        statisticsWriter.write(currentPopulation, currentGeneration, allNewConflictSets.size(), newMinConflicts, allConflictSets.size());
+        if (statisticsWriter!= null)
+            statisticsWriter.write(currentPopulation, currentGeneration, allNewConflictSets.size(), newMinConflicts, allConflictSets.size());
 
         this.population = parents;
 
@@ -335,7 +336,8 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
             this.evolve();
         }
 
-        statisticsWriter.close();
+        if (statisticsWriter != null)
+            statisticsWriter.close();
     }
 
     public void addIterationListener(IterationListener<Assignment, UserRequirement, Double> listener) {

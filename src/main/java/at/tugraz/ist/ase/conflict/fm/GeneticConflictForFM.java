@@ -12,11 +12,15 @@ import at.tugraz.ist.ase.conflict.cli.CmdLineOptions;
 import at.tugraz.ist.ase.conflict.cli.ConfigManager;
 import at.tugraz.ist.ase.conflict.common.ConflictSetReader;
 import at.tugraz.ist.ase.conflict.common.ConflictUtils;
+import at.tugraz.ist.ase.conflict.common.StatisticsWriter;
 import at.tugraz.ist.ase.conflict.genetic.GeneticConflictIdentifier;
 import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.Populations;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
+import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategy;
+import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategyWeighted;
+import at.tugraz.ist.ase.conflict.kb.KBURResolveStrategyWeighted;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.FMModelWithRequirement;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
@@ -160,8 +164,34 @@ public class GeneticConflictForFM {
                 .build();
 
         gci.setMutationStrategy(mutationStrategy);
+
+        //--------------------------------------------------------
+        // extinction settings
+        gci.setExtinctAfterXTimesNoConflict(cfg.getExtinctAfterXTimesNoConflict());
+        gci.setStopAfterXExtinctions(cfg.getStopAfterXExtinctions());
+
+        // weighted resolver and crossover
+        if (cfg.isWeightedConflicts() || cfg.isAvoidSameOriginalConflict()) {
+            gci.setResolveStrategy(new KBURResolveStrategyWeighted());
+            gci.setCrossOverStrategy(new FMConflictCrossOverStrategyWeighted(
+                    leafFeatures,
+                    cfg.getPopulationSize(),
+                    true,
+                    cfg.isAvoidSameOriginalConflict(),
+                    cfg.isWeightedCrossover(),
+                    cfg.getWeightedCrossoverFactor()
+            ));
+        }
+        else {
+            gci.setResolveStrategy(new URResolveStrategy());
+            gci.setCrossOverStrategy(new FMConflictCrossOverStrategy(leafFeatures));
+        }
+
+        //--------------------------------------------------------
         gci.setResolveStrategy(new URResolveStrategy());
         gci.setCrossOverStrategy(new FMConflictCrossOverStrategy(leafFeatures));
+
+        //--------------------------------------------------------
 
         gci.setResultWriter(resultWriter);
         gci.setAllConflictSetsWriter(allConflictSetsWriter);
@@ -174,6 +204,13 @@ public class GeneticConflictForFM {
                 throw new RuntimeException(e);
             }
         });
+
+        // Add statistics writer
+        if (!cfg.getStatisticsPath().isEmpty()){
+            StatisticsWriter sw = new StatisticsWriter(cfg.getStatisticsPath());
+            sw.setSummaryPath(cfg.getSummaryPath());
+            gci.setStatisticsWriter(sw);
+        }
 
         // start the genetic algorithm
         gci.evolve(cfg.getMaxNumGenerations());

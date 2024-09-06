@@ -6,7 +6,7 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.conflict.kb;
+package at.tugraz.ist.ase.conflict.fm;
 
 import at.tugraz.ist.ase.conflict.common.ConflictUtils;
 import at.tugraz.ist.ase.conflict.genetic.Population;
@@ -16,6 +16,7 @@ import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;
+import at.tugraz.ist.ase.hiconfit.fm.core.Feature;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 import at.tugraz.ist.ase.hiconfit.kb.core.Variable;
 import lombok.Setter;
@@ -24,12 +25,13 @@ import org.javatuples.Pair;
 import java.io.BufferedWriter;
 import java.util.*;
 
-public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<Assignment, UserRequirement> {
+public class FMConflictCrossOverStrategyWeighted implements ICrossOverStrategy<Assignment, UserRequirement> {
 
-    private static  final int RETRY_COUNTER_LIMIT = 5;
     private static final double BASE_PROBABILITY = 0.5;
-    private final List<Variable> variables;
+
+    private final List<Feature> leafFeatures;
     private static final Random random = new Random(RandomUtils.getSEED());
+
     private boolean weightedPopulation = false;
     private boolean noSameID = false;
     private boolean weightedCrossover = false;
@@ -44,8 +46,8 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     @Setter
     private IResolveStrategy<Assignment, UserRequirement> resolveStrategy = null;
 
-    public KBConflictCrossOverStrategyWeighted(List<Variable> variables, int populationSize, boolean weightedPopulation, boolean avoidSameID, boolean weightedCrossover, double crossoverFactor) {
-        this.variables = variables;
+    public FMConflictCrossOverStrategyWeighted(List<Feature> leafFeatures, int populationSize, boolean weightedPopulation, boolean avoidSameID, boolean weightedCrossover, double crossoverFactor) {
+        this.leafFeatures = leafFeatures;
         this.populationSize = populationSize;
         this.weightedPopulation = weightedPopulation;
         this.noSameID = avoidSameID;
@@ -66,7 +68,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
 
         List<UserRequirement> parentsList;
         if (weightedPopulation) {
-             parentsList = getWeightDistributedList(parents);
+            parentsList = getWeightDistributedList(parents);
         }
         else {
             parentsList = new ArrayList<>(){};
@@ -141,11 +143,11 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
         List<Assignment> assignments = new ArrayList<>();
         double fatherProbability = weightedCrossover ? calculateProbability(i1.getWeight(), i2.getWeight()) : BASE_PROBABILITY;
 
-        for (Variable var : variables) {
+        for (Feature feature : leafFeatures) {
             // get value of father
             String father_value;
             try {
-                father_value = i1.getAssignment(var.getName()).getValue();
+                father_value = i1.getAssignment(feature.getName()).getValue();
             } catch (Exception e) {
                 father_value = null;
             }
@@ -153,7 +155,7 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
             // get value of mother
             String mother_value;
             try {
-                mother_value = i2.getAssignment(var.getName()).getValue();
+                mother_value = i2.getAssignment(feature.getName()).getValue();
             } catch (Exception e) {
                 mother_value = null;
             }
@@ -173,11 +175,11 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
 
             Assignment assignment = switch (crossOverType) {
                 case FATHER -> Assignment.builder()
-                        .variable(var.getName())
+                        .variable(feature.getName())
                         .value(father_value)
                         .build();
                 case MOTHER -> Assignment.builder()
-                        .variable(var.getName())
+                        .variable(feature.getName())
                         .value(mother_value)
                         .build();
                 default -> null;
@@ -267,5 +269,4 @@ public class KBConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
 
         return weight >= comparativeWeight ? probability : 1 - probability;
     }
-
 }
