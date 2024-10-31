@@ -21,7 +21,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hiconfit.version>1.0.1-alpha-22</hiconfit.version>
+        <hiconfit.version>1.0.1-alpha-33</hiconfit.version>
     </properties>
 
     <dependencies>
@@ -65,7 +65,7 @@
                     <artifactId>ca-cdr</artifactId>
                     <version>${hiconfit.version}</version>
                     <packaging>jar</packaging>
-                    <file>${project.basedir}/lib/ca-cdr-1.0.1-alpha-22.jar</file>
+                    <file>${project.basedir}/lib/ca-cdr-1.0.1-alpha-33.jar</file>
                     <generatePom>true</generatePom>
                 </configuration>
                 <executions>
