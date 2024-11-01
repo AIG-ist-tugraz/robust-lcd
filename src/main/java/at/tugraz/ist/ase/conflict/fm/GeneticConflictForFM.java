@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2024
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -18,18 +18,17 @@ import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.Populations;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
-import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategy;
-import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategyWeighted;
 import at.tugraz.ist.ase.conflict.kb.KBURResolveStrategyWeighted;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
-import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.FMModelWithRequirement;
+import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.factory.FMCdrModels;
+import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.factory.FMRequirementCdrModelFactory;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.common.MailService;
 import at.tugraz.ist.ase.hiconfit.fm.core.AbstractRelationship;
 import at.tugraz.ist.ase.hiconfit.fm.core.CTConstraint;
 import at.tugraz.ist.ase.hiconfit.fm.core.Feature;
 import at.tugraz.ist.ase.hiconfit.fm.core.FeatureModel;
-import at.tugraz.ist.ase.hiconfit.fm.parser.FMParserFactory;
+import at.tugraz.ist.ase.hiconfit.fm.factory.FeatureModels;
 import at.tugraz.ist.ase.hiconfit.fm.parser.FeatureModelParserException;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 import lombok.Cleanup;
@@ -121,13 +120,15 @@ public class GeneticConflictForFM {
         // loads feature model
         // TODO: how to read a feature model from a file
         val file = new File(cfg.getKBFilepath());
-        @Cleanup("dispose") val parser = FMParserFactory.getInstance().getParser(file.getName());
-        val featureModel = parser.parse(file);
+//        @Cleanup("dispose") val parser = FMParserFactory.getInstance().getParser(file.getName());
+//        val featureModel = parser.parse(file);
+        val featureModel = FeatureModels.fromFile(file);
 
         boolean cfInConflicts = cfg.getCfInConflicts().equals("yes");
 
-        val model = new FMModelWithRequirement<>(featureModel, null, false, true, cfInConflicts, false);
-        model.initialize();
+//        val model = new FMModelWithRequirement<>(featureModel, null, false, true, cfInConflicts, false);
+//        model.initialize();
+        val model = FMCdrModels.createCdrModel(featureModel, cfInConflicts);
         // TODO: how to read a feature model from a file
 
         // TODO: take into account all features in the feature model
@@ -150,7 +151,8 @@ public class GeneticConflictForFM {
         printPopulation(resultWriter, population);
 
         // create a CDRModelFactory
-        val cdrModelFactory = new FMCDRModelFactory(featureModel, null, cfInConflicts);
+//        val cdrModelFactory = new FMCDRModelFactory(featureModel, null, cfInConflicts);
+        val cdrModelFactory = new FMRequirementCdrModelFactory(featureModel, null, cfInConflicts);
 
         // create the genetic algorithm
         val gci = GeneticConflictIdentifier.builder()

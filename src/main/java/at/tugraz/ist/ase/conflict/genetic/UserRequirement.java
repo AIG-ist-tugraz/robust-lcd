@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2024
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -17,19 +17,18 @@ import lombok.NonNull;
 import java.util.Iterator;
 import java.util.List;
 
+@Getter
 public class UserRequirement extends Solution implements Individual<Assignment, UserRequirement> {
 
     /**
      * weight of the resolved UR -> the more conflicts where identified in the original UR, the higher the weight
      */
-    @Getter
     @Builder.Default
     private int weight = 0;
 
     /**
      * ID to identify resolved UR of the same predecessor UR
      */
-    @Getter
     @Builder.Default
     private int resolvedID = 0;
 

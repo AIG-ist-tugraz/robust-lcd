@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2024
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -16,11 +16,10 @@ import at.tugraz.ist.ase.hiconfit.cacdr.checker.ChocoConsistencyChecker;
 import at.tugraz.ist.ase.hiconfit.cacdr.eval.CAEvaluator;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Requirement;
-import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.FMModelWithRequirement;
-import at.tugraz.ist.ase.hiconfit.fm.parser.FMParserFactory;
+import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.FMRequirementCdrModel;
+import at.tugraz.ist.ase.hiconfit.fm.factory.FeatureModels;
 import at.tugraz.ist.ase.hiconfit.fm.parser.FeatureModelParserException;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
-import lombok.Cleanup;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
@@ -37,8 +36,7 @@ class GeneticConflictIdentifierTest {
     @Test
     void test() throws FeatureModelParserException {
         val file = new File("src/test/resources/linux-2.6.33.3.xml");
-        @Cleanup("dispose") val parser = FMParserFactory.getInstance().getParser(file.getName());
-        val featureModel = parser.parse(file);
+        val featureModel = FeatureModels.fromFile(file);
 
         // PANEL_LCD_HWIDTH=true --- FB_UDL=true
         Requirement requirement = Requirement.requirementBuilder()
@@ -51,7 +49,7 @@ class GeneticConflictIdentifierTest {
                 .build();
 
         val diagModel
-                = new FMModelWithRequirement<>(featureModel, requirement, false, true, false, false);
+                = new FMRequirementCdrModel<>(featureModel, requirement, false, true, false, false);
         diagModel.initialize();
 
         ChocoConsistencyChecker checker = new ChocoConsistencyChecker(diagModel);

@@ -21,14 +21,14 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hiconfit.version>1.0.1-alpha-33</hiconfit.version>
+        <hiconfit.version>1.0.1-alpha-38</hiconfit.version>
     </properties>
 
     <dependencies>
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>at.tugraz.ist.ase.hiconfit</groupId>
-            <artifactId>ca-cdr</artifactId>
+            <artifactId>configurator</artifactId>
             <version>${hiconfit.version}</version>
         </dependency>
 
@@ -37,7 +37,7 @@
 <!--            <artifactId>ca-cdr</artifactId>-->
 <!--            <version>${hiconfit.version}</version>-->
 <!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/lib/ca-cdr-1.0.1-alpha-22.jar</systemPath>-->
+<!--            <systemPath>${project.basedir}/lib/ca-cdr-1.0.1-alpha-35.jar</systemPath>-->
 <!--        </dependency>-->
 
         <dependency>
@@ -60,21 +60,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
                 <version>3.1.1</version>
-                <configuration>
-                    <groupId>at.tugraz.ist.ase.hiconfit</groupId>
-                    <artifactId>ca-cdr</artifactId>
-                    <version>${hiconfit.version}</version>
-                    <packaging>jar</packaging>
-                    <file>${project.basedir}/lib/ca-cdr-1.0.1-alpha-33.jar</file>
-                    <generatePom>true</generatePom>
-                </configuration>
                 <executions>
                     <execution>
-                        <id>install-jar-lib</id>
+                        <id>install-configurator</id>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
                         <phase>validate</phase>
+                        <configuration>
+                            <groupId>at.tugraz.ist.ase.hiconfit</groupId>
+                            <artifactId>configurator</artifactId>
+                            <version>${hiconfit.version}</version>
+                            <packaging>jar</packaging>
+                            <file>${project.basedir}/lib/configurator-1.0.1-alpha-38.jar</file>
+<!--                            <generatePom>true</generatePom>-->
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

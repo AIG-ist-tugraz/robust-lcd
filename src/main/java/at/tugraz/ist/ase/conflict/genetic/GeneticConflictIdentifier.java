@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2024
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -13,7 +13,6 @@ import at.tugraz.ist.ase.conflict.common.StatisticsWriter;
 import at.tugraz.ist.ase.conflict.genetic.crossover.ICrossOverStrategy;
 import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
 import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
-import at.tugraz.ist.ase.conflict.model.CDRModelFactory;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.HSDAG;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.HSDAGPruningEngine;
 import at.tugraz.ist.ase.hiconfit.cacdr.algorithms.hs.labeler.QuickXPlainLabeler;
@@ -22,6 +21,8 @@ import at.tugraz.ist.ase.hiconfit.cacdr.checker.ChocoConsistencyChecker;
 import at.tugraz.ist.ase.hiconfit.cacdr.eval.CAEvaluator;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Requirement;
+import at.tugraz.ist.ase.hiconfit.cdrmodel.ICdrModelFactory;
+import at.tugraz.ist.ase.hiconfit.cdrmodel.IRequirementSetable;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
 import lombok.*;
@@ -36,7 +37,7 @@ import static at.tugraz.ist.ase.hiconfit.eval.PerformanceEvaluator.setCommonTime
 
 public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, UserRequirement, Double> {
 
-    private final CDRModelFactory modelFactory;
+    private final ICdrModelFactory modelFactory;
 //    private final FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel;
     @Getter @Setter
     private Population<Assignment, UserRequirement> population;
@@ -85,7 +86,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
     @Builder
     public GeneticConflictIdentifier(@NonNull Population<Assignment, UserRequirement> population,
 //                                     FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel,
-                                    CDRModelFactory modelFactory,
+                                    ICdrModelFactory modelFactory,
                                      boolean cfInConflicts,
                                      int numMaxConflicts,
                                      int stopAfterXTimesNoConflict,
@@ -277,8 +278,8 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 //        FMModelWithRequirement<Feature, AbstractRelationship<Feature>, CTConstraint> diagModel
 //                = new FMModelWithRequirement<>(featureModel, ur, false, true, cfInConflicts, false);
 //        diagModel.initialize();
-        modelFactory.setRequirement(ur);
-        val diagModel = modelFactory.createCDRModel();
+        ((IRequirementSetable)modelFactory).setRequirement(ur);
+        val diagModel = modelFactory.createModel();
 
         ChocoConsistencyChecker checker = new ChocoConsistencyChecker(diagModel);
 

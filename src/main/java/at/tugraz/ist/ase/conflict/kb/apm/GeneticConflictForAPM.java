@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2024
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -18,12 +18,12 @@ import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.Populations;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
-import at.tugraz.ist.ase.conflict.kb.KBURResolveStrategyWeighted;
-import at.tugraz.ist.ase.conflict.kb.KBCDRModelFactory;
 import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategy;
 import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategyWeighted;
 import at.tugraz.ist.ase.conflict.kb.KBURMutationStrategy;
+import at.tugraz.ist.ase.conflict.kb.KBURResolveStrategyWeighted;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
+import at.tugraz.ist.ase.hiconfit.cdrmodel.kb.factory.KBRequirementCdrModelFactory;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.common.MailService;
 import at.tugraz.ist.ase.hiconfit.fm.parser.FeatureModelParserException;
@@ -108,7 +108,8 @@ public class GeneticConflictForAPM {
         printPopulation(resultWriter, population);
 
         // create CDRModelFactory
-        val cdrModelFactory = new KBCDRModelFactory(apmKB, null);
+//        val cdrModelFactory = new KBCDRModelFactory(apmKB, null);
+        val cdrModelFactory = KBRequirementCdrModelFactory.getInstance(apmKB, null);
 
         // create the genetic algorithm
         val gci = GeneticConflictIdentifier.builder()
