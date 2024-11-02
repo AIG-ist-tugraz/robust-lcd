@@ -21,7 +21,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hiconfit.version>1.0.1-alpha-38</hiconfit.version>
+        <hiconfit.version>1.0.1-alpha-40</hiconfit.version>
     </properties>
 
     <dependencies>
@@ -72,7 +72,7 @@
                             <artifactId>configurator</artifactId>
                             <version>${hiconfit.version}</version>
                             <packaging>jar</packaging>
-                            <file>${project.basedir}/lib/configurator-1.0.1-alpha-38.jar</file>
+                            <file>${project.basedir}/lib/configurator-1.0.1-alpha-40.jar</file>
 <!--                            <generatePom>true</generatePom>-->
                         </configuration>
                     </execution>
