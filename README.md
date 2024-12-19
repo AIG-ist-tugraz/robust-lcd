@@ -10,7 +10,7 @@ After this step, install the library:
 
 ![install.png](lib%2Finstall.png)
 
-Once the compile phase does execute, the lib ca-cdr-1.0.1-alpha-22.jar is correctly installed in your local repository, 
+Once the compile phase does execute, the lib ca-cdr-1.0.1-alpha-33.jar is correctly installed in your local repository, 
 just as any other artifact that may have been retrieved from Maven central itself.
 
 ## Build jar files
