@@ -75,6 +75,8 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
     private BufferedWriter allConflictSetsWithoutCFWriter = null;
 
     @Setter
+    private boolean limitParentsToResolved = false;
+    @Setter
     private int extinctAfterXTimesNoConflict = 0;
     @Setter
     private int stopAfterXExtinctions = 0;
@@ -159,10 +161,12 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
                 ConflictUtils.printMessage(resultWriter, message);
 
                 // clone and add to parents
-                try {
-                    parents.addIndividual(userRequirement.clone());
-                } catch (CloneNotSupportedException e) {
-                    throw new RuntimeException(e);
+                if (!limitParentsToResolved) {
+                    try {
+                        parents.addIndividual(userRequirement.clone());
+                    } catch (CloneNotSupportedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
             LoggerUtils.outdent();

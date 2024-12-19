@@ -124,6 +124,7 @@ public class GeneticConflictForAPM {
 
         gci.setMutationStrategy(mutationStrategy);
 
+        gci.setLimitParentsToResolved(cfg.isLimitParentsToResolved());
         gci.setExtinctAfterXTimesNoConflict(cfg.getExtinctAfterXTimesNoConflict());
         gci.setStopAfterXExtinctions(cfg.getStopAfterXExtinctions());
 

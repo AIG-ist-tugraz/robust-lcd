@@ -55,11 +55,13 @@ public final class ConfigManager {
     // extinction settings
     private final int extinctAfterXTimesNoConflict;
     private final int stopAfterXExtinctions;
-    // used to adapt the genetic algorithm
+    // weighting settings
     private final boolean weightedConflicts;
     private final boolean avoidSameOriginalConflict;
     private final boolean weightedCrossover;
     private final double weightedCrossoverFactor;
+    // legacy settings
+    private final boolean limitParentsToResolved; // used to limit the parents to the resolved conflicts (as in Uran's version)
 
     // used to log statistics
     private final String statisticsPath;
@@ -126,6 +128,8 @@ public final class ConfigManager {
         avoidSameOriginalConflict = appProps.getProperty("avoidSameOriginalConflict", "no").equals("yes");
         weightedCrossover = appProps.getProperty("weightedCrossover", "no").equals("yes");
         weightedCrossoverFactor = Double.parseDouble(appProps.getProperty("weightedCrossoverFactor", "2"));
+
+        limitParentsToResolved = appProps.getProperty("limitParentsToResolved", "no").equals("yes");
 
         statisticsPath = appProps.getProperty("statisticsPath", "");
         summaryPath = appProps.getProperty("summaryPath", "");

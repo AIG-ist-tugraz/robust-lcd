@@ -166,6 +166,8 @@ public class GeneticConflictForFM {
         gci.setMutationStrategy(mutationStrategy);
 
         //--------------------------------------------------------
+        // legacy settings
+        gci.setLimitParentsToResolved(cfg.isLimitParentsToResolved());
         // extinction settings
         gci.setExtinctAfterXTimesNoConflict(cfg.getExtinctAfterXTimesNoConflict());
         gci.setStopAfterXExtinctions(cfg.getStopAfterXExtinctions());
