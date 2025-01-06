@@ -18,7 +18,7 @@ import at.tugraz.ist.ase.conflict.genetic.Population;
 import at.tugraz.ist.ase.conflict.genetic.Populations;
 import at.tugraz.ist.ase.conflict.genetic.UserRequirement;
 import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
-import at.tugraz.ist.ase.conflict.kb.KBURResolveStrategyWeighted;
+import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategyWeighted;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.factory.FMCdrModels;
 import at.tugraz.ist.ase.hiconfit.cdrmodel.fm.factory.FMRequirementCdrModelFactory;
@@ -176,7 +176,7 @@ public class GeneticConflictForFM {
 
         // weighted resolver and crossover
         if (cfg.isWeightedConflicts() || cfg.isAvoidSameOriginalConflict()) {
-            gci.setResolveStrategy(new KBURResolveStrategyWeighted());
+            gci.setResolveStrategy(new URResolveStrategyWeighted());
             gci.setCrossOverStrategy(new FMConflictCrossOverStrategyWeighted(
                     leafFeatures,
                     cfg.getPopulationSize(),
@@ -188,14 +188,11 @@ public class GeneticConflictForFM {
         }
         else {
             gci.setResolveStrategy(new URResolveStrategy());
-            gci.setCrossOverStrategy(new FMConflictCrossOverStrategy(leafFeatures));
+            gci.setCrossOverStrategy(new FMConflictCrossOverStrategy(
+                    leafFeatures,
+                    cfg.getPopulationSize()
+            ));
         }
-
-        //--------------------------------------------------------
-        gci.setResolveStrategy(new URResolveStrategy());
-        gci.setCrossOverStrategy(new FMConflictCrossOverStrategy(leafFeatures));
-
-        //--------------------------------------------------------
 
         gci.setResultWriter(resultWriter);
         gci.setAllConflictSetsWriter(allConflictSetsWriter);
@@ -211,6 +208,11 @@ public class GeneticConflictForFM {
 
         // Add statistics writer
         if (!cfg.getStatisticsPath().isEmpty()){
+            // check if summary path directory tree exists or create directory tree
+            File parentFile = new File(cfg.getSummaryPath()).getParentFile();
+            if (parentFile != null && !parentFile.exists()) {
+                parentFile.mkdirs();
+            }
             StatisticsWriter sw = new StatisticsWriter(cfg.getStatisticsPath());
             sw.setSummaryPath(cfg.getSummaryPath());
             gci.setStatisticsWriter(sw);

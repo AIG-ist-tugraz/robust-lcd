@@ -21,7 +21,7 @@ import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategy;
 import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategy;
 import at.tugraz.ist.ase.conflict.kb.KBConflictCrossOverStrategyWeighted;
 import at.tugraz.ist.ase.conflict.kb.KBURMutationStrategy;
-import at.tugraz.ist.ase.conflict.kb.KBURResolveStrategyWeighted;
+import at.tugraz.ist.ase.conflict.genetic.resolve.URResolveStrategyWeighted;
 import at.tugraz.ist.ase.hiconfit.cacdr_core.Assignment;
 import at.tugraz.ist.ase.hiconfit.cdrmodel.kb.factory.KBRequirementCdrModelFactory;
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
@@ -42,7 +42,7 @@ import java.util.Set;
 import static at.tugraz.ist.ase.hiconfit.common.ConstraintUtils.convertToStringWithMessage;
 
 public class GeneticConflictForAPM {
-    public static void main(String[] args) throws IOException, FeatureModelParserException {
+    public static void main(String[] args) throws IOException {
         val programTitle = "Genetic Conflict Seeker for APM";
         val usage = "Usage: java -jar gc_seeker_apm.jar [options]";
 
@@ -130,7 +130,7 @@ public class GeneticConflictForAPM {
         gci.setStopAfterXExtinctions(cfg.getStopAfterXExtinctions());
 
         if (cfg.isWeightedConflicts() || cfg.isAvoidSameOriginalConflict()) {
-            gci.setResolveStrategy(new KBURResolveStrategyWeighted());
+            gci.setResolveStrategy(new URResolveStrategyWeighted());
             gci.setCrossOverStrategy(new KBConflictCrossOverStrategyWeighted(
                     variables,
                     cfg.getPopulationSize(),

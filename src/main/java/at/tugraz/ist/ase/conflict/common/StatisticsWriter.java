@@ -23,7 +23,8 @@ public class StatisticsWriter {
     
     private int populationCount = 0, generationCount = 0;
 
-    private Instant start, finish;
+    private final Instant start;
+    private Instant finish;
 
     public StatisticsWriter(String path) throws IOException {
         try {
@@ -44,7 +45,7 @@ public class StatisticsWriter {
         assert (this.totalConflicts + newConflicts) == totalConflicts;
         this.totalConflicts = totalConflicts;
         
-        populationCount = populationID;
+        populationCount = populationID + 1;
         generationCount += 1;
 
         String line = String.join(",", new String[]{
