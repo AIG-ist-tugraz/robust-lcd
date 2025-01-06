@@ -18,7 +18,6 @@ import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;
 import at.tugraz.ist.ase.hiconfit.fm.core.Feature;
 import at.tugraz.ist.ase.hiconfit.kb.core.Constraint;
-import at.tugraz.ist.ase.hiconfit.kb.core.Variable;
 import lombok.Setter;
 import org.javatuples.Pair;
 
@@ -32,10 +31,10 @@ public class FMConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
     private final List<Feature> leafFeatures;
     private static final Random random = new Random(RandomUtils.getSEED());
 
-    private boolean weightedPopulation = false;
-    private boolean noSameID = false;
-    private boolean weightedCrossover = false;
-    private double crossoverFactor = 2;
+    private final boolean weightedPopulation;
+    private final boolean noSameID;
+    private final boolean weightedCrossover;
+    private final double crossoverFactor;
 
     private final int populationSize;
 
@@ -54,7 +53,7 @@ public class FMConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
         this.weightedCrossover = weightedCrossover;
         this.crossoverFactor = crossoverFactor;
 
-        assert populationSize >= 1;
+        assert populationSize > 0;
     }
 
     @Override
@@ -72,7 +71,7 @@ public class FMConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
         }
         else {
             parentsList = new ArrayList<>(){};
-            parents.forEach(e -> parentsList.add(e));
+            parents.forEach(parentsList::add);
         }
 
 
@@ -202,7 +201,7 @@ public class FMConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
 
         // init parent2
         int randIndex2 = random.nextInt(weightedParents.size());
-        while (randIndex2 == randIndex1) {randIndex2 = random.nextInt(weightedParents.size());};
+        while (randIndex2 == randIndex1) {randIndex2 = random.nextInt(weightedParents.size());}
         UserRequirement parent2 = weightedParents.get(randIndex2);
 
         // check if parent1 resolved CS and from same original conflict as parent2
@@ -217,17 +216,6 @@ public class FMConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
         var message = String.format("%sCrossover parent1 %d and parent2 %d", LoggerUtils.tab(), randIndex1, randIndex2);
         ConflictUtils.printMessage(resultWriter, message);
         return new Pair<>(parent1, parent2);
-    }
-
-    /**
-     * Helper function to sum up all UserRequirement weights.
-     */
-    private int getTotalWeightingFactor(Population<Assignment, UserRequirement> population) {
-        int factor = 0;
-        for (UserRequirement individual : population ) {
-            factor += 1 + individual.getWeight();
-        }
-        return factor;
     }
 
     /**

@@ -23,12 +23,16 @@ import lombok.Setter;
 import java.io.BufferedWriter;
 import java.util.*;
 
-public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignment, UserRequirement> {
+// INFO:
+// + There is a bug where the next generation can never reach the desired population size, because it is bound to the
+// size of the parents.
+// + Also each parent is used for the next generation at least once.
+// --> However this appears to perform really well in the experiments, so it is not clear if this is a bug or a feature.
+
+public class FMConflictCrossOverStrategy_Old implements ICrossOverStrategy<Assignment, UserRequirement> {
 
     private final List<Feature> leafFeatures;
     private static final Random random = new Random(RandomUtils.getSEED());
-
-    private final int populationSize;
 
     @Setter
     private List<Set<Constraint>> knownConflicts = null;
@@ -37,11 +41,8 @@ public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
     @Setter
     private IResolveStrategy<Assignment, UserRequirement> resolveStrategy = null;
 
-    public FMConflictCrossOverStrategy(List<Feature> leafFeatures, int populationSize) {
+    public FMConflictCrossOverStrategy_Old(List<Feature> leafFeatures) {
         this.leafFeatures = leafFeatures;
-        this.populationSize = populationSize;
-
-        assert populationSize > 0;
     }
 
     @Override
@@ -52,9 +53,8 @@ public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
         }
 
         LoggerUtils.indent();
-        while (population.size() < populationSize) {
-            int indexFather = random.nextInt(parents.size());
-            int indexMother = random.nextInt(parents.size());
+        for (int indexFather = 0; indexFather < parents.size(); indexFather++) {
+            int indexMother = indexFather;
 
             // father and mother should be different
             while (indexFather == indexMother) {
@@ -99,14 +99,13 @@ public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
                         LoggerUtils.outdent();
                     }
                     resolvedParents.forEach(population::addIndividual);
+//                    indexFather--;
                 } else {
                     message = String.format("%sNew individual has no known conflict. Add to population!", LoggerUtils.tab());
                     ConflictUtils.printMessage(resultWriter, message);
 
                     population.addIndividual(crossovered);
                 }
-            } else {
-                population.addIndividual(crossovered);
             }
         }
         LoggerUtils.outdent();
