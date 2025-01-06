@@ -208,11 +208,6 @@ public class GeneticConflictForFM {
 
         // Add statistics writer
         if (!cfg.getStatisticsPath().isEmpty()){
-            // check if summary path directory tree exists or create directory tree
-            File parentFile = new File(cfg.getSummaryPath()).getParentFile();
-            if (parentFile != null && !parentFile.exists()) {
-                parentFile.mkdirs();
-            }
             StatisticsWriter sw = new StatisticsWriter(cfg.getStatisticsPath());
             sw.setSummaryPath(cfg.getSummaryPath());
             gci.setStatisticsWriter(sw);

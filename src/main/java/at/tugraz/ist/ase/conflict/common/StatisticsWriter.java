@@ -28,6 +28,12 @@ public class StatisticsWriter {
 
     public StatisticsWriter(String path) throws IOException {
         try {
+            // check if summary path directory tree exists or create directory tree
+            File parentFile = new File(path).getParentFile();
+            if (parentFile != null && !parentFile.exists()) {
+                parentFile.mkdirs();
+            }
+
             Files.deleteIfExists(Paths.get(path));
 
             start = Instant.now();
