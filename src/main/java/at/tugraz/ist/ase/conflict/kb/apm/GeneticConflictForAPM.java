@@ -142,7 +142,10 @@ public class GeneticConflictForAPM {
         }
         else {
             gci.setResolveStrategy(new URResolveStrategy());
-            gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(variables, cfg.getPopulationSize()));
+            gci.setCrossOverStrategy(new KBConflictCrossOverStrategy(
+                    variables,
+                    cfg.getPopulationSize()
+            ));
         }
 
         gci.setResultWriter(resultWriter);
