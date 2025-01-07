@@ -26,6 +26,7 @@ import java.util.*;
 // INFO:
 // + There is a bug where the next generation can never reach the desired population size, because it is bound to the
 // size of the parents.
+// + In crossover parents with a value are preferred over parents without a value.
 // + Also each parent is used for the next generation at least once.
 // --> However this appears to perform really well in the experiments, so it is not clear if this is a bug or a feature.
 

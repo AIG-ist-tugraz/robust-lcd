@@ -27,7 +27,6 @@ public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
 
     private final List<Feature> leafFeatures;
     private static final Random random = new Random(RandomUtils.getSEED());
-
     private final int populationSize;
 
     @Setter
@@ -53,8 +52,8 @@ public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
 
         LoggerUtils.indent();
         while (population.size() < populationSize) {
-            int indexFather = random.nextInt(parents.size());
             int indexMother = random.nextInt(parents.size());
+            int indexFather = random.nextInt(parents.size());
 
             // father and mother should be different
             while (indexFather == indexMother) {
@@ -141,21 +140,15 @@ public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
 
             enum CROSSOVERTYPE {FATHER, MOTHER, NONE}
             CROSSOVERTYPE crossOverType = CROSSOVERTYPE.NONE;
-            if (father_value != null || mother_value != null) {
-                if (Objects.equals(father_value, mother_value) || mother_value == null) {
-                    // if both parents have the same value,
-                    // or if the mother has no value, the father has a value,
-                    // then the child has the same value
-                    crossOverType = CROSSOVERTYPE.FATHER;
-                } else if (father_value == null) { // if the father has no value, the mother has a value
-                    crossOverType = CROSSOVERTYPE.MOTHER;
-                } else { // if both parents have different values
-                    if (random.nextBoolean()) { // randomly select the father's value or the mother's value
-                        crossOverType = CROSSOVERTYPE.FATHER;
-                    } else {
-                        crossOverType = CROSSOVERTYPE.MOTHER;
-                    }
-                }
+
+            boolean selectFather = random.nextBoolean();
+            boolean selectMother = !selectFather;
+
+            if (selectFather && father_value != null) {
+                crossOverType = CROSSOVERTYPE.FATHER;
+            }
+            else if (selectMother && mother_value != null) {
+                crossOverType = CROSSOVERTYPE.MOTHER;
             }
 
             Assignment assignment = switch (crossOverType) {

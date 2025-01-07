@@ -27,7 +27,7 @@ public class KBConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
 
     private final List<Variable> variables;
     private static final Random random = new Random(RandomUtils.getSEED());
-    private int populationSize;
+    private final int populationSize;
 
     @Setter
     private List<Set<Constraint>> knownConflicts = null;
@@ -39,6 +39,8 @@ public class KBConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
     public KBConflictCrossOverStrategy(List<Variable> variables, int populationSize) {
         this.variables = variables;
         this.populationSize = populationSize;
+
+        assert populationSize > 0;
     }
 
     @Override
@@ -96,13 +98,14 @@ public class KBConflictCrossOverStrategy implements ICrossOverStrategy<Assignmen
                         LoggerUtils.outdent();
                     }
                     resolvedParents.forEach(population::addIndividual);
-//                    indexFather--;
                 } else {
                     message = String.format("%sNew individual has no known conflict. Add to population!", LoggerUtils.tab());
                     ConflictUtils.printMessage(resultWriter, message);
 
                     population.addIndividual(crossovered);
                 }
+            } else {
+                population.addIndividual(crossovered);
             }
         }
         LoggerUtils.outdent();
