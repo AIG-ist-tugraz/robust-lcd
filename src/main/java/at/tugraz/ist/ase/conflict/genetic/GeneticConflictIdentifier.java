@@ -177,6 +177,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         message = String.format("%sGENERATION %d: Found %d unique minimal conflict sets in this round.", LoggerUtils.tab(), currentIteration, allNewConflictSets.size());
         ConflictUtils.printMessage(resultWriter, message);
         int knownMinConflictsBefore = allConflictSets.size();
+        int knownMinConflictsWithoutCFBefore = allConflictSetsWithoutCF.size();
         allNewConflictSets.forEach(cs -> ConflictUtils.addCSToCSList(cs, allConflictSets, allConflictSetsWriter, resultWriter));
         allNewConflictSetsWithoutCF.forEach(cs -> ConflictUtils.addCSToCSList(cs, allConflictSetsWithoutCF, allConflictSetsWithoutCFWriter, resultWriter));
         int newMinConflicts = allConflictSets.size() - knownMinConflictsBefore;
@@ -184,7 +185,13 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         ConflictUtils.printMessage(resultWriter, message);
 
         if (statisticsWriter!= null)
-            statisticsWriter.write(currentPopulation, currentGeneration, allNewConflictSets.size(), newMinConflicts, allConflictSets.size());
+            statisticsWriter.write(
+                    currentPopulation,
+                    currentGeneration,
+                    allNewConflictSetsWithoutCF.size(),
+                    allConflictSetsWithoutCF.size() - knownMinConflictsWithoutCFBefore,
+                    allConflictSetsWithoutCF.size()
+            );
 
         this.population = parents;
 
