@@ -260,7 +260,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         } else {
             numNoConflict++;
             currentGeneration++;
-            if (extinctAfterXTimesNoConflict > 0 && numNoConflict > extinctAfterXTimesNoConflict) {
+            if (extinctAfterXTimesNoConflict > 0 && numNoConflict >= extinctAfterXTimesNoConflict) {
                 currentPopulation++;
                 currentGeneration = 0;
                 if (currentPopulation >= stopAfterXExtinctions) {
