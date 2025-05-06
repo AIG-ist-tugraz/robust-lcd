@@ -42,7 +42,6 @@ build/
 
 ### Test Scripts ###
 *.zip
-*.csv
 /test-scripts/apm/apm_results/
 /test-scripts/fm/busybox_results/
 **logs.log
