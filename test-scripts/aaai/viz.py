@@ -4,6 +4,16 @@
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
+#  Genetic Conflict Seeker
+#
+#
+#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+
+#  Genetic Conflict Seeker
+#
+#
+#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+
 import os
 import sys
 from _collections import defaultdict
