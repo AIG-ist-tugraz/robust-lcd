@@ -1,0 +1,8 @@
+# original_multiCS.toml
+include = "common.toml"
+
+enabled_features = ["base"]
+
+[base.cs]
+maxNumConflicts        = 10
+limitParentsToResolved = true

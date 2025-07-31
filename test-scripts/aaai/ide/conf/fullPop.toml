@@ -1,0 +1,9 @@
+# fullPop.toml
+include = "common.toml"
+
+enabled_features = ["base"]
+
+[base.cs]
+# −−− legacy features
+maxNumConflicts        = 10
+limitParentsToResolved = false

@@ -1,0 +1,62 @@
+2025-05-04 11:42:51,537 - LazyConflictDetectionEvaluation - INFO - Starting evaluation run...
+2025-05-04 11:42:51,537 - LazyConflictDetectionEvaluation - INFO - GC Seeker JAR: /Users/manleviet/Development/GitHub/GeneticConflictSeeker/target/gc_seeker-jar-with-dependencies.jar
+2025-05-04 11:42:51,537 - LazyConflictDetectionEvaluation - INFO - Knowledge Base: ea
+2025-05-04 11:42:51,537 - LazyConflictDetectionEvaluation - INFO - Conf directory: /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf
+2025-05-04 11:42:51,537 - LazyConflictDetectionEvaluation - INFO - Result directory: /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/results
+2025-05-04 11:42:51,537 - LazyConflictDetectionEvaluation - INFO - Runs per configuration: 3
+2025-05-04 11:42:51,538 - LazyConflictDetectionEvaluation - INFO - Config files found:
+2025-05-04 11:42:51,538 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/original.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/original_multiCS.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/original_multiCS_ext_3_10.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/original_ext_3_10.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/fullPop.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/weighting_base.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/weighting_advanced.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/weighting_full.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO -   /Users/manleviet/Development/GitHub/GeneticConflictSeeker/test-scripts/ecai/ea/conf/weighting_full_ext_3_10.toml
+2025-05-04 11:42:51,539 - LazyConflictDetectionEvaluation - INFO - Running configuration: original
+2025-05-04 11:42:51,540 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original' iteration 0. [11:42:51]
+2025-05-04 12:56:03,370 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original' iteration 1. [12:56:03]
+2025-05-04 14:11:47,243 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original' iteration 2. [14:11:47]
+2025-05-04 15:23:38,251 - LazyConflictDetectionEvaluation - INFO - Configuration 'original' completed. 3/3 iterations successful.
+2025-05-04 15:23:38,253 - LazyConflictDetectionEvaluation - INFO - Running configuration: original_multiCS
+2025-05-04 15:23:38,260 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_multiCS' iteration 0. [15:23:38]
+2025-05-04 17:17:46,618 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_multiCS' iteration 1. [17:17:46]
+2025-05-04 19:08:16,963 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_multiCS' iteration 2. [19:08:16]
+2025-05-04 20:56:31,577 - LazyConflictDetectionEvaluation - INFO - Configuration 'original_multiCS' completed. 3/3 iterations successful.
+2025-05-04 20:56:31,578 - LazyConflictDetectionEvaluation - INFO - Running configuration: original_multiCS_ext_3_10
+2025-05-04 20:56:31,585 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_multiCS_ext_3_10' iteration 0. [20:56:31]
+2025-05-04 22:50:22,510 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_multiCS_ext_3_10' iteration 1. [22:50:22]
+2025-05-05 00:47:52,881 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_multiCS_ext_3_10' iteration 2. [00:47:52]
+2025-05-05 02:39:19,929 - LazyConflictDetectionEvaluation - INFO - Configuration 'original_multiCS_ext_3_10' completed. 3/3 iterations successful.
+2025-05-05 02:39:19,930 - LazyConflictDetectionEvaluation - INFO - Running configuration: original_ext_3_10
+2025-05-05 02:39:19,936 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_ext_3_10' iteration 0. [02:39:19]
+2025-05-05 03:47:43,501 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_ext_3_10' iteration 1. [03:47:43]
+2025-05-05 04:52:18,236 - LazyConflictDetectionEvaluation - INFO - Running configuration 'original_ext_3_10' iteration 2. [04:52:18]
+2025-05-05 05:58:28,120 - LazyConflictDetectionEvaluation - INFO - Configuration 'original_ext_3_10' completed. 3/3 iterations successful.
+2025-05-05 05:58:28,122 - LazyConflictDetectionEvaluation - INFO - Running configuration: fullPop
+2025-05-05 05:58:28,128 - LazyConflictDetectionEvaluation - INFO - Running configuration 'fullPop' iteration 0. [05:58:28]
+2025-05-05 07:50:19,895 - LazyConflictDetectionEvaluation - INFO - Running configuration 'fullPop' iteration 1. [07:50:19]
+2025-05-05 09:34:27,205 - LazyConflictDetectionEvaluation - INFO - Running configuration 'fullPop' iteration 2. [09:34:27]
+2025-05-05 11:12:55,985 - LazyConflictDetectionEvaluation - INFO - Configuration 'fullPop' completed. 3/3 iterations successful.
+2025-05-05 11:12:55,986 - LazyConflictDetectionEvaluation - INFO - Running configuration: weighting_base
+2025-05-05 11:12:55,992 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_base' iteration 0. [11:12:55]
+2025-05-05 13:07:57,453 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_base' iteration 1. [13:07:57]
+2025-05-05 16:19:41,678 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_base' iteration 2. [16:19:41]
+2025-05-05 18:02:30,368 - LazyConflictDetectionEvaluation - INFO - Configuration 'weighting_base' completed. 3/3 iterations successful.
+2025-05-05 18:02:30,370 - LazyConflictDetectionEvaluation - INFO - Running configuration: weighting_advanced
+2025-05-05 18:02:30,378 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_advanced' iteration 0. [18:02:30]
+2025-05-05 19:51:40,968 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_advanced' iteration 1. [19:51:40]
+2025-05-05 21:40:11,769 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_advanced' iteration 2. [21:40:11]
+2025-05-05 23:37:50,519 - LazyConflictDetectionEvaluation - INFO - Configuration 'weighting_advanced' completed. 3/3 iterations successful.
+2025-05-05 23:37:50,521 - LazyConflictDetectionEvaluation - INFO - Running configuration: weighting_full
+2025-05-05 23:37:50,527 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_full' iteration 0. [23:37:50]
+2025-05-06 01:30:45,274 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_full' iteration 1. [01:30:45]
+2025-05-06 03:29:28,574 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_full' iteration 2. [03:29:28]
+2025-05-06 05:19:24,248 - LazyConflictDetectionEvaluation - INFO - Configuration 'weighting_full' completed. 3/3 iterations successful.
+2025-05-06 05:19:24,250 - LazyConflictDetectionEvaluation - INFO - Running configuration: weighting_full_ext_3_10
+2025-05-06 05:19:24,257 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_full_ext_3_10' iteration 0. [05:19:24]
+2025-05-06 07:02:52,547 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_full_ext_3_10' iteration 1. [07:02:52]
+2025-05-06 08:55:26,735 - LazyConflictDetectionEvaluation - INFO - Running configuration 'weighting_full_ext_3_10' iteration 2. [08:55:26]
+2025-05-06 10:41:52,003 - LazyConflictDetectionEvaluation - INFO - Configuration 'weighting_full_ext_3_10' completed. 3/3 iterations successful.
+2025-05-06 10:41:52,005 - LazyConflictDetectionEvaluation - INFO - Configurations completed: 9/9 successful

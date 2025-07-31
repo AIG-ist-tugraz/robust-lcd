@@ -1,0 +1,15 @@
+# fullPop.toml
+include = "common.toml"
+
+enabled_features = ["base"]
+
+[base.ga]
+# −−− probabilities for the GA
+noPreferenceProbability = 0.7
+mutationProbability     = 0.4
+maxFeaturesInUR         = 100
+
+[base.cs]
+# −−− legacy features
+maxNumConflicts        = 10
+limitParentsToResolved = false

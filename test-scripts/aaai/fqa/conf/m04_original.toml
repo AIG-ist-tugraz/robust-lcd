@@ -1,0 +1,10 @@
+# original.toml
+include = "common.toml"
+
+enabled_features = ["base"]
+
+[base.ga]
+# −−− probabilities for the GA
+noPreferenceProbability = 0.7
+mutationProbability     = 0.4
+maxFeaturesInUR         = 100

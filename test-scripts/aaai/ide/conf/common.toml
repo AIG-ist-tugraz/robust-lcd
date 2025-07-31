@@ -1,0 +1,37 @@
+# common.toml
+
+[base.kb]
+# −−− knowledge base
+nameKB = "REAL-FM-7.splx"
+kbPath = "./data/kb/"
+
+[base.output]
+# −−− whether to print/write
+printResult = false
+
+[base.ga]
+# −−− probabilities for the GA
+noPreferenceProbability = 0.7
+mutationProbability     = 0.1
+maxFeaturesInUR         = 100
+
+[base.population]
+# −−− evolutionary loop settings
+populationSize    = 100
+maxNumGenerations = 100
+
+[base.cs]
+# −−− legacy features
+maxNumConflicts        = 1
+limitParentsToResolved = true
+
+[extinction]
+extinctAfterXTimesNoConflict = 5
+stopAfterXExtinctions        = 5
+
+[weighting]
+# −−− feature‐weighted operators
+weightedConflicts         = false
+avoidSameOriginalConflict = false
+weightedCrossover         = false
+weightedCrossoverFactor   = 2

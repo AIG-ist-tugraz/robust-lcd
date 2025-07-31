@@ -1,0 +1,86 @@
+Save Game=false
+Bottom Paddle=true --- Velocity=false
+Floor brickles=true --- Brickles=false
+Edge=true --- Play Bowling=false
+Uninstall Game=false
+Animation Loop=false
+End of Alley=true --- Bowling=false
+Lane=true --- Bowling=false
+Pong=false --- Pong Board=true
+Bowling Board=false --- Brickles Board=false --- Pong Board=false
+Brick Pile=true --- Play Brickles=false
+Ceiling pong=true --- Pong=false
+Bowling Pin=true --- Velocity=false
+Edge=true --- Bowling=false
+Left pong=true --- Pong=false
+Bowling Ball=true --- Velocity=false
+Point=false
+Bowling=false --- Bowling Board=true
+Pong=false --- Play Pong=true
+Size=false
+Left brickles=true --- Brickles=false
+Brickles=false --- Puck supply=true
+Floor brickles=true --- Play Brickles=false
+Top Paddle=true --- Pong=false
+Exit Game=false
+Brickles Game Menu=false --- Pong Game Menu=false --- Bowling=false
+Install Game=false
+Bowling Game Menu=true --- Bowling=false
+Lane=true --- Play Bowling=false
+Left pong=true --- Play Pong=false
+Brick=true --- Brickles=false
+List Game=false
+Score Board=true --- Pong=false
+Right pont=true --- Pong=false
+Brickles Game Menu=true --- Brickles=false
+Right pont=true --- Play Pong=false
+Dividing Line=true --- Play Pong=false
+Rack of Pins=true --- Bowling=false
+Top Paddle=true --- Velocity=false
+End of Alley=true --- Play Bowling=false
+Pong Game Menu=true --- Play Pong=false
+Rack of Pins=true --- Play Bowling=false
+Bowling Game Menu=false --- Brickles Game Menu=false --- Pong Game Menu=false
+Brickles Game Menu=false --- Pong Game Menu=false --- Play Bowling=false
+Brick Pile=true --- Brickles=false
+Ceiling pong=true --- Play Pong=false
+Right brickles=true --- Brickles=false
+Gutter=true --- Play Bowling=false
+Pong Board=true --- Play Pong=false
+Left brickles=true --- Play Brickles=false
+Bowling Ball=true --- Play Bowling=false
+Puck=true --- Velocity=false
+Gutter=true --- Bowling=false
+Floor pong=true --- Pong=false
+Right brickles=true --- Play Brickles=false
+Bowling Pin=true --- Bowling=false
+Bottom Paddle=true --- Play Pong=false
+Brick=true --- Play Brickles=false
+Bowling Game Menu=false --- Brickles Game Menu=false --- Pong=false
+Bowling Game Menu=true --- Play Bowling=false
+Ceiling brickles=true --- Play Brickles=false
+Bottom Paddle=true --- Pong=false
+Bowling Ball=true --- Bowling=false
+Brickles Game Menu=true --- Play Brickles=false
+Score Board=true --- Play Pong=false
+Dividing Line=true --- Pong=false
+Ceiling brickles=true --- Brickles=false
+Pong Game Menu=true --- Pong=false
+Bowling=true --- Play Bowling=false
+Top Paddle=true --- Play Pong=false
+Brickles=false --- Play Brickles=true
+Brickles=false --- Brickles Board=true
+Brickles Board=true --- Play Brickles=false
+Bowling=false --- Brickles Board=false --- Pong Board=false
+Bowling Pin=true --- Play Bowling=false
+Pong=true --- Play Pong=false
+Bowling Game Menu=false --- Pong Game Menu=false --- Play Brickles=false
+Play Brickles=false --- Puck supply=true
+Bowling=false --- Play Bowling=true
+Floor pong=true --- Play Pong=false
+Brickles=true --- Play Brickles=false
+Bowling Board=true --- Play Bowling=false
+Brickles Game Menu=false --- Bowling=false --- Play Pong=false
+Brickles=false --- Bowling Board=false --- Pong Board=false
+Brickles Game Menu=false --- Pong=false --- Play Bowling=false
+Bowling Game Menu=false --- Play Pong=false --- Play Brickles=false

@@ -1,0 +1,9 @@
+java=false --- qt=true
+mdi=false --- sdi=false
+qt=true --- mdi=false
+mdi=false --- java=true
+model_code_synch=true --- uml=false
+petri_net=true --- uml=false
+mdi=true --- sdi=true
+qt=true --- sdi=true
+java=true --- sdi=true

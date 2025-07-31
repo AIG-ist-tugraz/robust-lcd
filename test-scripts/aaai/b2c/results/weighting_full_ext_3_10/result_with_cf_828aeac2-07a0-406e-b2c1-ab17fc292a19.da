@@ -1,0 +1,198 @@
+Search engine registration=false
+Customer segments=true --- Handling multiple discounts=false
+Free item=true --- Handling multiple discounts=false
+Eletronic goods=true --- Size=false
+Digital Dialing=false
+Level of detail=false --- Report types=true
+Expiry date=true --- Card holder name=false
+Non-repudiation service=true --- Manual=false
+Shipping cost calculation=false --- Quality of service selection=true
+Purchase value scope=true --- Product and quantity scope=false
+Shipping cost calculation=false --- Carrier selection=true
+Product database management=false
+Cart content page=false
+Wish list content=true --- Wish list save after session=false
+Wish list save after session=false --- User behaviour tracking information=true
+Inventory management policy=false
+Basic information=false
+Warehouse management=false --- Multiple shipments=true
+Presentation options=false
+Public access=true --- Login credentials=false
+Quick checkout profile=true --- Login credentials=false
+Login credentials=false --- User behaviour tracking information=true
+Education=true --- Wish list save after session=false
+Multiple billing addresses=true --- Wish list save after session=false
+Private access=true --- Wish list save after session=false
+General layout management=false
+Language=true --- Login credentials=false
+Quantity=false --- Purchase value=false --- Fixed discount=true
+Domain name setup=false
+Physical goods=true --- Size=false
+File repository=false --- Eletronic goods=true
+Security information=true --- Card holder name=false
+Card number=true --- Login credentials=false
+Login credentials=false --- None=true
+Quick checkout profile=true --- Wish list save after session=false
+Purchase value scope=true --- Handling multiple discounts=false
+Time scope=true --- Handling multiple discounts=false
+Site search=false
+Purchase value=true --- Product and quantity scope=false
+Commission tracking=false --- Affiliate registration=true
+Shipping address1=true --- Product and quantity scope=false
+Multiple shipping addresses=true --- Wish list save after session=false
+Product and quantity scope=false --- Handling multiple discounts=true
+E-mail wish list=true --- Wish list save after session=false
+Services=false --- Size=false
+Report formats=true --- Report types=false
+Time scope=false --- Product and quantity scope=true
+Security information=true --- Card number=false
+Warehouse management=false --- Physical goods=true
+Expiry date=false --- Card number=true
+Product and quantity scope=false --- Special offers=true
+Guest checkout=false --- Register to buy=false
+Purchase value=true --- Handling multiple discounts=false
+Product and quantity scope=true --- Handling multiple discounts=false
+Country=true --- Shipping=false
+Billing=true --- Shipping=false
+Shipping address1=true --- Handling multiple discounts=false
+Fixed discount=true --- Handling multiple discounts=false
+Enable profile update on checkout=true --- Register to buy=false
+Billing=true --- Tax codes=false
+Quantity=true --- Product and quantity scope=false
+Free item=true --- Product and quantity scope=false
+Customer segments=true --- Product and quantity scope=false
+Warehouse management=false --- Shipping cost calculation=true
+Education=true --- Login credentials=false
+Product classification=true --- Flat rate=false
+Weight1=true --- Flat rate=false
+Percentage discount=true --- Handling multiple discounts=false
+Services=false --- Eletronic goods=false --- Weight=false
+Quantity=false --- Purchase value=false --- Shipping address1=true
+Customer segments=true --- Time scope=false
+Fixed discount=true --- Time scope=false
+License management=false --- Eletronic goods=true
+Percentage discount=true --- Product and quantity scope=false
+Custom filter=true --- Product page=false
+Purchase value=true --- Time scope=false
+Shipping cost calculation=false --- Multiple shipments=true
+Country=true --- Tax codes=false
+Quantity=true --- Time scope=false
+Card holder name=true --- Login credentials=false
+Order total=true --- Flat rate=false
+Site layout=true --- Wish list save after session=false
+Canada Post=true --- Warehouse management=false
+Guest checkout=false --- Login credentials=false
+Site layout=true --- Login credentials=false
+Login credentials=false --- E-mail wish list=true
+Shipping=true --- Tax codes=false
+Advertisement management interface=false --- House advertisements=false --- Banner ads=true
+Advertisement management interface=false --- House advertisements=false --- Context sensitive ads=true
+Shipping=false --- Tax codes=true
+Card number=false --- Card holder name=true
+Handling multiple discounts=false --- Special offers=true
+Restricted access=true --- Login credentials=false
+UPS=true --- Warehouse management=false
+Physical goods=true --- Weight=false
+Card number=true --- Card holder name=false
+Order total=true --- Warehouse management=false
+Region=true --- Tax codes=false
+Warehouse management=false --- Quality of service selection=true
+Enable profile update on checkout=true --- Wish list save after session=false
+Quality=true --- Product page=false
+Restricted access=true --- Wish list save after session=false
+License management=true --- File repository=false
+Login credentials=true --- Wish list save after session=false
+Card holder name=true --- Wish list save after session=false
+Custom Demographic field=true --- Wish list save after session=false
+Quantity=true --- Handling multiple discounts=false
+Personal Information=true --- Wish list save after session=false
+Income=true --- Wish list save after session=false
+Card number=true --- Wish list save after session=false
+Shipping address1=true --- Time scope=false
+Age=true --- Wish list save after session=false
+Commission tracking=true --- Affiliate registration=false
+License management=false --- File repository=true
+Expiry date=true --- Login credentials=false
+Warehouse management=false --- Carrier selection=true
+Private access=true --- Login credentials=false
+Manufacturer name=true --- Product page=false
+Login credentials=false --- Register to buy=true
+Enable profile update on checkout=true --- Login credentials=false
+Price-Quality ratio=true --- Product page=false
+Register to browse=true --- Wish list save after session=false
+Personal Information=true --- Login credentials=false
+Free item=true --- Time scope=false
+Custom fields=true --- Login credentials=false
+Multiple wish lists=true --- Wish list save after session=false
+Level of detail=false --- Report formats=true
+Time scope=false --- Handling multiple discounts=true
+Custom Demographic field=true --- Login credentials=false
+Income=true --- Login credentials=false
+Public access=true --- Wish list save after session=false
+Login credentials=false --- Register to browse=true
+Handling multiple discounts=false --- Time dependent=true --- Welcome message=false
+Shipping=false --- Percentage=true --- Fixed-rate taxation=false
+Tax codes=false --- Percentage=true --- Fixed-rate taxation=false
+Time scope=false --- Special offers=true
+Security information=true --- Expiry date=false
+Expiry date=false --- Card holder name=true
+Customer preferences=true --- Login credentials=false
+Time scope=true --- Product and quantity scope=false
+Custom fields=true --- Wish list save after session=false
+None=true --- Wish list save after session=false
+Reminders=true --- Wish list save after session=false
+Product classification=true --- Warehouse management=false
+Region=true --- Shipping=false
+Quantity purchased=true --- Warehouse management=false
+Handling multiple discounts=false --- Coupons=true
+List size=true --- Wish list save after session=false
+Quantity purchased=true --- Flat rate=false
+Multiple shipping addresses=true --- Login credentials=false
+Previously visited pages=true --- External referring pages=false --- Locally visited pages=false
+Security information=true --- Wish list save after session=false
+Guest checkout=false --- Wish list save after session=false
+Customer preferences=true --- Wish list save after session=false
+Fixed discount=true --- Product and quantity scope=false
+Purchase value scope=true --- Time scope=false
+Category page=true --- Product page=false
+Enable profile update on checkout=true --- Quick checkout profile=false
+Price=true --- Product page=false
+Weight1=true --- Warehouse management=false
+Security information=true --- Login credentials=false
+USPS=true --- Warehouse management=false
+Expiry date=true --- Card number=false
+List size=true --- Login credentials=false
+City=true --- Shipping=false
+Level of detail=true --- Report types=false
+Percentage discount=true --- Time scope=false
+Age=true --- Login credentials=false
+Shipping cost calculation=false --- Gift options=true
+Warehouse management=false --- Gift options=true
+Personalized=true --- Special offers=false --- Welcome message=false
+Level of detail=true --- Report formats=false
+Time scope=false --- Coupons=true
+FedEX=true --- Warehouse management=false
+Custom shipping gateway=true --- Warehouse management=false
+Product and quantity scope=false --- Coupons=true
+Language=true --- Wish list save after session=false
+Report formats=false --- Report types=true
+Expiry date=true --- Wish list save after session=false
+File repository=false --- Warehouse management=false --- Services=false
+Warehouse management=false --- Services=false --- Eletronic goods=false
+File repository=false --- Services=false --- Weight=false
+Flat rate=true --- Warehouse management=false
+Percentage=false --- Surcharge=false --- Fixed-rate taxation=true
+Multiple billing addresses=true --- Login credentials=false
+Tax codes=false --- Surcharge=true --- Fixed-rate taxation=false
+City=true --- Percentage=false --- Surcharge=false
+Region=true --- Percentage=false --- Surcharge=false
+Quantity=false --- Purchase value=false --- Special offers=true
+Quantity=false --- Purchase value=false --- Percentage discount=true
+Reminders=true --- Login credentials=false
+Register to buy=true --- Wish list save after session=false
+Shipping=false --- Surcharge=true --- Fixed-rate taxation=false
+City=true --- Tax codes=false
+Advertisement management interface=false --- House advertisements=false --- Advertisement response tracking=true
+Tax codes=true --- Percentage=false --- Surcharge=false
+Quantity=false --- Purchase value=false --- Customer segments=true
+Advertisement management interface=true --- Pop-up ads=false --- Banner ads=false

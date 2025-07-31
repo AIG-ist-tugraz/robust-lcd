@@ -1,0 +1,15 @@
+# original_extinction_3x10.toml
+include = "common.toml"
+
+enabled_features = ["base", "extinction"]
+
+[base.ga]
+# −−− probabilities for the GA
+noPreferenceProbability = 0.7
+mutationProbability     = 0.4
+maxFeaturesInUR         = 100
+
+# extinction
+[extinction]
+extinctAfterXTimesNoConflict = 3
+stopAfterXExtinctions        = 10

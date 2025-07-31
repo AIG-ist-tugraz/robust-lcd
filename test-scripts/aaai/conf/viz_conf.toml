@@ -1,0 +1,67 @@
+# viz_conf.toml
+
+working_dir     = "test-scripts/ecai"
+#conf_dirname    = "conf"
+result_dirname  = "results"
+summary_dirname = "summary"
+
+#kbs.'ide' = [9 , 'IDE']
+kbs.'arcade' = [142, 'Arcade']
+kbs.'fqa' = [366, 'FQA']
+kbs.'b2c' = [267, 'B2C']
+kbs.'busybox' = [161, 'BusyBox']
+kbs.'ea'= [8981, 'EA']
+
+selected_kbs_fig1 = [
+    'arcade',
+#    'fqa',
+    'busybox',
+    'ea'
+]
+
+eval_confs = [
+    'original',
+    'original_multiCS',
+    'fullPop',
+    'weighting_base',
+    'weighting_advanced',
+    'weighting_full',
+    'original_ext_3_10',
+    'original_multiCS_ext_3_10',
+    'weighting_full_ext_3_10'
+]
+
+export_names = [
+    'Baseline', # 0
+    'Multi-CS', # 1
+    'Full Pop', # 2
+    'Weighted Basic', # 3
+    'Weighted Advanced', # 4
+    'Weighted Full', # 5
+    'Extinction', # 6
+    'Ext+Multi-CS', # 7
+    'All Features' # 8
+]
+
+excludes = [
+    2,
+    3,
+    4,
+    5,
+    7,
+]
+
+
+legend_locs.'ide' = 'lower right'
+legend_locs.'arcade' = 'lower right'
+legend_locs.'fqa' = 'lower right'
+legend_locs.'b2c' = 'lower right'
+legend_locs.'busybox' = 'upper right'
+legend_locs.'ea'= 'upper left'
+
+# 9 colors for 9 lines
+# 9 markers for 9 lines
+# 9 linestyles for 9 lines
+colors = ['#111111', '#222222', '#333333', '#444444', '#555555', '#666666', '#777777', '#888888', '#999999']
+markers = ['o', 's', 'D', '^', 'v', '>', '<', 'p', '*']
+linestyles = ['-', '--', '-.', ':', '-', '--', '-.', ':', '-']

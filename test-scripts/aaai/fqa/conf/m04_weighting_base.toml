@@ -1,0 +1,20 @@
+# weighting_base.toml
+include = "common.toml"
+
+enabled_features = ["base", "weighting"]
+
+[base.ga]
+# −−− probabilities for the GA
+noPreferenceProbability = 0.7
+mutationProbability     = 0.4
+maxFeaturesInUR         = 100
+
+[base.cs]
+maxNumConflicts        = 10
+limitParentsToResolved = false
+
+[weighting]
+weightedConflicts = true
+# avoidSameOriginalConflict = true
+# weightedCrossover = true
+# weightedCrossoverFactor = 2

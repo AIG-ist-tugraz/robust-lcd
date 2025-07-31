@@ -1,0 +1,24 @@
+# weighting_full_extinction_3x10.toml
+include = "common.toml"
+
+enabled_features = ["base", "weighting", "extinction"]
+
+[base.ga]
+# −−− probabilities for the GA
+noPreferenceProbability = 0.7
+mutationProbability     = 0.4
+maxFeaturesInUR         = 100
+
+[base.cs]
+maxNumConflicts        = 10
+limitParentsToResolved = false
+
+[extinction]
+extinctAfterXTimesNoConflict = 3
+stopAfterXExtinctions        = 10
+
+[weighting]
+weightedConflicts         = true
+avoidSameOriginalConflict = true
+weightedCrossover         = true
+weightedCrossoverFactor   = 2

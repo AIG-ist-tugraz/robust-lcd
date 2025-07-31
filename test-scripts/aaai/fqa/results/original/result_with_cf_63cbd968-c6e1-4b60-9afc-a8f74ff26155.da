@@ -1,0 +1,220 @@
+DES=true --- ECDSA=true
+Log4J=true --- Log=false
+Blowfish=true --- ECDSA=true
+Intermediate=true --- ShowHelp=false
+Objects=true --- Query=false --- Store=false
+TXTFile=true --- Binary=true
+MongoDB=true --- MySQL=true
+Error=true --- Log=false
+RemoteCache=false --- LocalCache=false --- CacheQuery=true
+HTML=true --- TXT=true
+Query=true --- Store=true
+SHA512=true --- SHA256=true
+Biometric=true --- UserPassword=true
+PseudonymousCertificate=true --- UserPassword=true
+XML=true --- SimpleImplementationSLF4J=true
+SpecialChars=true --- Numeric=true
+JSON=true --- HTML=true
+Beginner=true --- ShowHelp=false
+Alphanumeric=true --- Numeric=true
+DESede=true --- AES=true
+OracleDB=true --- MongoDB=true
+Wizard=true --- JavaWizardAPI=false
+DESede=true --- ECDSA=true
+Advanced=true --- JavaWizardAPI=false
+Objects=true --- NoSQL=false --- Relational=false
+MatrixCode=true --- UserPassword=true
+Expert=true --- JavaWizardAPI=false
+FileLog=true --- ConsoleLog=true
+PseudonymousCertificate=true --- MatrixCode=true
+DESede=true --- RSA=true
+DeleteFile=true --- ModifyFile=true
+Strings=true --- NoSQL=false --- Relational=false
+SocialID=true --- UserPassword=true
+ModifyFile=true --- CreateFile=true
+Blowfish=true --- RSA=true
+SpecialChars=true --- Alphanumeric=true
+MatrixCode=true --- Pin=true
+RemoteCache=true --- LocalCache=true
+Caffeine=true --- JavaCachingSystem=true
+Advanced=true --- ShowHelp=false
+DatabaseLog=true --- ConsoleLog=true
+XMLFile=true --- TXTFile=true
+SimpleImplementationSLF4J=true --- Log4J=true
+JavaIO=false --- XMLFile=true
+ECDSA=true --- RSA=true
+Blowfish=true --- AES=true
+HTML=true --- XML=true
+JavaIO=false --- DeleteFile=true
+Authenticate=false --- SecureDatabase=true
+OracleDB=true --- MySQL=true
+Blowfish=true --- DESede=true
+ECDSA=true --- DSA=true
+CacheUpdate=true --- MaxSizeCache=false
+JSON=true --- XML=true
+XMLFile=true --- Binary=true
+JSONFile=true --- TXTFile=true
+CacheQuery=true --- CacheStore=true
+DESede=true --- DSA=true
+BouncyCastle=true --- JavaxCrypto=true
+SHA512=true --- SHA1=true
+Warning=true --- Log=false
+SHA256=true --- Hash=false
+Decrypt=true --- Encrypt=true
+JavaIO=false --- TraceFile=true
+CTR=true --- CFB=true
+SHA256=true --- MD5=true
+JavaIO=false --- CreateFile=true
+DatabaseLog=true --- FileLog=true
+SpringSecurity=true --- JAAS=true
+CTS=true --- CTR=true
+JSONFile=true --- XMLFile=true
+TXT=true --- Log=false
+CacheUpdate=true --- CacheQuery=true
+CacheUpdate=true --- CacheStore=true
+OAEP=true --- PKCS1=true
+SimpleImplementationSLF4J=true --- JavaUtilLogging=true
+AES=true --- RSA=true
+MD5=true --- Guava=false --- JavaSecurityMessageDigest=false
+DES=true --- AES=true
+Debug=true --- Log=false
+Beginner=true --- JavaWizardAPI=false
+HTML=true --- Log=false
+PseudonymousCertificate=true --- SocialID=true
+Expert=true --- ShowHelp=false
+ConsoleLog=true --- Log=false
+XML=true --- TXT=true
+JavaWizardAPI=true --- ShowHelp=false
+DSA=true --- RSA=true
+SHA512=true --- MD5=true
+Intermediate=true --- JavaWizardAPI=false
+Log=false --- HistoryLog=true
+CTS=true --- ECB=true
+Guava=true --- JavaSecurityMessageDigest=true
+DeleteFile=true --- CreateFile=true
+MD5=true --- Hash=false
+Numeric=true --- Authenticate=false
+AES=true --- ECDSA=true
+CTR=true --- ECB=true
+AES=true --- DSA=true
+CFB=true --- ECB=true
+Trace=true --- Log=false
+Pin=true --- UserPassword=true
+JavaUtilLogging=true --- LogBack=true
+LogBack=true --- Log=false
+PKCS1=true --- PKCS5=true
+FileLog=true --- Log=false
+CTS=true --- CFB=true
+Pin=true --- Biometric=true
+MatrixCode=true --- Biometric=true
+LocalCache=true --- Caffeine=false --- JavaCachingSystem=false
+PseudonymousCertificate=true --- Biometric=true
+Hash=false --- Guava=true
+JavaWizardAPI=false --- AuthenticatedUser=true
+SocialID=true --- Biometric=true
+MatrixCode=true --- SocialID=true
+TraceFile=true --- Log=false
+JavaIO=false --- ModifyFile=true
+SHA512=true --- Hash=false
+JavaUtilLogging=true --- Log=false
+JavaWizardAPI=false --- ShowHelp=true
+Blowfish=true --- DSA=true
+NoSQL=false --- Relational=false --- Query=true
+DatabaseLog=true --- Log=false
+Info=true --- Log=false
+Tutorial=true --- JavaWizardAPI=false
+XML=true --- Log=false
+Floats=true --- OracleDB=false --- MongoDB=false --- MySQL=false
+DES=true --- RSA=true
+JavaUtilLogging=true --- Log4J=true
+JavaCachingSystem=true --- MaxSizeCache=false
+LocalCache=true --- MaxSizeCache=false
+NoSQL=true --- Relational=true
+Hash=false --- JavaSecurityMessageDigest=true
+Pin=true --- Authenticate=false
+CTS=true --- CBC=true
+RemoteCache=false --- LocalCache=false --- MaxLifeSeconds=true
+Pin=true --- SocialID=true
+JSON=true --- Log=false
+PseudonymousCertificate=true --- Authenticate=false
+DES=true --- DESede=true
+SHA1=true --- MD5=true
+Alphanumeric=true --- Authenticate=false
+Caffeine=true --- MaxSizeCache=false
+Encrypt=true --- BouncyCastle=false --- JavaxCrypto=false
+PseudonymousCertificate=true --- SpringSecurity=false --- JAAS=false
+LogBack=true --- Log4J=true
+DSA=true --- BouncyCastle=false --- JavaxCrypto=false
+DES=true --- DSA=true
+ShowHelp=false --- AuthenticatedUser=true
+Authenticate=false --- AnonymousUser=true
+EternalObjects=true --- MaxSizeCache=false
+PseudonymousCertificate=true --- Pin=true
+SHA1=true --- Hash=false
+JSON=true --- TXT=true
+MatrixCode=true --- Authenticate=false
+Authenticate=false --- AuthenticatedUser=true
+CFB=true --- CBC=true
+NoSQL=false --- Relational=false --- MySQL=true
+ECB=true --- CBC=true
+NoSQL=false --- Relational=false --- MongoDB=true
+Authenticate=false --- Privacy=true
+SimpleImplementationSLF4J=true --- LogBack=true
+BatteryStatus=true --- TimeAware=false
+Integers=true --- NoSQL=false --- Relational=false
+JSONFile=true --- Binary=true
+OAEP=true --- PKCS5=true
+Beginner=true --- Wizard=false --- Tutorial=false
+CacheStore=true --- MaxSizeCache=false
+Tutorial=true --- ShowHelp=false
+MaxLifeSeconds=true --- MaxSizeCache=false
+JavaIO=false --- JSONFile=true
+Wizard=true --- ShowHelp=false
+Biometric=true --- Authenticate=false
+JavaIO=false --- TXTFile=true
+UserPassword=true --- Authenticate=false
+Authenticate=false --- AuthenticationLogging=true
+JavaIO=false --- Binary=true
+Advanced=true --- Wizard=false --- Tutorial=false
+SimpleImplementationSLF4J=true --- Log=false
+CacheQuery=true --- MaxSizeCache=false
+RemoteCache=true --- MaxSizeCache=false
+BatteryStatus=true --- Alerts=false
+SpecialChars=true --- Authenticate=false
+Intermediate=true --- Wizard=false --- Tutorial=false
+CTR=true --- CBC=true
+JavaIO=false --- TemporalFile=true
+NoSQL=false --- Relational=false --- OracleDB=true
+SHA256=true --- SHA1=true
+Authenticate=false --- SpringSecurity=true
+Authenticate=false --- PasswordLength=true
+Authenticate=false --- JAAS=true
+SocialID=true --- Authenticate=false
+DES=true --- Blowfish=true
+RSA=true --- BouncyCastle=false --- JavaxCrypto=false
+Wizard=false --- Tutorial=false --- JavaWizardAPI=true
+Alphanumeric=true --- SpringSecurity=false --- JAAS=false
+Biometric=true --- SpringSecurity=false --- JAAS=false
+RemoteCache=false --- LocalCache=false --- JavaCachingSystem=true
+Log=false --- CypheredMessages=true
+Authenticate=false --- LimitedSession=true
+AES=true --- Decrypt=false --- Encrypt=false
+RemoteCache=false --- LocalCache=false --- Caffeine=true
+ECDSA=true --- BouncyCastle=false --- JavaxCrypto=false
+Floats=true --- NoSQL=false --- Relational=false
+RemoteCache=false --- LocalCache=false --- EternalObjects=true
+Caffeine=false --- JavaCachingSystem=false --- CacheQuery=true
+Pin=true --- SpringSecurity=false --- JAAS=false
+ECB=true --- Decrypt=false --- Encrypt=false
+Caffeine=false --- JavaCachingSystem=false --- EternalObjects=true
+ECDSA=true --- Decrypt=false --- Encrypt=false
+OAEP=true --- BouncyCastle=false --- JavaxCrypto=false
+SpringSecurity=false --- JAAS=false --- Privacy=true
+CFB=true --- Decrypt=false --- Encrypt=false
+OAEP=true --- Decrypt=false --- Encrypt=false
+CTR=true --- Decrypt=false --- Encrypt=false
+Decrypt=false --- Encrypt=false --- JavaxCrypto=true
+SHA256=true --- Guava=false --- JavaSecurityMessageDigest=false
+Decrypt=false --- Encrypt=false --- BouncyCastle=true
+CBC=true --- Decrypt=false --- Encrypt=false
+RemoteCache=false --- LocalCache=false --- CacheUpdate=true

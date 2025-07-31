@@ -1,0 +1,26 @@
+# eval_script.toml
+# ───────────────────
+# Controls how your runner loads experiments & writes results.
+
+[runner]
+gc_seeker       = "target/gc_seeker-jar-with-dependencies.jar"
+working_dir     = "test-scripts/ecai"
+kb_name         = "b2c"
+conf_dirname    = "conf"
+result_dirname  = "results"
+runs_per_config = 20
+verbose         = false
+
+[runner.confs]
+include = [
+    'original.toml',
+    'original_multiCS.toml',
+    'original_multiCS_ext*.toml',
+    'original_ext*.toml',
+    'fullPop.toml',
+    'weighting_base.toml',
+    'weighting_advanced.toml',
+    'weighting_full.toml',
+    'weighting_full_ext*.toml',
+#    'm04_*.toml'
+]

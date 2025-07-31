@@ -1,0 +1,29 @@
+# csv2latex_conf.toml
+
+input_csv     = "test-scripts/ecai/summary/ea_summary.csv" # Path to input .csv file
+output_tex    = "test-scripts/ecai/ea_summary.tex" # Path to output .tex file
+
+caption  = "EA" # Table caption (optional)
+label = "ea-summary" # Table label (optional)
+
+included_columns = [
+    'config_name',
+    'total_gens',
+    'found_cs',
+    'std_dev',
+    'cs_improv_pct',
+    'runtime',
+    'cs_per_min',
+    'checks_per_cs',
+    'cc_improv_pct'
+]
+
+headers.'config_name' = 'Configuration'
+headers.'total_gens' = 'Generations'
+headers.'found_cs' = 'Found CS'
+headers.'std_dev' = 'Std Dev'
+headers.'runtime' = 'Runtime [m:s:ms]'
+headers.'cs_per_min' = 'CS/min'
+headers.'checks_per_cs' = 'Checks/CS'
+headers.'cs_improv_pct' = 'CS Improv. [%]'
+headers.'cc_improv_pct' = 'CC Improv. [%]'

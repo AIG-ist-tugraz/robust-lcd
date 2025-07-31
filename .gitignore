@@ -46,4 +46,4 @@ build/
 /test-scripts/fm/busybox_results/
 **logs.log
 **temp.cfg
-/test-scripts/ecai/ide/results/lazy_eval.log
+/test-scripts/aaai/ide/results/lazy_eval.log

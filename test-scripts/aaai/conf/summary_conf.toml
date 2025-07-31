@@ -1,0 +1,36 @@
+# summary_conf.toml
+
+working_dir     = "test-scripts/ecai"
+result_dirname  = "results"
+summary_dirname = "summary"
+
+kbs.'ide' = 9
+kbs.'arcade' = 142
+kbs.'fqa' = 366
+kbs.'b2c' = 267
+kbs.'busybox' = 161
+kbs.'ea' = 8981
+
+eval_confs = [
+    'original',
+    'original_multiCS',
+    'fullPop',
+    'weighting_base',
+    'weighting_advanced',
+    'weighting_full',
+    'original_ext_3_10',
+    'original_multiCS_ext_3_10',
+    'weighting_full_ext_3_10'
+]
+
+export_names = [
+    'Original',
+    'n\\textgreater1 CS',
+    'Full Pop',
+    'Weighted Basic',
+    'Weighted Advanced',
+    'Weighted Full',
+    'Extinction',
+    'Extinction n\\textgreater1 CS',
+    'All Features'
+]

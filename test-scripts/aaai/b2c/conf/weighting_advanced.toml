@@ -1,0 +1,14 @@
+# weighting_advanced.toml
+include = "common.toml"
+
+enabled_features = ["base", "weighting"]
+
+[base.cs]
+maxNumConflicts        = 10
+limitParentsToResolved = false
+
+[weighting]
+weightedConflicts = true
+avoidSameOriginalConflict = true
+weightedCrossover = false
+# weightedCrossoverFactor = 2

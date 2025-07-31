@@ -1,0 +1,18 @@
+# original_multiCS_extinction_3x10.toml
+include = "common.toml"
+
+enabled_features = ["base", "extinction"]
+
+[base.ga]
+# −−− probabilities for the GA
+noPreferenceProbability = 0.7
+mutationProbability     = 0.4
+maxFeaturesInUR         = 100
+
+[base.cs]
+maxNumConflicts        = 10
+limitParentsToResolved = true
+
+[extinction]
+extinctAfterXTimesNoConflict = 3
+stopAfterXExtinctions        = 10
