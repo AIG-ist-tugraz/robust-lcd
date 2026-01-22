@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023-2024
+ * Copyright (c) 2023-2026
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -64,9 +64,7 @@ class GeneticConflictIdentifierTest {
 
         HSDAG hsdag = new HSDAG(quickXplain);
         hsdag.setPruningEngine(new HSDAGPruningEngine(hsdag));
-//        if (numMaxConflicts != 0) {
         hsdag.setMaxNumberOfConflicts(5);
-//        }
 
         CAEvaluator.reset();
         setCommonTimer(TIMER_SOLVER);

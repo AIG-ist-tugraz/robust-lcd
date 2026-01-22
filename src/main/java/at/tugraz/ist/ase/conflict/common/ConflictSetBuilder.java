@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2026
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -39,21 +39,6 @@ public class ConflictSetBuilder {
 
             constraints.add(c);
         }
-
-//        if (reverse) {
-//            Collections.reverse(assignments);
-//            Collections.reverse(constraints);
-//        }
-
-//        ConflictSet conflictSet = ConflictSet.builder()
-//                .assignments(assignments)
-//                .constraints(constraints)
-//                .build();
-//
-//        // set bitmap
-//        if (kbIndex != null) {
-//            conflictSet.setBitmap(kbIndex.getBitmap(conflictSet));
-//        }
 
         LoggerUtils.outdent();
         log.trace("{}Built a conflictSet [ur={}]", LoggerUtils.tab(), constraints);

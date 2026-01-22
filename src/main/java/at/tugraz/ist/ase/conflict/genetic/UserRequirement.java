@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023-2024
+ * Copyright (c) 2023-2026
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -23,13 +23,11 @@ public class UserRequirement extends Solution implements Individual<Assignment, 
     /**
      * weight of the resolved UR -> the more conflicts where identified in the original UR, the higher the weight
      */
-    @Builder.Default
     private int weight = 0;
 
     /**
      * ID to identify resolved UR of the same predecessor UR
      */
-    @Builder.Default
     private int resolvedID = 0;
 
     @Builder(builderMethodName = "requirementBuilder")

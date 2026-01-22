@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023-2024
+ * Copyright (c) 2023-2026
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -38,10 +38,9 @@ import static at.tugraz.ist.ase.hiconfit.eval.PerformanceEvaluator.setCommonTime
 public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, UserRequirement, Double> {
 
     private final ICdrModelFactory modelFactory;
-//    private final FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel;
     @Getter @Setter
     private Population<Assignment, UserRequirement> population;
-    private final boolean cfInConflicts;
+    private final boolean cfInConflicts; // TODO: start with some already known conflicts
     private final int numMaxConflicts;
 
     // listeners of genetic algorithm iterations (handle callback afterwards)
@@ -87,7 +86,6 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
 
     @Builder
     public GeneticConflictIdentifier(@NonNull Population<Assignment, UserRequirement> population,
-//                                     FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel,
                                     ICdrModelFactory modelFactory,
                                      boolean cfInConflicts,
                                      int numMaxConflicts,
@@ -96,7 +94,6 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
                                      List<Set<Constraint>> allConflictSetsWithoutCF) {
         this.population = population;
         this.populationSize = population.size();
-//        this.featureModel = featureModel;
         this.modelFactory = modelFactory;
         this.cfInConflicts = cfInConflicts;
         this.numMaxConflicts = numMaxConflicts;
@@ -284,11 +281,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
         currentIteration++; // next iteration
     }
 
-    // TODO: this function can be used to identify all Conflicts
     private List<Set<Constraint>> identifyConflicts(Requirement ur) {
-//        FMModelWithRequirement<Feature, AbstractRelationship<Feature>, CTConstraint> diagModel
-//                = new FMModelWithRequirement<>(featureModel, ur, false, true, cfInConflicts, false);
-//        diagModel.initialize();
         ((IRequirementSetable)modelFactory).setRequirement(ur);
         val diagModel = modelFactory.createModel();
 

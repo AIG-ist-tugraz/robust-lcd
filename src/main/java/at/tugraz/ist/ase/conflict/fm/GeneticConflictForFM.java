@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023-2024
+ * Copyright (c) 2023-2026
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -120,14 +120,10 @@ public class GeneticConflictForFM {
         // loads feature model
         // TODO: how to read a feature model from a file
         val file = new File(cfg.getKBFilepath());
-//        @Cleanup("dispose") val parser = FMParserFactory.getInstance().getParser(file.getName());
-//        val featureModel = parser.parse(file);
         val featureModel = FeatureModels.fromFile(file);
 
         boolean cfInConflicts = cfg.getCfInConflicts().equals("yes");
 
-//        val model = new FMModelWithRequirement<>(featureModel, null, false, true, cfInConflicts, false);
-//        model.initialize();
         val model = FMCdrModels.createCdrModel(featureModel, cfInConflicts);
         // TODO: how to read a feature model from a file
 
@@ -151,7 +147,6 @@ public class GeneticConflictForFM {
         printPopulation(resultWriter, population);
 
         // create a CDRModelFactory
-//        val cdrModelFactory = new FMCDRModelFactory(featureModel, null, cfInConflicts);
         val cdrModelFactory = new FMRequirementCdrModelFactory(featureModel, null, cfInConflicts);
 
         // create the genetic algorithm
