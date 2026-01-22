@@ -2,11 +2,28 @@
 
 A Java tool that identifies conflicts in configuration knowledge bases and feature models using a genetic algorithm.
 
-The project produces a runnable fat JAR via the Maven Assembly Plugin.
+This repository shows the implementation and the evaluation of the **Robust LCD** algorithm, 
+presented at the AAAI 2026 in the paper entitled
+*Robust Lazy Conflict Detection via Multi-Conflict Extraction and Genetic Diversity Control*.
+The research community can fully exploit this repository to reproduce the work described in our paper.
 
-## Stack
-- Language: Java (JDK 21)
-- Build/Package manager: Apache Maven
+## Repository structure
+- `pom.xml` — Maven project file (Java 21, assembly plugin builds the fat JAR)
+- `src/main/java/` — source code
+  - Main class: `at.tugraz.ist.ase.conflict.fm.GeneticConflictForFM`
+- `src/test/java/` — tests (JUnit 5)
+- `conf/` — sample configuration files
+- `data/` — sample datasets and results
+- `lib/` — provided dependency JAR(s) installed during `mvn validate`
+- `test-scripts/` — Python evaluation scripts (see `test-scripts/aaai/README.md`)
+- `target/` — build outputs (created after packaging)
+- `Dockerfile` — Docker build for JAR compilation
+- `Dockerfile.eval` — Docker build for running evaluations
+- `.env.example` — template for environment variables
+
+## Requirements and dependencies
+- Language: Java (JDK 21) (set `JAVA_HOME` accordingly)
+- Build/Package manager: Apache Maven 3.9+ (earlier versions may work, but were not verified)
 - Packaging: JAR (fat JAR with dependencies via maven-assembly-plugin)
 - Key dependencies:
   - `at.tugraz.ist.ase.hiconfit:configurator` (installed from local `lib/` JAR during Maven `validate`)
@@ -15,11 +32,6 @@ The project produces a runnable fat JAR via the Maven Assembly Plugin.
   - `org.junit.jupiter:junit-jupiter` (tests)
 
 See `pom.xml` for full details.
-
-## Requirements
-- JDK 21 (set `JAVA_HOME` accordingly)
-- Maven 3.9+ (earlier versions may work, but were not verified)
-- Internet access to resolve Maven dependencies
 
 ## Setup
 This project ships a required library JAR in `lib/` which is installed into your local Maven repository during the Maven `validate` phase. The JAR is from the [HiConfiT](https://hiconfit.github.io) project ([source code](https://github.com/HiConfiT/hiconfit-core)).
@@ -98,8 +110,8 @@ docker run --rm \
 **Run Python evaluation scripts:**
 ```bash
 docker run --rm \
-  -v "$PWD/data":/app/data \
   -v "$PWD/test-scripts":/app/test-scripts \
+  -v "$PWD/data/kb":/app/data/kb \
   gc-seeker-eval \
   python3 test-scripts/aaai/eval_script.py -cfg test-scripts/aaai/conf/busybox_eval_script.toml
 ```
@@ -116,7 +128,7 @@ docker run --rm \
 docker run --rm \
   -v "$PWD/test-scripts":/app/test-scripts \
   gc-seeker-eval \
-  python3 test-scripts/aaai/viz.py -cfg test-scripts/aaai/conf/viz_conf.toml
+  python3 test-scripts/aaai/viz_aaai.py -cfg test-scripts/aaai/conf/viz_conf.toml
 ```
 
 ### Reproducibility Tips
@@ -180,36 +192,14 @@ Priority order: `.env` file > system environment variable > config file > defaul
 Security note: Add `.env` to `.gitignore` to avoid committing sensitive values.
 
 ## Scripts and examples
-- See `test-scripts/README.md` for an overview of all experiment scripts, how to run them, and the directory layout.
+- See `test-scripts/aaai/README.md` for an overview of all experiment scripts, how to run them, and the directory layout.
 - Detailed AAAI experiment workflow: `test-scripts/aaai/README.md`
 - Example TOML config/scripts and sample results are under `test-scripts/` (e.g., `test-scripts/aaai/...`). These are for experiments/evaluations and not wired into Maven.
 - Example data inputs/outputs are under `data/`.
 
-## Tests
-This project uses JUnit 5.
-- Run all tests:
-```bash
-mvn test
-```
-- Example test: `src/test/java/at/tugraz/ist/ase/conflict/genetic/GeneticConflictIdentifierTest.java`
-
-## Project structure
-- `pom.xml` — Maven project file (Java 21, assembly plugin builds the fat JAR)
-- `src/main/java/` — source code
-  - Main class: `at.tugraz.ist.ase.conflict.fm.GeneticConflictForFM`
-- `src/test/java/` — tests (JUnit 5)
-- `conf/` — sample configuration files
-- `data/` — sample datasets and results
-- `lib/` — provided dependency JAR(s) installed during `mvn validate`
-- `test-scripts/` — Python evaluation scripts (see `test-scripts/README.md`)
-- `target/` — build outputs (created after packaging)
-- `Dockerfile` — Docker build for JAR compilation
-- `Dockerfile.eval` — Docker build for running evaluations
-- `.env.example` — template for environment variables
-
 ## License
 This project is licensed under the MIT License — see `LICENSE` for details.
 
-## Changelog
-- 2026-01-22: Added Docker support (two Dockerfiles), `.env` file support for sensitive config values, updated documentation.
-- 2025-11-17: README overhauled with stack, build/run instructions, configuration, tests, and structure.
+## References
+
+[1] V.M. Le, L. A. Feldgrill, A. Felfernig. Robust Lazy Conflict Detection via Multi-Conflict Extraction and Genetic Diversity Control. In 40th AAAI Conference on Artificial Intelligence. AAAI’26, Singapore. 2026. [TBD]

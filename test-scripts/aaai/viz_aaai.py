@@ -102,7 +102,7 @@ class StyleRegistry:
 
 def main():
     """Main entry point"""
-    all_config = read_config(prog="viz.py",
+    all_config = read_config(prog="viz_aaai.py",
                              description="Visualize Evaluation Results",
                              root=ROOT_PROJECT_FOLDER,
                              config_class=VizConfig)

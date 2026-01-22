@@ -2,10 +2,10 @@
 # Usage:
 #   docker build -f Dockerfile.eval -t gc-seeker-eval .
 #
-# Run evaluation:
+# Run Python evaluation scripts:
 #   docker run --rm \
-#     -v "$PWD/data":/app/data \
 #     -v "$PWD/test-scripts":/app/test-scripts \
+#     -v "$PWD/data/kb":/app/data/kb \
 #     gc-seeker-eval \
 #     python3 test-scripts/aaai/eval_script.py -cfg test-scripts/aaai/conf/busybox_eval_script.toml
 #
@@ -45,13 +45,10 @@ WORKDIR /app
 # Copy JAR file
 COPY --from=builder /workspace/target/gc_seeker-jar-with-dependencies.jar /app/target/
 
-# Copy configs and sample data
-COPY conf /app/conf
-COPY data /app/data
-COPY test-scripts /app/test-scripts
-
 # Install Python dependencies (--break-system-packages is safe in isolated container)
-RUN python3 -m pip install --no-cache-dir --break-system-packages -r /app/test-scripts/aaai/requirements.txt
+COPY test-scripts/aaai/requirements.txt /tmp/requirements.txt
+RUN python3 -m pip install --no-cache-dir --break-system-packages -r /tmp/requirements.txt \
+    && rm /tmp/requirements.txt
 
 # Default: show help
 CMD ["echo", "Usage: docker run gc-seeker-eval <command>. See Dockerfile.eval for examples."]

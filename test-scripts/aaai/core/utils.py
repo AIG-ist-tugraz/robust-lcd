@@ -1,15 +1,14 @@
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2025
+#  Copyright (c) 2023-2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
 import glob
-import os
-import re
-
 import numpy as np
+import os
 import pandas as pd
+import re
 
 
 # Function to find all summary files matching the provided list in the specified directory.

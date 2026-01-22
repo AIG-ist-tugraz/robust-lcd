@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2026
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -9,7 +9,6 @@
 package at.tugraz.ist.ase.conflict.genetic;
 
 import at.tugraz.ist.ase.hiconfit.common.RandomUtils;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Iterator;

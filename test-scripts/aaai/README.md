@@ -8,7 +8,7 @@ The test scripts are organized as follows:
 
 - **eval_script.py**: Main script for running evaluations with different configurations
 - **summary.py**: Processes evaluation results and generates summary statistics
-- **viz.py**: Creates visualizations from evaluation results
+- **viz_aaai.py**: Creates visualizations from evaluation results
 - **csv2latex.py**: Converts CSV files to LaTeX format for publication
 
 Each knowledge base (KB) has its own directory with configuration files and results:
@@ -68,10 +68,10 @@ python summary.py -cfg path/to/summary_config.toml
 
 ### Creating Visualizations
 
-To create visualizations from evaluation results, use the `viz.py` script:
+To create visualizations from evaluation results, use the `viz_aaai.py` script:
 
 ```bash
-python viz.py -cfg path/to/viz_config.toml
+python viz_aaai.py -cfg path/to/viz_config.toml
 ```
 
 ### Converting CSV to LaTeX
@@ -170,5 +170,5 @@ The typical workflow for using these scripts is:
 1. Configure the evaluation parameters in the configuration files
 2. Run evaluations using `eval_script.py`
 3. Generate summaries using `summary.py`
-4. Create visualizations using `viz.py`
+4. Create visualizations using `viz_aaai.py`
 5. Convert results to LaTeX format using `csv2latex.py` (if needed for publication)
