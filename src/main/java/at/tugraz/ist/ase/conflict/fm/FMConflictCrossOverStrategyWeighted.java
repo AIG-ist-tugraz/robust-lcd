@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2026
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -206,7 +206,6 @@ public class FMConflictCrossOverStrategyWeighted implements ICrossOverStrategy<A
 
         // check if parent1 resolved CS and from same original conflict as parent2
         if (noSameID && parent1.getResolvedID() != 0 && parent1.getResolvedID() == parent2.getResolvedID()) {
-            //TODO: check if only parents with same ID left?
             while (parent1.getResolvedID() == parent2.getResolvedID()){
                 randIndex2 = random.nextInt(weightedParents.size());
                 parent2 = weightedParents.get(randIndex2);

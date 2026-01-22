@@ -40,7 +40,7 @@ public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, 
     private final ICdrModelFactory modelFactory;
     @Getter @Setter
     private Population<Assignment, UserRequirement> population;
-    private final boolean cfInConflicts; // TODO: start with some already known conflicts
+    private final boolean cfInConflicts;
     private final int numMaxConflicts;
 
     // listeners of genetic algorithm iterations (handle callback afterwards)

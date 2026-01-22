@@ -118,16 +118,13 @@ public class GeneticConflictForFM {
         }
 
         // loads feature model
-        // TODO: how to read a feature model from a file
         val file = new File(cfg.getKBFilepath());
         val featureModel = FeatureModels.fromFile(file);
 
         boolean cfInConflicts = cfg.getCfInConflicts().equals("yes");
 
         val model = FMCdrModels.createCdrModel(featureModel, cfInConflicts);
-        // TODO: how to read a feature model from a file
 
-        // TODO: take into account all features in the feature model
         // get leaf features
         val leafFeatures = getLeafFeatures(featureModel);
 
