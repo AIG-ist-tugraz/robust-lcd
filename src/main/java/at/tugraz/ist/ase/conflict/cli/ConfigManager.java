@@ -1,7 +1,7 @@
 /*
  * Genetic Conflict Seeker
  *
- * Copyright (c) 2023
+ * Copyright (c) 2023-2026
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -9,6 +9,7 @@
 package at.tugraz.ist.ase.conflict.cli;
 
 import at.tugraz.ist.ase.hiconfit.common.LoggerUtils;
+import io.github.cdimascio.dotenv.Dotenv;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -69,11 +70,36 @@ public final class ConfigManager {
 
     private static ConfigManager instance = null;
 
+    // Dotenv instance for loading .env file and environment variables
+    private static final Dotenv dotenv = Dotenv.configure()
+            .ignoreIfMissing()  // Don't throw if .env file is missing
+            .load();
+
     public static ConfigManager getInstance(String configFile) {
         if (instance == null) {
             instance = new ConfigManager(configFile);
         }
         return instance;
+    }
+
+    /**
+     * Gets a config value with environment variable override support.
+     * Priority: .env file > system environment variable > config file > default value.
+     *
+     * @param props the properties from config file
+     * @param key the property key
+     * @param envVar the environment variable name (or null to skip env lookup)
+     * @param defaultValue the default value if neither env nor config is set
+     * @return the resolved value
+     */
+    private static String getPropertyWithEnvOverride(Properties props, String key, String envVar, String defaultValue) {
+        if (envVar != null) {
+            String envValue = dotenv.get(envVar);
+            if (envValue != null && !envValue.isEmpty()) {
+                return envValue;
+            }
+        }
+        return props.getProperty(key, defaultValue);
     }
 
     private ConfigManager(String configFile) {
@@ -107,8 +133,9 @@ public final class ConfigManager {
 
         machine = appProps.getProperty("machine", "may moi");
         emailAfterEachConf = appProps.getProperty("emailAfterEachConf", "no");
-        emailAddress = appProps.getProperty("emailAddress", "");
-        emailPass = appProps.getProperty("emailPass", "");
+        // Sensitive values support environment variable overrides
+        emailAddress = getPropertyWithEnvOverride(appProps, "emailAddress", "GC_EMAIL_ADDRESS", "");
+        emailPass = getPropertyWithEnvOverride(appProps, "emailPass", "GC_EMAIL_PASS", "");
 
         resultPath = appProps.getProperty("resultPath", "./results/result.txt");
         populationSize = Integer.parseInt(appProps.getProperty("populationSize", "100"));
