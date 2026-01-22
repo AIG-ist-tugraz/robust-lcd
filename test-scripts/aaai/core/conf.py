@@ -1,6 +1,6 @@
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2025
+#  Copyright (c) 2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
@@ -9,28 +9,13 @@
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
-
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
-
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 import argparse
 import os
 import sys
-from pathlib import Path, PurePath
-from typing import Optional, List, Dict
-
 import tomli
+from pathlib import Path, PurePath
 from pydantic import BaseModel, Field
+from typing import Optional, List, Dict
 
 # conf.py
 

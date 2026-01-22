@@ -1,11 +1,6 @@
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2025
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
-
-#  Genetic Conflict Seeker
-#
+#  Copyright (c) 2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
@@ -15,10 +10,9 @@
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
 import os
+import pandas as pd
 import sys
 from pathlib import Path
-
-import pandas as pd
 
 from core.conf import read_config, SummaryConfig
 from core.utils import get_summary_files, process_all_summaries, add_identified_cs_per_time_column, \

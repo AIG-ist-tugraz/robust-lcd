@@ -1,6 +1,6 @@
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2025
+#  Copyright (c) 2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
@@ -8,21 +8,15 @@
 #
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
-
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
-
-import os
-import sys
-from _collections import defaultdict
-from pathlib import Path
-from typing import List, Dict
 
 import numpy as np
+import os
 import pandas as pd
+import sys
+from _collections import defaultdict
 from matplotlib import pyplot as plt
+from pathlib import Path
+from typing import List, Dict
 
 from core.conf import read_config, VizConfig
 

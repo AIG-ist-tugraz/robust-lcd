@@ -11,7 +11,7 @@ Read a CSV file and produce a LaTeX table using booktabs.
 
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2025
+#  Copyright (c) 2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
@@ -21,10 +21,9 @@ Read a CSV file and produce a LaTeX table using booktabs.
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
 import os
+import pandas as pd
 import sys
 from pathlib import Path
-
-import pandas as pd
 
 from core.conf import read_config, CSV2LatexConfig
 
