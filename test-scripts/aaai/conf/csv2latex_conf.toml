@@ -1,7 +1,7 @@
 # csv2latex_conf.toml
 
-input_csv     = "test-scripts/ecai/summary/ea_summary.csv" # Path to input .csv file
-output_tex    = "test-scripts/ecai/ea_summary.tex" # Path to output .tex file
+input_csv     = "test-scripts/aaai/summary/ea_summary.csv" # Path to input .csv file
+output_tex    = "test-scripts/aaai/ea_summary.tex" # Path to output .tex file
 
 caption  = "EA" # Table caption (optional)
 label = "ea-summary" # Table label (optional)

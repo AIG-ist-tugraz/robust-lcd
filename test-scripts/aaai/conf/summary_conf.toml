@@ -1,6 +1,6 @@
 # summary_conf.toml
 
-working_dir     = "test-scripts/ecai"
+working_dir     = "test-scripts/aaai"
 result_dirname  = "results"
 summary_dirname = "summary"
 

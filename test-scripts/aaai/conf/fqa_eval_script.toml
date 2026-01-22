@@ -4,7 +4,7 @@
 
 [runner]
 gc_seeker       = "target/gc_seeker-jar-with-dependencies.jar"
-working_dir     = "test-scripts/ecai"
+working_dir     = "test-scripts/aaai"
 kb_name         = "fqa"
 conf_dirname    = "conf"
 result_dirname  = "results"

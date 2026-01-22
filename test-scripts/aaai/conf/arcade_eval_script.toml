@@ -4,11 +4,11 @@
 
 [runner]
 gc_seeker       = "target/gc_seeker-jar-with-dependencies.jar"
-working_dir     = "test-scripts/ecai"
+working_dir     = "test-scripts/aaai"
 kb_name         = "arcade"
 conf_dirname    = "conf"
 result_dirname  = "results"
-runs_per_config = 15
+runs_per_config = 20
 verbose         = false
 
 [runner.confs]
