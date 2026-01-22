@@ -1,16 +1,6 @@
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2025
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
-
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
-
-#  Genetic Conflict Seeker
-#
+#  Copyright (c) 2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
@@ -37,6 +27,79 @@ ROOT_PROJECT_FOLDER = Path(__file__).resolve().parent.parent.parent
 os.chdir(ROOT_PROJECT_FOLDER)
 sys.path.insert(0, os.getcwd())
 
+# ===============================
+# Global font configuration
+# ===============================
+plt.rcParams.update({
+    "font.family": "monospace",
+
+    # Axes
+    "axes.labelsize": 11,
+    "axes.titlesize": 16,
+
+    # Ticks
+    "xtick.labelsize": 11,
+    "ytick.labelsize": 11,
+
+    # Legend
+    "legend.fontsize": 11,
+
+    # PDF output
+    "pdf.fonttype": 42,     # embed fonts (important!)
+    "ps.fonttype": 42,
+})
+
+class StyleRegistry:
+    """
+    Style registry driven by viz_conf.toml.
+    Styles are bound to Configuration names (export_names).
+    """
+
+    def __init__(self, viz_config: VizConfig):
+        self._styles = {}
+
+        for name, color, marker, linestyle in zip(
+                viz_config.export_names,
+                viz_config.colors,
+                viz_config.markers,
+                viz_config.linestyles,
+        ):
+            self._styles[name] = {
+                "color": color,
+                "marker": marker,
+                "linestyle": linestyle,
+                "markersize": 8 if marker != "*" else 10,
+            }
+
+    # ---- accessors ----
+    def color(self, config_name: str) -> str:
+        return self._styles.get(config_name, {}).get("color", "#000000")
+
+    def marker(self, config_name: str) -> str:
+        return self._styles.get(config_name, {}).get("marker", "o")
+
+    def linestyle(self, config_name: str) -> str:
+        return self._styles.get(config_name, {}).get("linestyle", "-")
+
+    def markersize(self, cfg): return self._styles[cfg]["markersize"]
+
+    def known_configs(self):
+        return list(self._styles.keys())
+
+
+# def build_config_legend(style: StyleRegistry):
+#     return [
+#         Line2D(
+#             [0], [0],
+#             marker=style.marker(cfg),
+#             color=style.color(cfg),
+#             linestyle="",
+#             markersize=8,
+#             markeredgecolor="black",
+#             label=cfg
+#         )
+#         for cfg in style.known_configs()
+#     ]
 
 def main():
     """Main entry point"""
@@ -46,6 +109,8 @@ def main():
                              config_class=VizConfig)
 
     kbs = all_config.kbs
+
+    style = StyleRegistry(all_config)
 
     summary_dir = ROOT_PROJECT_FOLDER / all_config.working_dir / all_config.summary_dirname
 
@@ -62,7 +127,11 @@ def main():
 
     viz_contribution_and_simplified_views(kbs, summary_dir, summary_tables)
 
-    plot_tradeoff_scatter(kbs, summary_dir, summary_tables, all_config)
+    plot_tradeoff_scatter(kbs, summary_dir, summary_tables, all_config, style)
+
+    plot_combined_stats_figure3(all_config, summary_dir, style)
+
+    plot_combined_stats_appendix(all_config, summary_dir, style)
 
 
 def plot(title: str, categories: List, values: Dict,
@@ -112,10 +181,10 @@ def plot(title: str, categories: List, values: Dict,
     # Add some text for labels, title and custom x-axis tick labels, etc.
     # ax.set_title(title)
     ax.set_xticks(x + width * (len(values) - 1) / 2)
-    ax.set_xticklabels(categories, fontsize=10, fontname='Times')
-    ax.set_ylabel(ylabel=ylabel, fontsize=10, fontname='Times')
+    ax.set_xticklabels(categories, fontsize=10)
+    ax.set_ylabel(ylabel=ylabel, fontsize=10)
     ax.legend(loc='upper left', ncols=1,
-              fancybox=True, fontsize=7, prop={'family': 'Times New Roman'}) #bbox_to_anchor=(0.5, -0.1)
+              fancybox=True, fontsize=7) #bbox_to_anchor=(0.5, -0.1)
 
     plt.savefig(path_to_save, format='pdf', bbox_inches='tight')
 
@@ -215,12 +284,11 @@ def viz_stats_files(all_config, summary_dir):
 
         # Set the title and labels
         # plt.title(f'{kb_name} - Identified Conflict Sets', fontsize=12)
-        plt.xlabel('Generation', fontsize=10, fontname='Times New Roman')
-        plt.ylabel('Found CS', fontsize=10, fontname='Times New Roman')
+        plt.xlabel('Generation', fontsize=10)
+        plt.ylabel('Found CS', fontsize=10)
         plt.legend(fontsize=9,
                    ncols=2,
-                   loc=all_config.legend_locs[kb_name],
-                   prop={'family': 'Times New Roman'})
+                   loc=all_config.legend_locs[kb_name])
         plt.grid(True)
 
         # Increase the size of the numbers on the axes
@@ -341,9 +409,9 @@ def viz_contribution_and_simplified_views(kbs, summary_dir, summary_tables):
     plot_simplified_line()
 
 
-def plot_tradeoff_scatter(kbs, summary_dir, summary_tables, all_config):
+def plot_tradeoff_scatter(kbs, summary_dir, summary_tables, all_config, style):
 
-    def plot_with_selected_kbs(kbs, summary_dir, summary_tables, selected_kbs_fig1):
+    def plot_with_selected_kbs(kbs, summary_dir, summary_tables, selected_kbs_fig1, style):
         # Lấy dữ liệu Found CS và Checks/CS từ các file *_summary.csv
         rows = []
         for kb_name, table in zip(kbs.keys(), summary_tables):
@@ -383,29 +451,294 @@ def plot_tradeoff_scatter(kbs, summary_dir, summary_tables, all_config):
         df_all.loc[(df_all["CKB"] == "EA") & (df_all["Configuration"] == "Multi-CS"), "Found_CS"] = 2100
 
         # Vẽ scatter plot per knowledge base
-        g = sns.FacetGrid(df_all, col="CKB", hue="Configuration", col_wrap=3, height=4, sharex=False, sharey=False)
-        g.map_dataframe(sns.scatterplot, x="Checks_CS", y="Found_CS", style="Configuration",
-                        s=70, alpha=0.9, edgecolor="black", linewidth=0.5, legend=False)
-        g.set_axis_labels("Checks per CS (↓ better)", "Found CS (↑ better)")
-        g.add_legend()
+        marker_map = {
+            cfg: style.marker(cfg)
+            for cfg in df_all["Configuration"].unique()
+        }
+
+        num_col = len(selected_kbs_fig1) if selected_kbs_fig1 is not None else 3
+        g = sns.FacetGrid(
+            df_all,
+            col="CKB",
+            col_wrap=num_col,
+            height=4,
+            sharex=False,
+            sharey=False
+        )
+
+        g.map_dataframe(
+            sns.scatterplot,
+            x="Checks_CS",
+            y="Found_CS",
+            hue='Configuration',
+            style="Configuration",
+            markers=marker_map,        # dict: config → marker
+            s=120,
+            alpha=0.5,
+            edgecolor="black",
+            linewidth=0.9,
+            # legend=False,
+            legend="brief"
+        )
+
+        g.set_axis_labels("Checks per CS ($\\downarrow$ better)", "Found CS ($\\uparrow$ better)")
+        # g.add_legend()
         for ax in g.axes.flatten():
             ax.invert_xaxis()  # lower effort is better
             # ax.set_title(ax.get_title(), pad=14)  # đẩy title xa hơn
             # ax.xaxis.labelpad = 8                 # đẩy xlabel xuống dưới một chút
             # ax.yaxis.labelpad = 8                 # đẩy ylabel sang phải một chút
 
-        plt.subplots_adjust(top=0.88)
+        # ---- Legend below, no title ----
+        handles, labels = g.axes.flatten()[0].get_legend_handles_labels()
+
+        for ax in g.axes.flatten():
+            leg = ax.get_legend()
+            if leg is not None:
+                leg.remove()
+
+        if labels:
+            legend = g.fig.legend(
+                handles,
+                labels,
+                loc="lower center",
+                ncol=len(labels),
+                frameon=False,
+                bbox_to_anchor=(0.5, -0.02)
+            )
+
+            legend.set_title(None)  # remove "Configuration"
+
+        # plt.subplots_adjust(top=0.88)
+
         # g.fig.suptitle("Trade-off Between Conflict Coverage and Solver Effort", fontsize=14, y=0.98)
 
         if selected_kbs_fig1 is not None:
+            plt.subplots_adjust(top=0.90, bottom=0.18)
             output_filename = "main_figure1_tradeoff_scatter.pdf"
         else:
             output_filename = "appendix_figure1_tradeoff_scatter.pdf"
         plt.savefig(summary_dir / output_filename, format='pdf', bbox_inches='tight')
         plt.close()
 
-    plot_with_selected_kbs(kbs, summary_dir, summary_tables, None)
-    plot_with_selected_kbs(kbs, summary_dir, summary_tables, all_config.selected_kbs_fig1)
+    plot_with_selected_kbs(kbs, summary_dir, summary_tables, None, style)
+    plot_with_selected_kbs(kbs, summary_dir, summary_tables, all_config.selected_kbs_fig1, style)
+
+def plot_combined_stats_figure3(all_config, summary_dir, style):
+    """
+    Create Figure 3: combined stats plot for Arcade and BusyBox
+    :param style:
+    """
+
+    with plt.rc_context({
+        "axes.labelsize": 9,
+        "axes.titlesize": 10,
+        "xtick.labelsize": 9,
+        "ytick.labelsize": 9,
+        "legend.fontsize": 9,
+    }):
+
+        target_kbs = ["arcade", "busybox"]
+        titles = {
+            "arcade": "CKB = Arcade",
+            "busybox": "CKB = BusyBox"
+        }
+
+        export_names = all_config.export_names
+
+        fig, axes = plt.subplots(
+            nrows=1,
+            ncols=2,
+            figsize=(12, 4),
+            sharex=True,
+            sharey=False
+        )
+
+        legend_handles = []
+        legend_labels = []
+
+        for ax, kb_name in zip(axes, target_kbs):
+            means = []
+            stds = []
+
+            for conf in all_config.eval_confs:
+                stats_file = summary_dir / f"{kb_name}_{conf}_average_stats.csv"
+                std_file = summary_dir / f"{kb_name}_{conf}_std_stats.csv"
+
+                mean_df = pd.read_csv(stats_file)
+                std_df = pd.read_csv(std_file)
+
+                means.append(mean_df)
+                stds.append(std_df)
+
+            x = means[0]["generation"]
+
+            for i, mean_df in enumerate(means):
+                if i in all_config.excludes:
+                    continue
+
+                config_name = export_names[i]
+                std_dev = stds[i]["total_cs"]
+
+                # Plot markers only every N points
+                markevery = 3  # Show marker every 5 points
+
+                fill = ax.fill_between(
+                    x,
+                    mean_df["total_cs"] - std_dev,
+                    mean_df["total_cs"] + std_dev,
+                    alpha=0.25,
+                    zorder=1
+                )
+
+                line, = ax.plot(
+                    x,
+                    mean_df["total_cs"],
+                    label=config_name,
+                    color="black",
+                    linestyle=style.linestyle(config_name),
+                    marker=style.marker(config_name),
+                    markersize=style.markersize(config_name),
+                    markevery=markevery,
+                    markeredgewidth=0.5,
+                    markeredgecolor="white",
+                    zorder=3
+                )
+
+                # collect legend only once
+                if kb_name == target_kbs[0]:
+                    legend_handles.append(line)
+                    legend_labels.append(export_names[i])
+                    legend_handles.append(fill)
+                    legend_labels.append(f"{export_names[i]} Std")
+
+            ax.set_title(titles[kb_name])
+            ax.set_xlabel("Generation")
+            ax.grid(True)
+
+        axes[0].set_ylabel("Found CS")
+
+        # ---- Global legend below ----
+        fig.legend(
+            legend_handles,
+            legend_labels,
+            loc="lower center",
+            ncol=4,
+            frameon=False,
+            bbox_to_anchor=(0.5, -0.05)
+        )
+
+        plt.subplots_adjust(bottom=0.18, wspace=0.1)
+
+        output_path = summary_dir / "figure3_stats_combined.pdf"
+        plt.savefig(output_path, format="pdf", bbox_inches="tight")
+        plt.close()
+
+def plot_combined_stats_appendix(all_config, summary_dir, style):
+
+    with plt.rc_context({
+        "axes.labelsize": 9,
+        "axes.titlesize": 10,
+        "xtick.labelsize": 9,
+        "ytick.labelsize": 9,
+        "legend.fontsize": 9,
+    }):
+
+        kbs = list(all_config.kbs.keys())
+        n_kbs = len(kbs)
+
+        ncols = 2
+        nrows = int(np.ceil(n_kbs / ncols))
+
+        fig, axes = plt.subplots(
+            nrows=nrows,
+            ncols=ncols,
+            figsize=(4 * ncols, 3 * nrows),
+            sharex=True,
+            sharey=False
+        )
+
+        axes = np.array(axes).reshape(-1)
+
+        legend_handles = []
+        legend_labels = []
+
+        export_names = all_config.export_names
+
+        for ax, kb_name in zip(axes, kbs):
+            means, stds = [], []
+
+            for conf in all_config.eval_confs:
+                means.append(pd.read_csv(
+                    summary_dir / f"{kb_name}_{conf}_average_stats.csv"
+                ))
+                stds.append(pd.read_csv(
+                    summary_dir / f"{kb_name}_{conf}_std_stats.csv"
+                ))
+
+            x = means[0]["generation"]
+
+            for i, mean_df in enumerate(means):
+                if i in all_config.excludes:
+                    continue
+
+                cfg = export_names[i]
+                std_dev = stds[i]["total_cs"]
+
+                fill = ax.fill_between(
+                    x,
+                    mean_df["total_cs"] - std_dev,
+                    mean_df["total_cs"] + std_dev,
+                    alpha=0.25,
+                    zorder=1
+                )
+
+                line, = ax.plot(
+                    x,
+                    mean_df["total_cs"],
+                    color="black",
+                    linestyle=style.linestyle(cfg),
+                    marker=style.marker(cfg),
+                    markersize=style.markersize(cfg),
+                    markevery=3,
+                    markeredgewidth=0.4,
+                    markeredgecolor="white",
+                    zorder=3
+                )
+
+                if kb_name == kbs[0]:
+                    legend_handles.extend([line, fill])
+                    legend_labels.extend([cfg, f"{cfg} Std"])
+
+            ax.set_title(f"CKB = {all_config.kbs[kb_name][1]}")
+            ax.grid(True)
+
+        # Turn off unused axes
+        for ax in axes[n_kbs:]:
+            ax.axis("off")
+
+        axes[0].set_ylabel("Found CS")
+        for ax in axes[-ncols:]:
+            ax.set_xlabel("Generation")
+
+        fig.legend(
+            legend_handles,
+            legend_labels,
+            loc="lower center",
+            ncol=4,
+            frameon=False,
+            bbox_to_anchor=(0.5, -0.02)
+        )
+
+        plt.subplots_adjust(
+            bottom=0.15,
+            hspace=0.35,
+            wspace=0.25
+        )
+
+        output = summary_dir / "appendix_figure3_stats_combined.pdf"
+        plt.savefig(output, format="pdf", bbox_inches="tight")
+        plt.close()
 
 if __name__ == "__main__":
     main()
