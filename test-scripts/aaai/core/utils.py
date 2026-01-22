@@ -4,6 +4,16 @@
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
+"""
+utils.py - Utility functions for processing evaluation results.
+
+Provides functions for:
+- Finding and loading summary/statistics files
+- Computing aggregated statistics (mean, std)
+- Adding derived columns (improvement percentages, rates)
+- Formatting runtime values
+"""
+
 import glob
 import numpy as np
 import os

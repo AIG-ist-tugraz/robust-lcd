@@ -21,6 +21,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Utility methods for working with conflicts and user requirements.
+ * Provides methods for printing messages, managing conflict set lists,
+ * and checking relationships between user requirements and conflicts.
+ */
 @UtilityClass
 public class ConflictUtils {
     public static void printMessage(BufferedWriter writer, String message) {

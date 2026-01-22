@@ -11,6 +11,13 @@ package at.tugraz.ist.ase.conflict.genetic.mutate;
 import at.tugraz.ist.ase.conflict.genetic.Individual;
 import at.tugraz.ist.ase.conflict.genetic.Population;
 
+/**
+ * Strategy interface for genetic mutation operations.
+ * Implementations define how individuals are randomly modified to maintain diversity.
+ *
+ * @param <E> the element type
+ * @param <C> the individual type
+ */
 public interface IMutationStrategy<E, C extends Individual<E, C>> {
     C mutate();
     C mutate(C individual);

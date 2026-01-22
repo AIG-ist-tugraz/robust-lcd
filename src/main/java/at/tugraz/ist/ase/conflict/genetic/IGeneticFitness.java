@@ -8,6 +8,14 @@
 
 package at.tugraz.ist.ase.conflict.genetic;
 
+/**
+ * Interface for calculating fitness values of individuals in a genetic algorithm.
+ * Lower fitness values indicate better individuals.
+ *
+ * @param <E> the element type
+ * @param <C> the individual type
+ * @param <T> the fitness value type (must be Comparable)
+ */
 public interface IGeneticFitness<E, C extends Individual<E, C>, T extends Comparable<T>>{
 
     /**

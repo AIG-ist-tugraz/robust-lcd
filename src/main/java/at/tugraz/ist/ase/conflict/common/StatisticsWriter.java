@@ -1,16 +1,32 @@
-package at.tugraz.ist.ase.conflict.common;
+/*
+ * Genetic Conflict Seeker
+ *
+ * Copyright (c) 2023-2026
+ *
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ */
 
+package at.tugraz.ist.ase.conflict.common;
 
 import lombok.Setter;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * Writes statistics and summary data for genetic algorithm runs.
+ * <p>
+ * Records per-generation statistics (population ID, generation ID, conflicts found)
+ * to a CSV file, and optionally writes a summary with totals and runtime.
+ */
 public class StatisticsWriter {
 
     private final String[] header = new String[]{"population", "generation", "total_cs", "generated_cs", "new_cs"};

@@ -16,6 +16,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Reads conflict sets from a file.
+ * Each line in the file represents one conflict set in the format
+ * "Feature1=value --- Feature2=value --- ...".
+ */
 public class ConflictSetReader {
     public static List<Set<Constraint>> read(File file) throws IOException {
 

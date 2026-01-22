@@ -1,24 +1,19 @@
 #!/usr/bin/env python3
-"""
-csv2latex.py
-
-Read a CSV file and produce a LaTeX table using booktabs.
-
-❯ python csv2latex.py summary/arcade_summary.csv arcade_summary.tex \
-    --caption "Arcade summary" \
-    --label "tab:arcade_summary"
-"""
-
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2026
+#  Copyright (c) 2023-2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+"""
+csv2latex.py - Convert CSV summary files to LaTeX tables.
+
+Reads a CSV file and produces a LaTeX table using booktabs formatting,
+suitable for inclusion in academic papers.
+
+Usage:
+    python csv2latex.py -cfg path/to/csv2latex_config.toml
+"""
 
 import os
 import pandas as pd

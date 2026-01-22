@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-"""
-Script to run evaluations from a list of configuration files.
-"""
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2026
+#  Copyright (c) 2023-2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+"""
+eval_script.py - Run GeneticConflictSeeker evaluations across multiple configurations.
+
+This script orchestrates large-scale experiment runs:
+1. Reads a TOML configuration file specifying which KB configs to evaluate
+2. For each config, runs the Java JAR multiple times (runs_per_config)
+3. Collects outputs: statistics CSV, result logs, conflict sets
+4. Supports both sequential and parallel execution modes
+"""
 
 import datetime
 import glob

@@ -4,7 +4,7 @@ A Java tool that identifies conflicts in configuration knowledge bases and featu
 
 This repository shows the implementation and the evaluation of the **Robust LCD** algorithm, 
 presented at the AAAI 2026 in the paper entitled
-*Robust Lazy Conflict Detection via Multi-Conflict Extraction and Genetic Diversity Control*.
+*Robust Lazy Conflict Detection via Multi-Conflict Extraction and Genetic Diversity Control* [1].
 The research community can fully exploit this repository to reproduce the work described in our paper.
 
 ## Repository structure

@@ -1,13 +1,17 @@
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2026
+#  Copyright (c) 2023-2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+"""
+summary.py - Generate summary statistics from evaluation results.
+
+Reads per-run summary files and computes aggregated statistics including:
+- Average conflict sets found
+- Runtime statistics
+- Improvement percentages over baseline configurations
+"""
 
 import os
 import pandas as pd

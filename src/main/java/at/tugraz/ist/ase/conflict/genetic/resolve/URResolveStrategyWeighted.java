@@ -18,6 +18,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Weighted conflict resolution strategy for user requirements.
+ * <p>
+ * Extends the basic resolution strategy by assigning weights to resolved requirements
+ * based on the number of conflicts found. Requirements with higher weights (more conflicts
+ * resolved) are given priority during crossover selection.
+ * <p>
+ * Also assigns unique IDs to resolved requirements from the same parent to enable
+ * the "avoid same original conflict" feature during crossover.
+ */
 public class URResolveStrategyWeighted implements IResolveStrategy<Assignment, UserRequirement> {
 
     private int idCounter = 0;

@@ -18,6 +18,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Basic conflict resolution strategy for user requirements.
+ * <p>
+ * When a conflict is detected, this strategy creates multiple resolved variants
+ * by removing each conflicting constraint one at a time. This generates all
+ * possible minimal resolutions of the conflict.
+ */
 public class URResolveStrategy implements IResolveStrategy<Assignment, UserRequirement> {
 
     /*

@@ -24,6 +24,19 @@ import org.javatuples.Pair;
 import java.io.BufferedWriter;
 import java.util.*;
 
+/**
+ * Weighted crossover strategy for feature model user requirements.
+ * <p>
+ * Extends the basic crossover with several weighting mechanisms:
+ * <ul>
+ *   <li><b>Weighted population:</b> Parents with higher weights (more conflicts resolved)
+ *       appear more frequently in the selection pool</li>
+ *   <li><b>Avoid same ID:</b> Prevents crossover between siblings from the same
+ *       resolved conflict (reduces redundant offspring)</li>
+ *   <li><b>Weighted crossover:</b> During gene selection, the parent with higher
+ *       weight has a higher probability of contributing each gene</li>
+ * </ul>
+ */
 public class FMConflictCrossOverStrategyWeighted implements ICrossOverStrategy<Assignment, UserRequirement> {
 
     private static final double BASE_PROBABILITY = 0.5;

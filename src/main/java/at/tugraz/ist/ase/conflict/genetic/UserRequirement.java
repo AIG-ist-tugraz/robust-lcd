@@ -17,6 +17,15 @@ import lombok.NonNull;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represents a user requirement as an individual in the genetic algorithm population.
+ * <p>
+ * A user requirement consists of a list of feature assignments (e.g., "Feature1=true").
+ * It extends {@link Solution} and implements {@link Individual} for use in the GA.
+ * <p>
+ * When conflicts are identified and resolved, the weight and resolvedID fields track
+ * the origin and importance of resolved requirements for weighted crossover operations.
+ */
 @Getter
 public class UserRequirement extends Solution implements Individual<Assignment, UserRequirement> {
 

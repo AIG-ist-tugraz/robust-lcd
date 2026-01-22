@@ -12,6 +12,14 @@ import at.tugraz.ist.ase.conflict.genetic.crossover.ICrossOverStrategy;
 import at.tugraz.ist.ase.conflict.genetic.mutate.IMutationStrategy;
 import at.tugraz.ist.ase.conflict.genetic.resolve.IResolveStrategy;
 
+/**
+ * Interface for genetic algorithm implementations.
+ * Defines the contract for evolving populations of individuals to identify conflicts.
+ *
+ * @param <E> the element type (e.g., Assignment)
+ * @param <C> the individual type extending {@link Individual}
+ * @param <T> the fitness value type (must be Comparable)
+ */
 public interface IGeneticAlgorithm<E, C extends Individual<E, C>, T extends Comparable<T>> {
     void evolve();
     void evolve(int maxIterations);

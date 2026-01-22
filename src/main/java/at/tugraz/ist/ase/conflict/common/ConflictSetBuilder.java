@@ -17,6 +17,11 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * Builds conflict sets from string representations.
+ * Parses conflict strings in the format "Feature1=value --- Feature2=value"
+ * into sets of Constraint objects.
+ */
 @Slf4j
 public class ConflictSetBuilder {
     /**

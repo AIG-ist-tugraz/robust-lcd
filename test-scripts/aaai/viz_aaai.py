@@ -1,13 +1,18 @@
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2026
+#  Copyright (c) 2023-2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+"""
+viz_aaai.py - Visualization scripts for AAAI paper figures.
+
+Generates publication-quality figures including:
+- Performance statistics plots (conflict sets over generations)
+- Trade-off scatter plots (runtime vs conflicts found)
+- Combined multi-KB comparison figures
+- Summary bar charts and heatmaps
+"""
 
 import numpy as np
 import os

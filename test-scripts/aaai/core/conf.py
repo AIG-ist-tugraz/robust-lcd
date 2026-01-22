@@ -1,13 +1,20 @@
 #  Genetic Conflict Seeker
 #
-#  Copyright (c) 2026
+#  Copyright (c) 2023-2026
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+"""
+conf.py - Configuration models and loaders for evaluation scripts.
+
+Defines Pydantic models for:
+- GeneticConflictSeeker configuration (GA parameters, weighting, extinction)
+- Evaluation runner configuration
+- Summary and visualization configuration
+- CSV to LaTeX conversion configuration
+
+Also provides TOML configuration file readers.
+"""
 
 import argparse
 import os

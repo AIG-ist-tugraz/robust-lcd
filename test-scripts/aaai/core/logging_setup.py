@@ -4,12 +4,12 @@
 #
 #  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
 
-#  Genetic Conflict Seeker
-#
-#
-#  @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+"""
+logging_setup.py - Configure logging for evaluation scripts.
 
-# logging_setup.py
+Sets up both console and file logging with rotation support.
+"""
+
 import logging
 import logging.config
 from pathlib import Path

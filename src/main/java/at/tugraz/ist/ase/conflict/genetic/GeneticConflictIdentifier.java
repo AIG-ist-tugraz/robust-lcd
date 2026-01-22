@@ -35,6 +35,26 @@ import static at.tugraz.ist.ase.hiconfit.cacdr.checker.ChocoConsistencyChecker.T
 import static at.tugraz.ist.ase.hiconfit.common.ConstraintUtils.convertToStringWithMessage;
 import static at.tugraz.ist.ase.hiconfit.eval.PerformanceEvaluator.setCommonTimer;
 
+/**
+ * Main genetic algorithm implementation for identifying conflicts in configuration knowledge bases.
+ * <p>
+ * This class evolves a population of user requirements, checking each for conflicts using
+ * the HSDAG algorithm with QuickXPlain. When conflicts are found, they are resolved and
+ * the population evolves through crossover and mutation operations.
+ * <p>
+ * Key features:
+ * <ul>
+ *   <li>Configurable population size, mutation rate, and crossover strategies</li>
+ *   <li>Extinction mechanism to restart with fresh population when stuck</li>
+ *   <li>Support for weighted conflict resolution</li>
+ *   <li>Statistics logging for analysis</li>
+ * </ul>
+ *
+ * @see Population
+ * @see UserRequirement
+ * @see IMutationStrategy
+ * @see ICrossOverStrategy
+ */
 public class GeneticConflictIdentifier implements IGeneticAlgorithm<Assignment, UserRequirement, Double> {
 
     private final ICdrModelFactory modelFactory;

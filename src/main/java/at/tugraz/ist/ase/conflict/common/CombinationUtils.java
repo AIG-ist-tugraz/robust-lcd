@@ -18,6 +18,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Utility methods for generating random combinations and index selections.
+ * Used for randomly selecting features during mutation and crossover operations.
+ */
 @UtilityClass
 @Slf4j
 public class CombinationUtils {

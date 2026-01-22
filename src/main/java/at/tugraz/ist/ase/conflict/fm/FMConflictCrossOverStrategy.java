@@ -23,6 +23,16 @@ import lombok.Setter;
 import java.io.BufferedWriter;
 import java.util.*;
 
+/**
+ * Basic crossover strategy for feature model user requirements.
+ * <p>
+ * Combines two parent requirements by randomly selecting feature assignments
+ * from either parent (50/50 probability). The resulting offspring inherits
+ * a mix of features from both parents.
+ * <p>
+ * After crossover, checks if the new individual contains any known conflicts.
+ * If so, resolves them before adding to the population.
+ */
 public class FMConflictCrossOverStrategy implements ICrossOverStrategy<Assignment, UserRequirement> {
 
     private final List<Feature> leafFeatures;
