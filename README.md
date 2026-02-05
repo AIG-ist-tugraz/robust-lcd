@@ -1,4 +1,4 @@
-# GeneticConflictSeeker
+# Robust Lazy Conflict Detection via Multi-Conflict Extraction and Genetic Diversity Control
 
 A Java tool that identifies conflicts in configuration knowledge bases and feature models using a genetic algorithm.
 
